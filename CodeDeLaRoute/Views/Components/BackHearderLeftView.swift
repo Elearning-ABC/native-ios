@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct BackHearderLeftView: View {
+    var title: String
+    var color : Color = Color.black
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: "arrow.left")
+                .foregroundColor(.black)
+                .font(.system(size: 20.0))
+                
+            Text(title)
+                .font(.system(size: 24, weight: .medium))
+                .foregroundColor(color)
+            
+        }
+        .onTapGesture {
+            self.mode.wrappedValue.dismiss()
+        }
+        
     }
 }
 
 struct BackHearderLeftView_Previews: PreviewProvider {
     static var previews: some View {
-        BackHearderLeftView()
+        BackHearderLeftView(title: "title")
     }
 }
+

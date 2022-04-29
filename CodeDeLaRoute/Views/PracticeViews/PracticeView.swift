@@ -7,14 +7,48 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct PracticeView: View {
+    @EnvironmentObject var viewModel : PraticeViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            HeaderPracticeView()
+  
+            ScrollView{
+                
+                ButtonView(title: "Sart learning", color: Color.red)
+                    .padding(.top)
+                    .padding(.horizontal, 50.0)
+                    .onTapGesture {
+                        print("ok")
+                    }
+                
+                VStack{
+                    ForEach(viewModel.topics){
+                        topic in
+                        TopicRowView(name: topic.name, urlIcon: topic.icon, id: topic.id, total: topic.totalQuestion)
+                            .padding(.bottom, 14.0)
+                        
+                    }
+                    
+                }.padding()
+            }
+            .padding(.vertical, -8.0)
+            Spacer()
+                
+        }
+        
     }
 }
 
+@available(iOS 15.0, *)
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
-        PracticeView()
+        VStack {
+            PracticeView()
+        }
+        
     }
 }

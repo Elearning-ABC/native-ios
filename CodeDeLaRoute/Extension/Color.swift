@@ -12,6 +12,12 @@ extension Color {
     static let mainColor = Color("#0E31A3")
     static let blue1 = Color("#002395")
     static let blue2 = Color("#2B5AF5")
+    static let blue3 = Color("#CAD1F5")
+    static let red = Color("#ED2939")
+    static let gray2 = Color("#C4C4C4")
+    static let green = Color("#00C17C")
+    static let yellow1 = Color("#EBAD34")
+    static let black = Color("#0C1827")
     
 //  convert hex to Color SwiftUi
     init?(_ hex: String) {

@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 @main
 struct CodeDeLaRouteApp: App {
+    @StateObject var viewModel = PraticeViewModel()
     var body: some Scene {
         WindowGroup {
+            NavigationView{
             ContentView()
+                .environmentObject(viewModel)
+                .navigationBarHidden(true)
+            }
+            
         }
     }
 }
