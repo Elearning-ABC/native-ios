@@ -10,11 +10,6 @@ import SwiftUI
 
 class TabViewModel: ObservableObject{
     
-    enum Tabs{
-        case tab1
-        case tab2
-        case tab3
-    }
     
     struct TabItemData: Hashable {
         let image: String

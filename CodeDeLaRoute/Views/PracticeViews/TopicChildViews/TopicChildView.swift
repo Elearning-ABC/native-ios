@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TopicChildView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     var title: String
     var total: Int
     

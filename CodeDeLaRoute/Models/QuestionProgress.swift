@@ -21,3 +21,10 @@ class QuestionProgress: Object, ObjectKeyIdentifiable{
     @Persisted var lastUpdate: Double
     @Persisted var bookmark: Bool
 }
+
+struct QuestionProgressApp: Identifiable{
+    var id: String = "\(UUID())"
+    var questionId: String
+    var choiceSelectedIds: [String]
+    var boxNum: Int
+}

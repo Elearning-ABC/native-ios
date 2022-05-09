@@ -10,7 +10,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct TopicRowView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     @State var isActive: Bool = false
     var name: String
     var urlIcon: String

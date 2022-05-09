@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FooterQuestionView: View {
-    @Binding var selection : Int
+    @EnvironmentObject var viewModel : PracticeViewModel
+    
     var body: some View {
         HStack {
             
@@ -36,7 +37,7 @@ struct FooterQuestionView: View {
             }
             .frame(width: 60, height: 30)
             .onTapGesture {
-                selection += 1
+                
             }
             
             
@@ -49,6 +50,6 @@ struct FooterQuestionView: View {
 
 struct FooterQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        FooterQuestionView(selection: .constant(0))
+        FooterQuestionView()
     }
 }

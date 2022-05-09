@@ -8,27 +8,17 @@
 import SwiftUI
 
 struct QuestionView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
-    @State var selection: Int = 0
+    @EnvironmentObject var viewModel : PracticeViewModel
     var title: String
     
     var body: some View {
         VStack {
             HearderQuestionView(title: title)
-            TabView(selection: $selection) {
-                ForEach(viewModel.listQuestion.indices){
-                    i in
                     VStack{
-                        BodyQuestionView(index: i)
+                        BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
                     }
                     .padding()
-                    .tag(i)
-                    
-                }
-                
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            FooterQuestionView(selection: $selection)
+            FooterQuestionView()
             
         }
         

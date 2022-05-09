@@ -10,21 +10,25 @@ import SwiftUI
 @available(iOS 15.0, *)
 struct ContentView: View {
     @StateObject var tabViewModel = TabViewModel()
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     
     var body: some View {
         ZStack(alignment: .bottom) {
             BackGroundView()
+            
+            
                 
             VStack{
-                switch tabViewModel.active {
-                        case .tab1:
+                TabView(selection: $tabViewModel.active){
                     PracticeView()
-                        case .tab2:
-                            TestView()
-                        case .tab3:
-                            ReviewView()
-                        }
+                        .tag(Tabs.tab1)
+                    TestView()
+                        .tag(Tabs.tab2)
+                    ReviewView()
+                        .tag(Tabs.tab3)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .padding(.top, -Screen.statusBarHeight)
                 
                 HStack{
                     Spacer()
@@ -47,6 +51,7 @@ struct ContentView: View {
                 }
                 .padding(.vertical, 30.0)
                 .background(Color.white)
+                
             }
         }
         .ignoresSafeArea()

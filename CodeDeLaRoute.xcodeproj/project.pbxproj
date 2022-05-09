@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80A1F362282600430045C993 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A1F361282600430045C993 /* Tabs.swift */; };
 		CC0E1B97280E574D00A7AE1D /* HeaderPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B96280E574D00A7AE1D /* HeaderPracticeView.swift */; };
 		CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */; };
 		CC0E1B9D280E743D00A7AE1D /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		80A1F361282600430045C993 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CC0E1B96280E574D00A7AE1D /* HeaderPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPracticeView.swift; sourceTree = "<group>"; };
 		CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
@@ -159,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80A1F3602826000F0045C993 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				80A1F361282600430045C993 /* Tabs.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		CC0E1B98280E5CB600A7AE1D /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +244,7 @@
 		CC516BED2806CAC80045DAB1 /* CodeDeLaRoute */ = {
 			isa = PBXGroup;
 			children = (
+				80A1F3602826000F0045C993 /* Enum */,
 				CC3C621C281A3B270035E71E /* Extension */,
 				CC34F3252817A31F0024BA4B /* Utils */,
 				CC0E1B9B280E741200A7AE1D /* Constants */,
@@ -523,6 +534,7 @@
 				CC34F31E28178D0B0024BA4B /* UserInfo.swift in Sources */,
 				CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */,
 				CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */,
+				80A1F362282600430045C993 /* Tabs.swift in Sources */,
 				CC7C01142807BCA00078E93C /* RealmService.swift in Sources */,
 				CC3C6220281A56CA0035E71E /* FooterQuestionView.swift in Sources */,
 				CC2C65FB28194CDE00CD99A5 /* ViewModel.swift in Sources */,
@@ -702,6 +714,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CodeDeLaRoute/Preview Content\"";
+				DEVELOPMENT_TEAM = AKYVXA89ZV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CodeDeLaRoute/Info.plist;
@@ -733,6 +746,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CodeDeLaRoute/Preview Content\"";
+				DEVELOPMENT_TEAM = AKYVXA89ZV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CodeDeLaRoute/Info.plist;

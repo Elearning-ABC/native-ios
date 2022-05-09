@@ -10,7 +10,7 @@ import SwiftUI
 @available(iOS 15.0, *)
 @main
 struct CodeDeLaRouteApp: App {
-    @StateObject var viewModel = PraticeViewModel()
+    @StateObject var viewModel = PracticeViewModel()
     var body: some Scene {
         WindowGroup {
             NavigationView{

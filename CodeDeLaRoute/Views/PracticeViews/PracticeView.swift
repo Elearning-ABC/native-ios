@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PracticeView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     
     var body: some View {
         

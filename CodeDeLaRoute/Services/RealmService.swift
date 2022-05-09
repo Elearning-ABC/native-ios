@@ -28,14 +28,14 @@ extension Data{
 }
 
 class RealmService {
-    private(set) var realm: Realm?
-    var realmTopicService: RealmTopicService?
-    var realmQuestion: RealmQuestionService?
-    var loading: Bool = false
+    private(set) var realm: Realm
+    var realmTopicService: RealmTopicService
+    var realmQuestion: RealmQuestionService
     
-    init(){
-        openRealm()
-        setProperties()
+    init(realmOpen: RealmOpen = RealmOpen()){
+        self.realm = realmOpen.realm
+        self.realmTopicService = RealmTopicService(realm: realm)
+        self.realmQuestion = RealmQuestionService(realm: realm)
     }
     
     func openRealm(){
@@ -48,16 +48,45 @@ class RealmService {
 
             // Open the Realm with the configuration
             realm = try Realm(configuration: config)
-            
+
             print("thanh cong")
         }catch{
             print("Error opening Realm: \(error)")
         }
     }
     
-    func setProperties(){
-        self.realmTopicService = RealmTopicService(realm: realm!)
-        self.realmQuestion = RealmQuestionService(realm: realm!)
-    }
+//    func setProperties(){
+//        if let realm = realm{
+//            self.realmTopicService = RealmTopicService(realm: realm)
+//            self.realmQuestion = RealmQuestionService(realm: realm)
+//        }
+//    }
   
+}
+
+class RealmOpen{
+    var realm : Realm
+    
+    init(){
+        let config = Realm.Configuration(
+        fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+        encryptionKey: Data(hexString: Constant.encryptionKey),
+        schemaVersion: 2
+        )
+
+        // Open the Realm with the configuration
+        realm = try! Realm(configuration: config)
+    }
+
+//    func openRealm(){
+//        let config = Realm.Configuration(
+//        fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+//        encryptionKey: Data(hexString: Constant.encryptionKey),
+//        schemaVersion: 2
+//        )
+//
+//        // Open the Realm with the configuration
+//        realm = try! Realm(configuration: config)
+//
+//    }
 }

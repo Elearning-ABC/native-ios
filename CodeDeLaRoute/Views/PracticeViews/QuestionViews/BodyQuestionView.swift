@@ -8,25 +8,38 @@
 import SwiftUI
 
 struct BodyQuestionView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
-    var index: Int
-    @State var show: Bool = false
-    @State var answer: String = ""
-    @State var showExplanation : Bool = false
+    @EnvironmentObject var viewModel : PracticeViewModel
+    var questionProgress: QuestionProgressApp
     var body: some View {
-        let question = viewModel.listQuestion[index]
+        let question = viewModel.getQuestion(id: questionProgress.questionId)
         VStack {
-            QuestionBoxView(question: question.text, iconName: question.image.replace(target: ".png", withString: ""), status: question.status)
+            QuestionBoxView(question: question.text, iconName: question.image.replace(target: ".png", withString: ""), boxNum: question.status)
             
-            if show{
+            if viewModel.inCorrectAnswer != ""{
+                HStack{
+                    Text(viewModel.inCorrectAnswer)
+                        .font(.system(size: 16))
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading)
+                    Spacer()
+                }
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 8)
+                     .stroke(Color.red, lineWidth: 1))
+                .background(Color.white)
+                .cornerRadius(8)
+            }
+            
+            
+            if viewModel.showCorrectAnswer{
                 VStack(alignment: .leading){
-                    Text(answer)
+                    Text(viewModel.correctAnswer)
                         .font(.system(size: 16))
                         .multilineTextAlignment(.leading)
                         .padding(.leading)
                     DividingLineView()
                     
-                    if showExplanation{
+                    if viewModel.showExplanation{
                         VStack(alignment: .leading){
                             Text(question.explanation)
                                 .font(.system(size: 16))
@@ -35,7 +48,7 @@ struct BodyQuestionView: View {
                             
                             Button{
                                 withAnimation(.easeOut){
-                                    showExplanation = false
+                                    viewModel.showExplanation = false
                                 }
                                 
                             }label: {
@@ -46,7 +59,7 @@ struct BodyQuestionView: View {
                     }else{
                         Button{
                             withAnimation(.easeOut){
-                                showExplanation = true
+                                viewModel.showExplanation = true
                             }
                         }label: {
                             Text("Show Explanation")
@@ -65,11 +78,10 @@ struct BodyQuestionView: View {
                     AnswerView(answer: answer.text)
                         .onTapGesture {
                             if answer.isCorrect{
-                                self.answer = answer.text
-                                viewModel.setStatus(index: index, status: 2)
-                                show = true
+                                viewModel.correctAnswer = answer.text
+                                    viewModel.showCorrectAnswer = true
                             }else{
-                                viewModel.setStatus(index: index, status: 3)
+                                
                             }
                         }
                 }
@@ -82,6 +94,6 @@ struct BodyQuestionView: View {
 
 struct BodyQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        BodyQuestionView(index: 1)
+        BodyQuestionView(questionProgress: QuestionProgressApp(id: "", questionId: "", choiceSelectedIds: [], boxNum: 0))
     }
 }

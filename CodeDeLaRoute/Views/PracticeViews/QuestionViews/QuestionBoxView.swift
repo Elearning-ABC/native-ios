@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct QuestionBoxView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     var question: String
     var iconName: String
-    var status: Int
+    var boxNum: Int
         
     var body: some View {
-        let content = viewModel.getStatus(status: status)
+        let content = viewModel.getStatus(boxNum: boxNum)
         ZStack(alignment: .topLeading) {
             VStack {
                 HStack(alignment: .center) {
@@ -55,6 +55,6 @@ struct QuestionBoxView: View {
 
 struct QuestionBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png".replace(target: ".png", withString: ""), status: 1)
+        QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png".replace(target: ".png", withString: ""), boxNum: 0)
     }
 }

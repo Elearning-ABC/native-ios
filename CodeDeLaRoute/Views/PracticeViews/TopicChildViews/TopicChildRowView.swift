@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TopicChildRowView: View {
-    @EnvironmentObject var viewModel : PraticeViewModel
+    @EnvironmentObject var viewModel : PracticeViewModel
     @State var isActive: Bool = false
     var title: String
     var total: Int
