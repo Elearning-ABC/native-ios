@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct HearderQuestionView: View {
+    @EnvironmentObject var viewModel : PracticeViewModel
     var title: String
     
     var body: some View {
+        let process = viewModel.process
         VStack {
             HStack {
                 BackHearderLeftView(title: title)
@@ -34,12 +36,12 @@ struct HearderQuestionView: View {
                 HStack{
                     Spacer()
                 }
-                .frame(width: Screen.width/3, height: 4)
+                .frame(width: Screen.width*CGFloat((process.correct / process.total)), height: 4)
                 .background(Color.green)
                 HStack{
                   Spacer()
                 }
-                .frame(width: Screen.width/5, height: 4)
+                .frame(width: Screen.width*CGFloat((process.inCorrect / process.total)), height: 4)
                 .background(Color.yellow1)
                 HStack{
                   Spacer()

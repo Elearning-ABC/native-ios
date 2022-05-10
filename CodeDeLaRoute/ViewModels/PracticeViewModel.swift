@@ -14,16 +14,17 @@ class PracticeViewModel: ObservableObject{
     @Published var listChildTopics : [Topic] = []
     @Published var listQuestion : [Question] = []
     @Published var listQuestionProgress = [QuestionProgressApp]()
-    @Published var showCorrectAnswer: Bool = false
-    @Published var inCorrectAnswer = ""
-    @Published var correctAnswer: String = ""
+    @Published var showCorrectAnswer = false
+    @Published var inCorrectAnswer: String = ""
     @Published var showExplanation : Bool = false
+    @Published var process : Process
     
     
     
     init(realmService: RealmService = RealmService()){
         self.realmService = realmService
         self.topics = realmService.realmTopicService.getTopics()
+        self.process = Process(correct: 0, inCorrect: 0, newQuestion: 0, total: 1)
     }
     
     
@@ -34,6 +35,7 @@ class PracticeViewModel: ObservableObject{
     }
     
     func getListQuestion(id: String){
+        resetQuestionView()
         self.listQuestion = realmService.realmQuestion.getListQuestion(id: id)
         
         var array: [QuestionProgressApp] = []
@@ -43,6 +45,9 @@ class PracticeViewModel: ObservableObject{
         }
         
         self.listQuestionProgress = array
+        process.reset()
+        process.newQuestion = listQuestion.count
+        process.total = listQuestion.count
     }
     
     func getListAnswer(id: String) -> [Answer]{
@@ -63,12 +68,27 @@ class PracticeViewModel: ObservableObject{
         }
     }
     
-    func updateQuestionProgress(answer: Answer){
+    func checkAnswer(answer: Answer){
+        process.newQuestion -= 1
         if answer.isCorrect{
+            if listQuestionProgress[0].boxNum == -1{
+                process.inCorrect -= 1
+                process.correct += 1
+            }
+            if listQuestionProgress[0].boxNum == 0{ process.correct += 1}
+            
             listQuestionProgress[0].boxNum = 1
         }else{
+            if listQuestionProgress[0].boxNum == 0{ process.inCorrect += 1}
+            if listQuestionProgress[0].boxNum == 1{
+                process.correct -= 1
+                process.inCorrect -= 1
+                
+            }
             listQuestionProgress[0].boxNum = -1
+            inCorrectAnswer = answer.text
         }
+        showCorrectAnswer = true
     }
     
     
@@ -78,11 +98,32 @@ class PracticeViewModel: ObservableObject{
     }
     
     func updateListQuestionProgress(){
-        
+        if process.newQuestion > 0 {
+            listQuestionProgress.swapAt(0, process.newQuestion)
+        }
+        resetQuestionView()
+    }
+    
+    func resetQuestionView(){
+        inCorrectAnswer = ""
+        showCorrectAnswer = false
+        showExplanation = false
     }
 }
 
 struct Status{
     var status: String
     var color: Color
+}
+
+struct Process{
+    var correct: Int
+    var inCorrect: Int
+    var newQuestion: Int
+    var total: Int
+    
+    mutating func reset(){
+        self.correct = 0
+        self.inCorrect = 0
+    }
 }

@@ -52,11 +52,15 @@
 		CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C18E28114C51009D612E /* BackHearderLeftView.swift */; };
 		CC74C191281160EA009D612E /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C190281160EA009D612E /* BackGroundView.swift */; };
 		CC78C9B928096C340089FD30 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78C9B828096C340089FD30 /* TabViewModel.swift */; };
+		CC7B2C1B282A0C3F005610C3 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C15282A0C3E005610C3 /* db.realm */; };
+		CC7B2C1C282A0C3F005610C3 /* db.realm.lock in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C16282A0C3F005610C3 /* db.realm.lock */; };
+		CC7B2C1D282A0C3F005610C3 /* access_control.balance.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */; };
+		CC7B2C1E282A0C3F005610C3 /* access_control.write.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C19282A0C3F005610C3 /* access_control.write.mx */; };
+		CC7B2C1F282A0C3F005610C3 /* access_control.control.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C1A282A0C3F005610C3 /* access_control.control.mx */; };
 		CC7C01102807BBEC0078E93C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CC7C010F2807BBEC0078E93C /* Realm */; };
 		CC7C01122807BBEC0078E93C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC7C01112807BBEC0078E93C /* RealmSwift */; };
 		CC7C01142807BCA00078E93C /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C01132807BCA00078E93C /* RealmService.swift */; };
 		CC7C011B2807BE170078E93C /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C011A2807BE170078E93C /* PracticeViewModel.swift */; };
-		CC7C011E2807C1B90078E93C /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = CC7C011D2807C1B90078E93C /* db.realm */; };
 		CC7C01202807C5E60078E93C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C011F2807C5E60078E93C /* Topic.swift */; };
 		CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */; };
 /* End PBXBuildFile section */
@@ -125,9 +129,13 @@
 		CC74C18E28114C51009D612E /* BackHearderLeftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackHearderLeftView.swift; sourceTree = "<group>"; };
 		CC74C190281160EA009D612E /* BackGroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundView.swift; sourceTree = "<group>"; };
 		CC78C9B828096C340089FD30 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
+		CC7B2C15282A0C3E005610C3 /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
+		CC7B2C16282A0C3F005610C3 /* db.realm.lock */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm.lock; sourceTree = "<group>"; };
+		CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = access_control.balance.mx; sourceTree = "<group>"; };
+		CC7B2C19282A0C3F005610C3 /* access_control.write.mx */ = {isa = PBXFileReference; lastKnownFileType = file; path = access_control.write.mx; sourceTree = "<group>"; };
+		CC7B2C1A282A0C3F005610C3 /* access_control.control.mx */ = {isa = PBXFileReference; lastKnownFileType = file; path = access_control.control.mx; sourceTree = "<group>"; };
 		CC7C01132807BCA00078E93C /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		CC7C011A2807BE170078E93C /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
-		CC7C011D2807C1B90078E93C /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
 		CC7C011F2807C5E60078E93C /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,17 +212,10 @@
 			path = QuestionViews;
 			sourceTree = "<group>";
 		};
-		CC34F3252817A31F0024BA4B /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		CC3C621C281A3B270035E71E /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */,
 				CC516C1C2806DB110045DAB1 /* Color.swift */,
 				CC3C621D281A3B490035E71E /* String.swift */,
 			);
@@ -244,9 +245,9 @@
 		CC516BED2806CAC80045DAB1 /* CodeDeLaRoute */ = {
 			isa = PBXGroup;
 			children = (
+				CC7B2C14282A033B005610C3 /* Database */,
 				80A1F3602826000F0045C993 /* Enum */,
 				CC3C621C281A3B270035E71E /* Extension */,
-				CC34F3252817A31F0024BA4B /* Utils */,
 				CC0E1B9B280E741200A7AE1D /* Constants */,
 				CC516C1B2806CBBA0045DAB1 /* Services */,
 				CC516C1A2806CB870045DAB1 /* ViewModels */,
@@ -325,7 +326,6 @@
 		CC516C1B2806CBBA0045DAB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CC7C011D2807C1B90078E93C /* db.realm */,
 				CC7C01132807BCA00078E93C /* RealmService.swift */,
 				CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */,
 				CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */,
@@ -368,6 +368,26 @@
 				CC5B2AF02812639900D16886 /* TopicChildRowView.swift */,
 			);
 			path = TopicChildViews;
+			sourceTree = "<group>";
+		};
+		CC7B2C14282A033B005610C3 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				CC7B2C15282A0C3E005610C3 /* db.realm */,
+				CC7B2C16282A0C3F005610C3 /* db.realm.lock */,
+				CC7B2C17282A0C3F005610C3 /* db.realm.management */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		CC7B2C17282A0C3F005610C3 /* db.realm.management */ = {
+			isa = PBXGroup;
+			children = (
+				CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */,
+				CC7B2C19282A0C3F005610C3 /* access_control.write.mx */,
+				CC7B2C1A282A0C3F005610C3 /* access_control.control.mx */,
+			);
+			path = db.realm.management;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -484,10 +504,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC7B2C1B282A0C3F005610C3 /* db.realm in Resources */,
+				CC7B2C1C282A0C3F005610C3 /* db.realm.lock in Resources */,
 				CC516BF62806CACA0045DAB1 /* Preview Assets.xcassets in Resources */,
+				CC7B2C1F282A0C3F005610C3 /* access_control.control.mx in Resources */,
 				CC34F32428178FAB0024BA4B /* LaunchScreen.storyboard in Resources */,
-				CC7C011E2807C1B90078E93C /* db.realm in Resources */,
+				CC7B2C1E282A0C3F005610C3 /* access_control.write.mx in Resources */,
 				CC516BF32806CACA0045DAB1 /* Assets.xcassets in Resources */,
+				CC7B2C1D282A0C3F005610C3 /* access_control.balance.mx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

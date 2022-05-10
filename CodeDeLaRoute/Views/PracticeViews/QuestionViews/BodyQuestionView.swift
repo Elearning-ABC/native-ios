@@ -33,7 +33,7 @@ struct BodyQuestionView: View {
             
             if viewModel.showCorrectAnswer{
                 VStack(alignment: .leading){
-                    Text(viewModel.correctAnswer)
+                    Text(question.correctAnswers[0])
                         .font(.system(size: 16))
                         .multilineTextAlignment(.leading)
                         .padding(.leading)
@@ -77,12 +77,7 @@ struct BodyQuestionView: View {
                     answer in
                     AnswerView(answer: answer.text)
                         .onTapGesture {
-                            if answer.isCorrect{
-                                viewModel.correctAnswer = answer.text
-                                    viewModel.showCorrectAnswer = true
-                            }else{
-                                
-                            }
+                            viewModel.checkAnswer(answer: answer)
                         }
                 }
             }

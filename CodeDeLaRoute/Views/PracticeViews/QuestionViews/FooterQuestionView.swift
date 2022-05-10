@@ -37,7 +37,7 @@ struct FooterQuestionView: View {
             }
             .frame(width: 60, height: 30)
             .onTapGesture {
-                
+                viewModel.updateListQuestionProgress()
             }
             
             
