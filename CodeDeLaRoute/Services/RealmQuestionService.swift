@@ -8,14 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol QuestionService{
-    func getListTopicQuestion(id: String) -> [TopicQuestion]
-    func getListQuestion(id: String) -> [Question]
-    func getListAnswer(id: String) -> [Answer]
-    
-}
-
-class RealmQuestionService: QuestionService{
+class RealmQuestionService{
     let realm: Realm
     
     init(realm: Realm){

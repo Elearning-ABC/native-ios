@@ -8,13 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol TopicService{
-    func getAppInfo()
-    func getTopics() -> [Topic]
-    func getChildTopics(id: String) ->[Topic]
-}
-
-class RealmTopicService: TopicService{
+class RealmTopicService{
     
     let realm: Realm
     var appInfo: AppInfo?
