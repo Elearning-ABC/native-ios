@@ -11,12 +11,11 @@ struct QuestionBoxView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     var question: String
     var iconName: String
-    var boxNum: Int
         
     var body: some View {
-        let content = viewModel.getStatus(boxNum: boxNum)
+        let content = viewModel.status
         ZStack(alignment: .topLeading) {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack(alignment: .center) {
                     Text(question)
                         .font(.system(size: 18))
@@ -27,6 +26,18 @@ struct QuestionBoxView: View {
                             .frame(width:80,height: 80)
                     }
                     
+                    
+                }
+                HStack{
+                    if content.text != ""{
+                        Image(content.iconName)
+                            .renderingMode(.template)
+                            .foregroundColor(content.color)
+                        
+                        Text(content.text)
+                            .foregroundColor(content.color)
+                            .font(.system(size: 16))
+                    }
                     
                 }
             }
@@ -55,6 +66,6 @@ struct QuestionBoxView: View {
 
 struct QuestionBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png".replace(target: ".png", withString: ""), boxNum: 0)
+        QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png".replace(target: ".png", withString: ""))
     }
 }

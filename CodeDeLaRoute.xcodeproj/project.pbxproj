@@ -12,6 +12,8 @@
 		CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */; };
 		CC0E1B9D280E743D00A7AE1D /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */; };
 		CC0E1B9F280E76F200A7AE1D /* TopicRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9E280E76F200A7AE1D /* TopicRowView.swift */; };
+		CC2AA030282BAC1B00322582 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2AA02F282BAC1B00322582 /* Status.swift */; };
+		CC2AA032282BAC4200322582 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2AA031282BAC4200322582 /* Process.swift */; };
 		CC2C65F3281931F400CD99A5 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F2281931F400CD99A5 /* QuestionView.swift */; };
 		CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F42819328C00CD99A5 /* QuestionBoxView.swift */; };
 		CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F628193C9B00CD99A5 /* AnswerView.swift */; };
@@ -88,6 +90,8 @@
 		CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
 		CC0E1B9E280E76F200A7AE1D /* TopicRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRowView.swift; sourceTree = "<group>"; };
+		CC2AA02F282BAC1B00322582 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		CC2AA031282BAC4200322582 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		CC2C65F2281931F400CD99A5 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		CC2C65F42819328C00CD99A5 /* QuestionBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBoxView.swift; sourceTree = "<group>"; };
 		CC2C65F628193C9B00CD99A5 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 				CC34F31D28178D0B0024BA4B /* UserInfo.swift */,
 				CC34F31F28178D8D0024BA4B /* TopicProgress.swift */,
 				CC34F32128178E2C0024BA4B /* QuestionProgress.swift */,
+				CC2AA02F282BAC1B00322582 /* Status.swift */,
+				CC2AA031282BAC4200322582 /* Process.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -555,10 +561,12 @@
 				CC74C1802810F3E3009D612E /* Screen.swift in Sources */,
 				CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */,
 				CC78C9B928096C340089FD30 /* TabViewModel.swift in Sources */,
+				CC2AA032282BAC4200322582 /* Process.swift in Sources */,
 				CC34F31E28178D0B0024BA4B /* UserInfo.swift in Sources */,
 				CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */,
 				CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */,
 				80A1F362282600430045C993 /* Tabs.swift in Sources */,
+				CC2AA030282BAC1B00322582 /* Status.swift in Sources */,
 				CC7C01142807BCA00078E93C /* RealmService.swift in Sources */,
 				CC3C6220281A56CA0035E71E /* FooterQuestionView.swift in Sources */,
 				CC2C65FB28194CDE00CD99A5 /* ViewModel.swift in Sources */,

@@ -18,13 +18,15 @@ class PracticeViewModel: ObservableObject{
     @Published var inCorrectAnswer: String = ""
     @Published var showExplanation : Bool = false
     @Published var process : Process
-    
+    @Published var status : Status
+    @Published var showSucsessAnswer = false
     
     
     init(realmService: RealmService = RealmService()){
         self.realmService = realmService
         self.topics = realmService.realmTopicService.getTopics()
         self.process = Process(correct: 0, inCorrect: 0, newQuestion: 0, total: 1)
+        self.status = Status(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
     }
     
     
@@ -34,8 +36,13 @@ class PracticeViewModel: ObservableObject{
         
     }
     
-    func getListQuestion(id: String){
+    func reset(){
         resetQuestionView()
+        process.reset()
+        showSucsessAnswer = false
+    }
+    
+    func getListQuestion(id: String){
         self.listQuestion = realmService.realmQuestion.getListQuestion(id: id)
         
         var array: [QuestionProgressApp] = []
@@ -45,9 +52,10 @@ class PracticeViewModel: ObservableObject{
         }
         
         self.listQuestionProgress = array
-        process.reset()
+        reset()
         process.newQuestion = listQuestion.count
-        process.total = listQuestion.count
+        process.total = CGFloat(listQuestion.count)
+        setStatus(boxNum: 0)
     }
     
     func getListAnswer(id: String) -> [Answer]{
@@ -55,39 +63,44 @@ class PracticeViewModel: ObservableObject{
         return listAnswer
     }
     
-    func getStatus(boxNum: Int) ->Status{
+    func setStatus(boxNum: Int){
         switch boxNum{
-            case 1:
-                return Status(status: "CORRECT", color: Color.green!)
+            case 2:
+            status.upDate(status: "CORRECT", color: Color.green!, iconName: "check-circle", text: "You will not see this question in a while")
+            case 3:
+            status.upDate(status: "INCORRECT", color: Color.red, iconName: "alert-circle", text: "You will see this question soon")
             case -1:
-                return Status(status: "INCORRECT", color: Color.red)
-            case 4:
-                return Status(status: "LEARNING", color: Color.yellow)
+            status.upDate(status: "LEARNING", color: Color.yellow, iconName: "alert-circle", text: "You got this wrong last time")
             default:
-                return Status(status: "NEW QUESTION", color: Color.black)
+            status.upDate(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
         }
     }
     
     func checkAnswer(answer: Answer){
-        process.newQuestion -= 1
+        if process.newQuestion > 0{
+            process.newQuestion -= 1
+        }
+        listQuestionProgress[0].choiceSelectedIds.append(answer.id)
         if answer.isCorrect{
-            if listQuestionProgress[0].boxNum == -1{
-                process.inCorrect -= 1
-                process.correct += 1
-            }
-            if listQuestionProgress[0].boxNum == 0{ process.correct += 1}
-            
             listQuestionProgress[0].boxNum = 1
+            setStatus(boxNum: 2)
         }else{
-            if listQuestionProgress[0].boxNum == 0{ process.inCorrect += 1}
-            if listQuestionProgress[0].boxNum == 1{
-                process.correct -= 1
-                process.inCorrect -= 1
-                
-            }
+            setStatus(boxNum: 3)
             listQuestionProgress[0].boxNum = -1
             inCorrectAnswer = answer.text
         }
+        var correct = 0
+        var inCorrect = 0
+        for questionProgres in listQuestionProgress {
+            if questionProgres.boxNum == 1{
+                correct += 1   
+            }
+            if questionProgres.boxNum == -1{
+                inCorrect += 1
+            }
+        }
+        process.correct = CGFloat(correct)
+        process.inCorrect = CGFloat(inCorrect)
         showCorrectAnswer = true
     }
     
@@ -99,9 +112,37 @@ class PracticeViewModel: ObservableObject{
     
     func updateListQuestionProgress(){
         if process.newQuestion > 0 {
-            listQuestionProgress.swapAt(0, process.newQuestion)
+            let progresQuestion = listQuestionProgress[0]
+            listQuestionProgress.remove(at: 0)
+            listQuestionProgress.append(progresQuestion)
         }
+        if process.newQuestion == 0{
+            
+            if process.inCorrect > 1{
+                process.newQuestion = Int(process.inCorrect)
+                var listArray = listQuestionProgress.sorted( by: {$0.boxNum < $1.boxNum} )
+                if process.inCorrect == 2 && (listQuestionProgress[0].questionId == listArray[0].questionId){
+                    listArray.swapAt(0, 1)
+                }
+                listQuestionProgress = listArray
+            }
+            if process.inCorrect == 1{
+                var listArray = listQuestionProgress.sorted( by: {$0.boxNum < $1.boxNum} )
+                
+                if listQuestionProgress[0].questionId == listArray[0].questionId{
+                    listArray = listQuestionProgress.shuffled()
+                    listQuestionProgress = listArray.sorted(by: {$0.boxNum > $1.boxNum})
+                }else{
+                    listQuestionProgress = listArray
+                }
+                
+            }
+        }
+        setStatus(boxNum: listQuestionProgress[0].boxNum)
         resetQuestionView()
+        if(process.correct == process.total){
+            showSucsessAnswer = true
+        }
     }
     
     func resetQuestionView(){
@@ -111,19 +152,6 @@ class PracticeViewModel: ObservableObject{
     }
 }
 
-struct Status{
-    var status: String
-    var color: Color
-}
 
-struct Process{
-    var correct: Int
-    var inCorrect: Int
-    var newQuestion: Int
-    var total: Int
-    
-    mutating func reset(){
-        self.correct = 0
-        self.inCorrect = 0
-    }
-}
+
+

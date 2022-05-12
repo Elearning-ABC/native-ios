@@ -13,7 +13,7 @@ struct BodyQuestionView: View {
     var body: some View {
         let question = viewModel.getQuestion(id: questionProgress.questionId)
         VStack {
-            QuestionBoxView(question: question.text, iconName: question.image.replace(target: ".png", withString: ""), boxNum: question.status)
+            QuestionBoxView(question: question.text, iconName: question.image.replace(target: ".png", withString: ""))
             
             if viewModel.inCorrectAnswer != ""{
                 HStack{

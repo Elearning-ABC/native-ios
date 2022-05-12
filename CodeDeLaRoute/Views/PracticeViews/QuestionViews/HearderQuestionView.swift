@@ -13,6 +13,9 @@ struct HearderQuestionView: View {
     
     var body: some View {
         let process = viewModel.process
+        let correct = Screen.width*(process.correct / process.total)
+        let inCorrect = Screen.width*(process.inCorrect / process.total)
+        let newQuestion = Screen.width - correct - inCorrect
         VStack {
             HStack {
                 BackHearderLeftView(title: title)
@@ -36,17 +39,17 @@ struct HearderQuestionView: View {
                 HStack{
                     Spacer()
                 }
-                .frame(width: Screen.width*CGFloat((process.correct / process.total)), height: 4)
+                .frame(width: correct, height: 4)
                 .background(Color.green)
                 HStack{
                   Spacer()
                 }
-                .frame(width: Screen.width*CGFloat((process.inCorrect / process.total)), height: 4)
+                .frame(width: inCorrect, height: 4)
                 .background(Color.yellow1)
                 HStack{
                   Spacer()
                 }
-                .frame(height: 4)
+                .frame(width: newQuestion,height: 4)
                 .background(Color.blue3)
             }.padding(.bottom)
                 .padding(.top, 8.0)

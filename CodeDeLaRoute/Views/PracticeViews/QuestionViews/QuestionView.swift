@@ -12,18 +12,28 @@ struct QuestionView: View {
     var title: String
     
     var body: some View {
-        VStack {
-            HearderQuestionView(title: title)
-                    VStack{
-                        BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
-                    }
-                    .padding()
-            FooterQuestionView()
+        ZStack {
+            VStack {
+                HearderQuestionView(title: title)
+                        VStack{
+                            BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
+                        }
+                        .padding()
+                FooterQuestionView()
+                
+            }
             
+            .background(BackGroundView())
+            .ignoresSafeArea()
+            
+            viewModel.showSucsessAnswer ?
+            VStack{
+                HearderQuestionView(title: title)
+            }
+            .background(Color.blue2)
+            .ignoresSafeArea()
+            : nil
         }
-        
-        .background(BackGroundView())
-        .ignoresSafeArea()
         
         
     }
