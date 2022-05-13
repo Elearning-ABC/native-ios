@@ -89,6 +89,6 @@ struct BodyQuestionView: View {
 
 struct BodyQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        BodyQuestionView(questionProgress: QuestionProgressApp(id: "", questionId: "", choiceSelectedIds: [], boxNum: 0))
+        BodyQuestionView(questionProgress: QuestionProgressApp(questionProgress: QuestionProgress()))
     }
 }

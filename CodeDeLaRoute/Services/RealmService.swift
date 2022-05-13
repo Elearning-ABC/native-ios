@@ -8,85 +8,59 @@
 import Foundation
 import RealmSwift
 
-extension Data{
-    init?(hexString: String) {
-      let len = hexString.count / 2
-      var data = Data(capacity: len)
-      var i = hexString.startIndex
-      for _ in 0..<len {
-        let j = hexString.index(i, offsetBy: 2)
-        let bytes = hexString[i..<j]
-        if var num = UInt8(bytes, radix: 16) {
-          data.append(&num, count: 1)
-        } else {
-          return nil
-        }
-        i = j
-      }
-      self = data
+class RealmService {
+    private(set) var realmFile: Realm
+    private var localRealm: Realm
+    var realmTopicService: RealmTopicService
+    var realmQuestion: RealmQuestionService
+    var realmQuestionProgress: RealmQuestionProgress
+    
+    init(realmFile: RealmFile = RealmFile(), localRealm: RealmLocal = RealmLocal()){
+        self.realmFile = realmFile.openRealm()
+        self.localRealm = localRealm.openRealm()
+        self.realmTopicService = RealmTopicService(realm: self.realmFile)
+        self.realmQuestion = RealmQuestionService(realm: self.realmFile)
+        self.realmQuestionProgress = RealmQuestionProgress(realm: self.localRealm)
     }
 }
 
-class RealmService {
-    private(set) var realm: Realm
-    var realmTopicService: RealmTopicService
-    var realmQuestion: RealmQuestionService
+class RealmFile{
+    private var realm : Realm?
     
-    init(realmOpen: RealmOpen = RealmOpen()){
-        self.realm = realmOpen.realm
-        self.realmTopicService = RealmTopicService(realm: realm)
-        self.realmQuestion = RealmQuestionService(realm: realm)
-    }
-    
-    func openRealm(){
+    func openRealm()-> Realm {
+        
         do{
-            let config = Realm.Configuration(
-            fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
-            encryptionKey: Data(hexString: Constant.encryptionKey),
-            schemaVersion: 2
+            let confige = Realm.Configuration(
+                fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+                encryptionKey: Data(hexString: Constant.encryptionKey),
+                schemaVersion: 1
             )
-
-            // Open the Realm with the configuration
-            realm = try Realm(configuration: config)
-
-            print("thanh cong")
+            realm = try Realm(configuration: confige)
+            
         }catch{
             print("Error opening Realm: \(error)")
         }
+        
+        return realm!
+
     }
-    
-//    func setProperties(){
-//        if let realm = realm{
-//            self.realmTopicService = RealmTopicService(realm: realm)
-//            self.realmQuestion = RealmQuestionService(realm: realm)
-//        }
-//    }
-  
 }
 
-class RealmOpen{
-    var realm : Realm
+class RealmLocal{
+    private var localRealm : Realm?
     
-    init(){
-        let config = Realm.Configuration(
-        fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
-        encryptionKey: Data(hexString: Constant.encryptionKey),
-        schemaVersion: 2
-        )
-
-        // Open the Realm with the configuration
-        realm = try! Realm(configuration: config)
+    func openRealm()-> Realm{
+        do{
+            let config = Realm.Configuration(schemaVersion: 1)
+            Realm.Configuration.defaultConfiguration = config
+            localRealm = try Realm()
+            let x = localRealm?.objects(QuestionProgress.self)
+            print("Log test",x!)
+            
+        }catch{
+            print("Error opening Realm: \(error)")
+        }
+        return localRealm!
     }
-
-//    func openRealm(){
-//        let config = Realm.Configuration(
-//        fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
-//        encryptionKey: Data(hexString: Constant.encryptionKey),
-//        schemaVersion: 2
-//        )
-//
-//        // Open the Realm with the configuration
-//        realm = try! Realm(configuration: config)
-//
-//    }
+    
 }

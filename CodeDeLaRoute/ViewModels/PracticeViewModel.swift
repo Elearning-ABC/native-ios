@@ -44,18 +44,24 @@ class PracticeViewModel: ObservableObject{
     
     func getListQuestion(id: String){
         self.listQuestion = realmService.realmQuestion.getListQuestion(id: id)
-        
-        var array: [QuestionProgressApp] = []
-        
-        for question in listQuestion {
-            array.append(QuestionProgressApp(questionId: question.id, choiceSelectedIds: [], boxNum: 0))
-        }
-        
-        self.listQuestionProgress = array
         reset()
-        process.newQuestion = listQuestion.count
-        process.total = CGFloat(listQuestion.count)
+        createListQuestionProgress(listQuestion: listQuestion, id: id)
         setStatus(boxNum: 0)
+    }
+    
+    func createListQuestionProgress(listQuestion: [Question], id : String){
+        let array = realmService.realmQuestionProgress.getListQuestionProgress(listQuestion: listQuestion, topicId: id)
+        self.listQuestionProgress = array
+        var newQuestion = 0
+        for questionProgres in listQuestionProgress {
+            if questionProgres.boxNum == 0{
+                newQuestion += 1
+            }
+        }
+        process.newQuestion = newQuestion
+        process.total = CGFloat(listQuestion.count)
+        updateProcess()
+        updateListQuestionProgress()
     }
     
     func getListAnswer(id: String) -> [Answer]{
@@ -80,20 +86,42 @@ class PracticeViewModel: ObservableObject{
         if process.newQuestion > 0{
             process.newQuestion -= 1
         }
+        
         listQuestionProgress[0].choiceSelectedIds.append(answer.id)
+        
         if answer.isCorrect{
-            listQuestionProgress[0].boxNum = 1
+            if listQuestionProgress[0].boxNum == 0{
+                listQuestionProgress[0].boxNum = 1
+                realmService.realmQuestionProgress.write(questionProgress: listQuestionProgress[0])
+            }else{
+                listQuestionProgress[0].boxNum = 1
+                realmService.realmQuestionProgress.update(questionProgress: listQuestionProgress[0])
+            }
+            
             setStatus(boxNum: 2)
         }else{
             setStatus(boxNum: 3)
-            listQuestionProgress[0].boxNum = -1
+            if listQuestionProgress[0].boxNum == 0{
+                listQuestionProgress[0].boxNum = -1
+                realmService.realmQuestionProgress.write(questionProgress: listQuestionProgress[0])
+            }else{
+                listQuestionProgress[0].boxNum = -1
+                realmService.realmQuestionProgress.update(questionProgress: listQuestionProgress[0])
+            }
             inCorrectAnswer = answer.text
         }
+        
+        updateProcess()
+        
+        showCorrectAnswer = true
+    }
+    
+    func updateProcess(){
         var correct = 0
         var inCorrect = 0
         for questionProgres in listQuestionProgress {
             if questionProgres.boxNum == 1{
-                correct += 1   
+                correct += 1
             }
             if questionProgres.boxNum == -1{
                 inCorrect += 1
@@ -101,7 +129,7 @@ class PracticeViewModel: ObservableObject{
         }
         process.correct = CGFloat(correct)
         process.inCorrect = CGFloat(inCorrect)
-        showCorrectAnswer = true
+        
     }
     
     
