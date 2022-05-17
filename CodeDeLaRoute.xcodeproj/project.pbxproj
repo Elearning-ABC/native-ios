@@ -66,6 +66,7 @@
 		CC7C01202807C5E60078E93C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C011F2807C5E60078E93C /* Topic.swift */; };
 		CC839154282CC1C200C87C29 /* RealmQuestionProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */; };
 		CC839156282CC23000C87C29 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC839155282CC23000C87C29 /* Data.swift */; };
+		CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */; };
 		CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 		CC7C011F2807C5E60078E93C /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionProgress.swift; sourceTree = "<group>"; };
 		CC839155282CC23000C87C29 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSuccessView.swift; sourceTree = "<group>"; };
 		CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +218,7 @@
 				CC2C65F628193C9B00CD99A5 /* AnswerView.swift */,
 				CC3C621F281A56CA0035E71E /* FooterQuestionView.swift */,
 				CC59EF40281B9A21005F251A /* BodyQuestionView.swift */,
+				CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */,
 			);
 			path = QuestionViews;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				CC2AA030282BAC1B00322582 /* Status.swift in Sources */,
 				CC7C01142807BCA00078E93C /* RealmService.swift in Sources */,
 				CC3C6220281A56CA0035E71E /* FooterQuestionView.swift in Sources */,
+				CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */,
 				CC2C65FB28194CDE00CD99A5 /* ViewModel.swift in Sources */,
 				CC6CA4682807CE5800F60E63 /* TopicQuestion.swift in Sources */,
 				CC6CA46F2807FFC800F60E63 /* TestView.swift in Sources */,

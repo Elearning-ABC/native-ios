@@ -64,7 +64,8 @@ struct TopicChildView: View {
                 ScrollView(showsIndicators: false){
                     ForEach(viewModel.listChildTopics){
                         topic in
-                        TopicChildRowView(title: topic.name, total: topic.totalQuestion, id: topic.id)
+                        let index = viewModel.listChildTopics.firstIndex(where: {$0.id == topic.id})
+                        TopicChildRowView(topic: topic, index: index!)
                                 .padding(.bottom, 14.0)
                     }
                 }

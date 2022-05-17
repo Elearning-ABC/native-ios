@@ -77,7 +77,9 @@ struct BodyQuestionView: View {
                     answer in
                     AnswerView(answer: answer.text)
                         .onTapGesture {
-                            viewModel.checkAnswer(answer: answer)
+                            withAnimation(.easeOut){
+                                viewModel.checkAnswer(answer: answer)
+                            }
                         }
                 }
             }

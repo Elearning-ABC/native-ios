@@ -46,7 +46,6 @@ class PracticeViewModel: ObservableObject{
         self.listQuestion = realmService.realmQuestion.getListQuestion(id: id)
         reset()
         createListQuestionProgress(listQuestion: listQuestion, id: id)
-        setStatus(boxNum: 0)
     }
     
     func createListQuestionProgress(listQuestion: [Question], id : String){
@@ -61,7 +60,10 @@ class PracticeViewModel: ObservableObject{
         process.newQuestion = newQuestion
         process.total = CGFloat(listQuestion.count)
         updateProcess()
-        updateListQuestionProgress()
+        setStatus(boxNum: listQuestionProgress[0].boxNum)
+        if(process.correct == process.total){
+            showSucsessAnswer = true
+        }
     }
     
     func getListAnswer(id: String) -> [Answer]{

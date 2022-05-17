@@ -10,21 +10,20 @@ import SwiftUI
 struct TopicChildRowView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     @State var isActive: Bool = false
-    var title: String
-    var total: Int
-    var id: String
+    var topic: Topic
+    var index: Int
     var body: some View {
-        NavigationLink(destination: QuestionView(title: title)
+        NavigationLink(destination: QuestionView(title: topic.name, index: index)
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                        ,
                        isActive: $isActive
         ){
             VStack(alignment: .leading) {
-                Text(title)
+                Text(topic.name)
                     .foregroundColor(.black)
                     .font(.system(size: 18, weight: .semibold))
-                Text("\(total) questions sans limite de temps")
+                Text("\(topic.totalQuestion) questions sans limite de temps")
                     .foregroundColor(.gray)
                     .font(.system(size: 14))
                     .padding(.bottom)
@@ -40,7 +39,7 @@ struct TopicChildRowView: View {
             .cornerRadius(8)
             .shadow(color: .blue3!, radius: 5, x: 0, y: 14)
             .onTapGesture {
-                viewModel.getListQuestion(id: id)
+                viewModel.getListQuestion(id: topic.id)
                 isActive = true
             }
         }
@@ -51,6 +50,6 @@ struct TopicChildRowView: View {
 
 struct TopicChildRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicChildRowView(title: "Test", total: 5, id: "")
+        TopicChildRowView(topic: Topic(), index: 0)
     }
 }

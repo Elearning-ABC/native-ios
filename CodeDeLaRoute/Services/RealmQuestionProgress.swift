@@ -52,13 +52,33 @@ class RealmQuestionProgress{
             array.append(QuestionProgressApp(questionProgress: item))
             
         }
-        
-        for question in listQuestion{
-            for item in array {
-                if question.id != item.questionId{
-                    let questionProgress = QuestionProgress(value: ["id": "\(UUID())", "questionId":question.id,"topicId": topicId, "choiceSelectedIds": [], "boxNum": 0])
-                    array.append(QuestionProgressApp(questionProgress: questionProgress))
+        if array.isEmpty{
+            for question in listQuestion{
+                let questionProgress = QuestionProgress(value: ["id": "\(UUID())", "questionId":question.id,"topicId": topicId, "choiceSelectedIds": [], "boxNum": 0])
+                array.append(QuestionProgressApp(questionProgress: questionProgress))
+            }
+        }else{
+            if listQuestion.count == array.count{
+                let arraySorted = array.sorted( by: {$0.boxNum < $1.boxNum} )
+                array = arraySorted
+            }else{
+                var listQuestionProgress: [QuestionProgressApp] = []
+                for question in listQuestion{
+                    var check = true
+                    for item in array {
+                        if question.id == item.questionId{
+                            check = false
+                            break
+                        }
+                    }
+                    if check{
+                        let questionProgress = QuestionProgress(value: ["id": "\(UUID())", "questionId":question.id,"topicId": topicId, "choiceSelectedIds": [], "boxNum": 0])
+                        listQuestionProgress.append(QuestionProgressApp(questionProgress: questionProgress))
+                    }
                 }
+                listQuestionProgress.append(contentsOf: array)
+                array = listQuestionProgress
+                print(array.count)
             }
         }
         
