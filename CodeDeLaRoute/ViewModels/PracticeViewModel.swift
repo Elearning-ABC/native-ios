@@ -20,15 +20,27 @@ class PracticeViewModel: ObservableObject{
     @Published var process : Process
     @Published var status : Status
     @Published var showSucsessAnswer = false
+    @Published var listTopicProgress = [TopicProgressApp]()
     
     
     init(realmService: RealmService = RealmService()){
         self.realmService = realmService
         self.topics = realmService.realmTopicService.getTopics()
-        self.process = Process(correct: 0, inCorrect: 0, newQuestion: 0, total: 1)
+        self.process = Process(correct: 0, inCorrect: 0, newQuestion: 0, total: 1, indexTopic: 0, indexParentTopic: 0, indexListChildTopic: 0, title: "")
         self.status = Status(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
+        getListTopicProgress()
     }
     
+    func getListTopicProgress(){
+        let allTopics = realmService.realmTopicService.getAllTopics()
+        listTopicProgress = realmService.realmTopicProgress.getListTopicProgress(listTopic: allTopics)
+    }
+    
+    func getIndexTopicProgress(id: String)->Int{
+        let obj = listTopicProgress.first{$0.topicId == id}
+        let index = listTopicProgress.firstIndex(where: {$0.id == obj?.id})
+        return index!
+    }
     
     func getListChildTopics(id: String){
         let result = realmService.realmTopicService.getChildTopics(id: id)
@@ -179,6 +191,12 @@ class PracticeViewModel: ObservableObject{
         inCorrectAnswer = ""
         showCorrectAnswer = false
         showExplanation = false
+    }
+    
+    func tryAgain(){
+        getListQuestion(id: listQuestionProgress[0].topicId)
+        process.newQuestion = listQuestionProgress.count
+        showSucsessAnswer = false
     }
 }
 

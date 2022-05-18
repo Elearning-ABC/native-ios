@@ -13,5 +13,21 @@ class TopicProgress: Object, ObjectKeyIdentifiable{
     @Persisted var topicId: String
     @Persisted var totalQuestionNumber: Int
     @Persisted var correctNumber: Int
-    @Persisted var lastUpdate: Double
+    @Persisted var lastUpdate: Double = Date().timeIntervalSince1970
+}
+
+struct TopicProgressApp: Identifiable{
+    var id: String
+    var topicId: String
+    var totalQuestionNumber: Int
+    var correctNumber: Int
+    var lastUpdate: Double
+    
+    init(topicProgress obj: TopicProgress){
+        id = obj.id
+        topicId = obj.topicId
+        totalQuestionNumber = obj.totalQuestionNumber
+        correctNumber = obj.correctNumber
+        lastUpdate = obj.lastUpdate
+    }
 }

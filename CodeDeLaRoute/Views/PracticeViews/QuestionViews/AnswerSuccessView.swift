@@ -10,11 +10,11 @@ import SwiftUI
 struct AnswerSuccessView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     @State var isActive = false
-    var index: Int
     var body: some View {
+        let index = viewModel.process.indexListChildTopic
         VStack {
             HStack {
-                BackHearderLeftView(title: viewModel.listChildTopics[index].name)
+                BackHearderLeftView(title: viewModel.process.title)
                 Spacer()
             }
             .padding(.horizontal, 24.0)
@@ -47,9 +47,12 @@ struct AnswerSuccessView: View {
                 .padding()
                 .background(Color.red)
                 .cornerRadius(12)
+                .onTapGesture {
+                    viewModel.tryAgain()
+                }
                 Spacer()
                 
-                NavigationLink(destination: QuestionView(title: viewModel.listChildTopics[index + 1].name, index: index + 1)
+                NavigationLink(destination: QuestionView()
                                 .environmentObject(viewModel)
                                 .navigationBarHidden(true)
                                ,
@@ -68,7 +71,10 @@ struct AnswerSuccessView: View {
                     .background(Color.blue1)
                     .cornerRadius(12)
                     .onTapGesture {
+                        
                         viewModel.getListQuestion(id: viewModel.listChildTopics[index + 1].id)
+                        viewModel.process.indexListChildTopic = index + 1
+                        viewModel.process.title = viewModel.listChildTopics[index + 1].name
                         isActive = true
                     }
                 }
@@ -83,6 +89,6 @@ struct AnswerSuccessView: View {
 
 struct AnswerSuccessView_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerSuccessView(index: 1)
+        AnswerSuccessView()
     }
 }

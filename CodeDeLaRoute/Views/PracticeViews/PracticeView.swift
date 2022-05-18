@@ -28,7 +28,7 @@ struct PracticeView: View {
                 VStack{
                     ForEach(viewModel.topics){
                         topic in
-                        TopicRowView(name: topic.name, urlIcon: topic.icon, id: topic.id, total: topic.totalQuestion)
+                        TopicRowView(name: topic.name, urlIcon: topic.icon, id: topic.id, totalQuestion: topic.totalQuestion)
                             .padding(.bottom, 14.0)
                         
                     }

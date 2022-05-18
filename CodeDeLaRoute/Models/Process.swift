@@ -13,6 +13,10 @@ struct Process{
     var inCorrect: CGFloat
     var newQuestion: Int
     var total: CGFloat
+    var indexTopic: Int
+    var indexParentTopic: Int
+    var indexListChildTopic: Int
+    var title: String
     
     mutating func reset(){
         self.correct = 0

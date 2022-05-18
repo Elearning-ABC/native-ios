@@ -24,6 +24,16 @@ class RealmTopicService{
         
     }
     
+    func getAllTopics() ->[Topic]{
+        let allTopics = realm.objects(Topic.self)
+        var topics: [Topic] = []
+        
+        allTopics.forEach{topic in
+                topics.append(topic)
+        }
+        return topics
+    }
+    
     func getTopics() -> [Topic]{
         let allTopic = realm.objects(Topic.self)
         var topics: [Topic] = []

@@ -15,11 +15,13 @@ struct TopicRowView: View {
     var name: String
     var urlIcon: String
     var id: String
-    var total: Int
-    
+    var totalQuestion: Int
     
     var body: some View {
-        NavigationLink(destination: TopicChildView(title: name, total: total)
+        let index = viewModel.getIndexTopicProgress(id: id)
+        let value = Double(viewModel.listTopicProgress[index].correctNumber)
+        let total = Double(viewModel.listTopicProgress[index].totalQuestionNumber)
+        NavigationLink(destination: TopicChildView(title: name, total: totalQuestion)
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                        ,
@@ -53,13 +55,13 @@ struct TopicRowView: View {
                 
                 
                 HStack {
-                    ProgressView(value: 5, total: 10)
+                    ProgressView(value: value, total: total)
                         .accentColor(Color.blue1)
                         .background(Color.blue3)
                           .frame(height: 8.0)
                           .scaleEffect(x: 1, y: 2, anchor: .center)
                       .clipShape(RoundedRectangle(cornerRadius: 4))
-                    Text("50%")
+                    Text("\(Int(value/total))%")
                         .foregroundColor(.blue1)
                         .font(.system(size: 14))
                 }
@@ -70,6 +72,7 @@ struct TopicRowView: View {
             .cornerRadius(8)
             .onTapGesture{
                 viewModel.getListChildTopics(id: id)
+                viewModel.process.indexParentTopic = index
                 isActive = true
             }
         }
@@ -79,7 +82,7 @@ struct TopicRowView: View {
 @available(iOS 15.0, *)
 struct TopicRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicRowView(name: "Topic", urlIcon: "https://storage.googleapis.com/micro-enigma-235001.appspot.com/g1/icons/file-1620185333946-icon2.svg", id: "", total: 10)
+        TopicRowView(name: "Topic", urlIcon: "https://storage.googleapis.com/micro-enigma-235001.appspot.com/g1/icons/file-1620185333946-icon2.svg", id: "", totalQuestion: 10)
     }
 }
 

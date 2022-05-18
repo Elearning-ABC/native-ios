@@ -78,7 +78,6 @@ class RealmQuestionProgress{
                 }
                 listQuestionProgress.append(contentsOf: array)
                 array = listQuestionProgress
-                print(array.count)
             }
         }
         

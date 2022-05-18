@@ -14,6 +14,7 @@ class RealmService {
     var realmTopicService: RealmTopicService
     var realmQuestion: RealmQuestionService
     var realmQuestionProgress: RealmQuestionProgress
+    var realmTopicProgress: RealmTopicProgress
     
     init(realmFile: RealmFile = RealmFile(), localRealm: RealmLocal = RealmLocal()){
         self.realmFile = realmFile.openRealm()
@@ -21,6 +22,7 @@ class RealmService {
         self.realmTopicService = RealmTopicService(realm: self.realmFile)
         self.realmQuestion = RealmQuestionService(realm: self.realmFile)
         self.realmQuestionProgress = RealmQuestionProgress(realm: self.localRealm)
+        self.realmTopicProgress = RealmTopicProgress(realm: self.localRealm)
     }
 }
 

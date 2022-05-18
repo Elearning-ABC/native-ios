@@ -9,29 +9,21 @@ import SwiftUI
 
 struct QuestionView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
-    var title: String
-    var index: Int
-    
     var body: some View {
         VStack {
             ZStack {
-                viewModel.showSucsessAnswer ? nil
-                :
-                VStack {
-                    HearderQuestionView(title: title)
-                    VStack{
-                        BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
+                if viewModel.showSucsessAnswer{
+                    AnswerSuccessView()
+                }else{
+                    VStack {
+                        HearderQuestionView(title: viewModel.process.title)
+                        VStack{
+                            BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
+                        }
+                        .padding()
+                        FooterQuestionView()
                     }
-                    .padding()
-                    FooterQuestionView()
                 }
-                
-                
-                viewModel.showSucsessAnswer ?
-                VStack{
-                    AnswerSuccessView(index: index)
-                }
-                : nil
             }
         }
         .background(BackGroundView())
@@ -41,6 +33,6 @@ struct QuestionView: View {
 
 struct QuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView( title: "", index: 0)
+        QuestionView()
     }
 }

@@ -13,7 +13,10 @@ struct TopicChildRowView: View {
     var topic: Topic
     var index: Int
     var body: some View {
-        NavigationLink(destination: QuestionView(title: topic.name, index: index)
+        let indexTopicProgress = viewModel.getIndexTopicProgress(id: topic.id)
+        let value = Double(viewModel.listTopicProgress[indexTopicProgress].correctNumber)
+        let total = Double(viewModel.listTopicProgress[indexTopicProgress].totalQuestionNumber)
+        NavigationLink(destination: QuestionView()
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                        ,
@@ -27,7 +30,7 @@ struct TopicChildRowView: View {
                     .foregroundColor(.gray)
                     .font(.system(size: 14))
                     .padding(.bottom)
-                ProgressView(value: 5, total: 10)
+                ProgressView(value: value, total: total)
                     .accentColor(Color.blue1)
                     .background(Color.blue3)
                       .frame(height: 8.0)
@@ -40,6 +43,9 @@ struct TopicChildRowView: View {
             .shadow(color: .blue3!, radius: 5, x: 0, y: 14)
             .onTapGesture {
                 viewModel.getListQuestion(id: topic.id)
+                viewModel.process.indexTopic = indexTopicProgress
+                viewModel.process.indexListChildTopic = index
+                viewModel.process.title = topic.name
                 isActive = true
             }
         }
