@@ -71,10 +71,12 @@ struct AnswerSuccessView: View {
                     .background(Color.blue1)
                     .cornerRadius(12)
                     .onTapGesture {
-                        
-                        viewModel.getListQuestion(id: viewModel.listChildTopics[index + 1].id)
+                        let topic = viewModel.listChildTopics[index + 1]
+                        viewModel.getListQuestion(id: topic.id)
                         viewModel.process.indexListChildTopic = index + 1
-                        viewModel.process.title = viewModel.listChildTopics[index + 1].name
+                        viewModel.process.indexTopic = viewModel.getIndexTopicProgress(id: topic.id)
+                        viewModel.process.title = topic.name
+                        
                         isActive = true
                     }
                 }

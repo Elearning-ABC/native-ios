@@ -21,7 +21,8 @@ struct TopicRowView: View {
         let index = viewModel.getIndexTopicProgress(id: id)
         let value = Double(viewModel.listTopicProgress[index].correctNumber)
         let total = Double(viewModel.listTopicProgress[index].totalQuestionNumber)
-        NavigationLink(destination: TopicChildView(title: name, total: totalQuestion)
+        let percent = 100*value/total
+        NavigationLink(destination: TopicChildView(title: name)
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                        ,
@@ -61,7 +62,7 @@ struct TopicRowView: View {
                           .frame(height: 8.0)
                           .scaleEffect(x: 1, y: 2, anchor: .center)
                       .clipShape(RoundedRectangle(cornerRadius: 4))
-                    Text("\(Int(value/total))%")
+                    Text(((percent != 0)&&(percent < 1) ? String(format: "%.1f", percent) : String(format: "%.0f", percent)) + "%")
                         .foregroundColor(.blue1)
                         .font(.system(size: 14))
                 }

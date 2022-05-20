@@ -64,14 +64,11 @@ class RealmQuestionProgress{
             }else{
                 var listQuestionProgress: [QuestionProgressApp] = []
                 for question in listQuestion{
-                    var check = true
-                    for item in array {
-                        if question.id == item.questionId{
-                            check = false
-                            break
-                        }
+                    let check = list.where{
+                        $0.questionId == question.id
                     }
-                    if check{
+                    
+                    if check.isEmpty{
                         let questionProgress = QuestionProgress(value: ["id": "\(UUID())", "questionId":question.id,"topicId": topicId, "choiceSelectedIds": [], "boxNum": 0])
                         listQuestionProgress.append(QuestionProgressApp(questionProgress: questionProgress))
                     }

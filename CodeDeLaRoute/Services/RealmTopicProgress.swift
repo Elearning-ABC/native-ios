@@ -18,6 +18,11 @@ class RealmTopicProgress{
     func getListTopicProgress(listTopic: [Topic])->[TopicProgressApp]{
         let listTopicProgress = realm.objects(TopicProgress.self)
         var array: [TopicProgressApp] = []
+        
+        listTopicProgress.forEach{ topicProgress in
+            array.append(TopicProgressApp(topicProgress: topicProgress))
+        }
+        
         if listTopicProgress.count == listTopic.count{
             for item in listTopicProgress{
                 let obj = TopicProgressApp(topicProgress: item)
@@ -39,10 +44,15 @@ class RealmTopicProgress{
     }
     
     func write(topicProgressApp obj: TopicProgressApp){
-        let topicProgress = TopicProgress(value: ["id": obj.id, "topicId": obj.topicId,"totalQuestionNumber": obj.totalQuestionNumber, "correctNumber": obj.correctNumber])
-        
-        try! realm.write{
-            realm.add(topicProgress)
+        let topicProgress = realm.object(ofType: TopicProgress.self, forPrimaryKey: obj.id)
+        if topicProgress == nil {
+            let newTopicProgress = TopicProgress(value: ["id": obj.id, "topicId": obj.topicId,"totalQuestionNumber": obj.totalQuestionNumber, "correctNumber": obj.correctNumber])
+            
+            try! realm.write{
+                realm.add(newTopicProgress)
+            }
+        }else{
+            update(id: obj.id, correct: obj.correctNumber)
         }
     }
     

@@ -13,11 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            BackGroundView()
-            
-            
-                
+        VStack() {
             VStack{
                 TabView(selection: $tabViewModel.active){
                     PracticeView()
@@ -29,6 +25,7 @@ struct ContentView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .padding(.top, -Screen.statusBarHeight)
+                .padding(.bottom, -8.0)
                 
                 HStack{
                     Spacer()
@@ -54,7 +51,9 @@ struct ContentView: View {
                 
             }
         }
+        .background(BackGroundView())
         .ignoresSafeArea()
+        
     }
 }
 

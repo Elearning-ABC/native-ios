@@ -48,6 +48,7 @@ struct QuestionBoxView: View {
             
             VStack {
                 Text(content.status)
+                    .foregroundColor(content.color)
                     .font(.system(size: 16, weight: .semibold))
                     .padding(.horizontal, 8.0)
                     

@@ -11,14 +11,18 @@ import SwiftUI
 @main
 struct CodeDeLaRouteApp: App {
     @StateObject var viewModel = PracticeViewModel()
+    @State var start = false
     var body: some Scene {
         WindowGroup {
-            NavigationView{
-            ContentView()
-                .environmentObject(viewModel)
-                .navigationBarHidden(true)
+            if start{
+                StartView(start: $start)
+            }else{
+                NavigationView{
+                ContentView()
+                    .environmentObject(viewModel)
+                    .navigationBarHidden(true)
+                }
             }
-            
         }
     }
 }

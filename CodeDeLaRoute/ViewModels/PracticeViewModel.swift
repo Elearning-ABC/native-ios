@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 class PracticeViewModel: ObservableObject{
-    var realmService: RealmService
+    private var realmService: RealmService
+    private var navigtorAnswer: Bool = false
     @Published var topics : [Topic]
     @Published var listChildTopics : [Topic] = []
     @Published var listQuestion : [Question] = []
@@ -21,6 +22,7 @@ class PracticeViewModel: ObservableObject{
     @Published var status : Status
     @Published var showSucsessAnswer = false
     @Published var listTopicProgress = [TopicProgressApp]()
+    
     
     
     init(realmService: RealmService = RealmService()){
@@ -85,18 +87,22 @@ class PracticeViewModel: ObservableObject{
     
     func setStatus(boxNum: Int){
         switch boxNum{
+            case -1:
+            status.upDate(status: "LEARNING", color: Color.yellow, iconName: "alert-circle", text: "You got this wrong last time")
+            case 1:
+            status.upDate(status: "REVIEWING", color: Color.green!, iconName: "check-circle", text: "You got this question last time")
             case 2:
             status.upDate(status: "CORRECT", color: Color.green!, iconName: "check-circle", text: "You will not see this question in a while")
             case 3:
             status.upDate(status: "INCORRECT", color: Color.red, iconName: "alert-circle", text: "You will see this question soon")
-            case -1:
-            status.upDate(status: "LEARNING", color: Color.yellow, iconName: "alert-circle", text: "You got this wrong last time")
+            
             default:
             status.upDate(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
         }
     }
     
     func checkAnswer(answer: Answer){
+        navigtorAnswer = true
         if process.newQuestion > 0{
             process.newQuestion -= 1
         }
@@ -106,8 +112,19 @@ class PracticeViewModel: ObservableObject{
         if answer.isCorrect{
             if listQuestionProgress[0].boxNum == 0{
                 listQuestionProgress[0].boxNum = 1
+                listTopicProgress[process.indexTopic].correctNumber += 1
+                listTopicProgress[process.indexParentTopic].correctNumber += 1
+                realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexTopic])
+                realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexParentTopic])
                 realmService.realmQuestionProgress.write(questionProgress: listQuestionProgress[0])
+                
             }else{
+                if listQuestionProgress[0].boxNum == -1{
+                    listTopicProgress[process.indexTopic].correctNumber += 1
+                    listTopicProgress[process.indexParentTopic].correctNumber += 1
+                    realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexTopic])
+                    realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexParentTopic])
+                }
                 listQuestionProgress[0].boxNum = 1
                 realmService.realmQuestionProgress.update(questionProgress: listQuestionProgress[0])
             }
@@ -119,6 +136,12 @@ class PracticeViewModel: ObservableObject{
                 listQuestionProgress[0].boxNum = -1
                 realmService.realmQuestionProgress.write(questionProgress: listQuestionProgress[0])
             }else{
+                if listQuestionProgress[0].boxNum == 1{
+                    listTopicProgress[process.indexTopic].correctNumber += -1
+                    listTopicProgress[process.indexParentTopic].correctNumber += -1
+                    realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexTopic])
+                    realmService.realmTopicProgress.write(topicProgressApp: listTopicProgress[process.indexParentTopic])
+                }
                 listQuestionProgress[0].boxNum = -1
                 realmService.realmQuestionProgress.update(questionProgress: listQuestionProgress[0])
             }
@@ -153,6 +176,7 @@ class PracticeViewModel: ObservableObject{
     }
     
     func updateListQuestionProgress(){
+        if navigtorAnswer == false { return }
         if process.newQuestion > 0 {
             let progresQuestion = listQuestionProgress[0]
             listQuestionProgress.remove(at: 0)

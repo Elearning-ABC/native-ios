@@ -39,6 +39,8 @@
 		CC516C0A2806CACA0045DAB1 /* CodeDeLaRouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC516C092806CACA0045DAB1 /* CodeDeLaRouteUITests.swift */; };
 		CC516C0C2806CACA0045DAB1 /* CodeDeLaRouteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC516C0B2806CACA0045DAB1 /* CodeDeLaRouteUITestsLaunchTests.swift */; };
 		CC516C1D2806DB110045DAB1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC516C1C2806DB110045DAB1 /* Color.swift */; };
+		CC584A4328373DD800B26798 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC584A4228373DD800B26798 /* StartView.swift */; };
+		CC584A4528373E9600B26798 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC584A4428373E9600B26798 /* ContainerView.swift */; };
 		CC59EF3F281B8B06005F251A /* HearderQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC59EF3E281B8B06005F251A /* HearderQuestionView.swift */; };
 		CC59EF41281B9A21005F251A /* BodyQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC59EF40281B9A21005F251A /* BodyQuestionView.swift */; };
 		CC5B2AEF28125B0200D16886 /* RealmTopicSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */; };
@@ -120,6 +122,8 @@
 		CC516C092806CACA0045DAB1 /* CodeDeLaRouteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeDeLaRouteUITests.swift; sourceTree = "<group>"; };
 		CC516C0B2806CACA0045DAB1 /* CodeDeLaRouteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeDeLaRouteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CC516C1C2806DB110045DAB1 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CC584A4228373DD800B26798 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		CC584A4428373E9600B26798 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		CC59EF3E281B8B06005F251A /* HearderQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearderQuestionView.swift; sourceTree = "<group>"; };
 		CC59EF40281B9A21005F251A /* BodyQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyQuestionView.swift; sourceTree = "<group>"; };
 		CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTopicSevice.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 		CC516C182806CAE10045DAB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC584A4128373DC200B26798 /* StartView */,
 				CC0E1B98280E5CB600A7AE1D /* Components */,
 				CC6CA46B2807FE5900F60E63 /* ReviewViews */,
 				CC6CA46A2807FE3800F60E63 /* TestViews */,
@@ -349,6 +354,15 @@
 				CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CC584A4128373DC200B26798 /* StartView */ = {
+			isa = PBXGroup;
+			children = (
+				CC584A4228373DD800B26798 /* StartView.swift */,
+				CC584A4428373E9600B26798 /* ContainerView.swift */,
+			);
+			path = StartView;
 			sourceTree = "<group>";
 		};
 		CC6CA4692807FE1F00F60E63 /* PracticeViews */ = {
@@ -557,6 +571,7 @@
 				CC5B2AF12812639900D16886 /* TopicChildRowView.swift in Sources */,
 				CC516BF12806CAC80045DAB1 /* ContentView.swift in Sources */,
 				CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */,
+				CC584A4328373DD800B26798 /* StartView.swift in Sources */,
 				CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */,
 				CC6CA4662807CDFA00F60E63 /* Question.swift in Sources */,
 				CC34F31C281789320024BA4B /* Answer.swift in Sources */,
@@ -572,6 +587,7 @@
 				CC5B2AEF28125B0200D16886 /* RealmTopicSevice.swift in Sources */,
 				CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */,
 				CC839156282CC23000C87C29 /* Data.swift in Sources */,
+				CC584A4528373E9600B26798 /* ContainerView.swift in Sources */,
 				CC74C1802810F3E3009D612E /* Screen.swift in Sources */,
 				CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */,
 				CC78C9B928096C340089FD30 /* TabViewModel.swift in Sources */,

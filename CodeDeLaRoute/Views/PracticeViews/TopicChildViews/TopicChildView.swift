@@ -10,9 +10,10 @@ import SwiftUI
 struct TopicChildView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     var title: String
-    var total: Int
     
     var body: some View {
+        let value = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].correctNumber)
+        let total = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].totalQuestionNumber)
         VStack {
             HStack {
                 BackHearderLeftView(title: title, color: Color.blue1!)
@@ -23,7 +24,7 @@ struct TopicChildView: View {
             .padding(.bottom)
             
             VStack {
-                ProgressView(value: 5, total: 10)
+                ProgressView(value: value, total: total)
                     .accentColor(Color.blue1)
                     .background(Color.blue3)
                       .frame(height: 8.0)
@@ -45,13 +46,18 @@ struct TopicChildView: View {
                     .padding(.trailing)
                     
                     VStack(alignment: .leading) {
-                        Text(String(total))
+                        Text(String(Int(total)))
                             .foregroundColor(.blue1)
                             .font(.system(size: 24, weight: .bold))
                             .padding(.bottom, 8.0)
-                        Text("0")
-                            .foregroundColor(.blue1)
+                        HStack(alignment: .top) {
+                            Text(String(Int(value)))
+                                .foregroundColor(.blue1)
                             .font(.system(size: 24, weight: .bold))
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue1)
+                                .padding([.top, .leading], -8.0)
+                        }
 
                     }
                     Spacer()
@@ -90,6 +96,6 @@ struct TopicChildView: View {
 
 struct TopicChildView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicChildView(title: "Topic", total: 10)
+        TopicChildView(title: "Topic")
     }
 }
