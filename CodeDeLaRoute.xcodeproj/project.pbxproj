@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		80A1F362282600430045C993 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A1F361282600430045C993 /* Tabs.swift */; };
+		CC0D0B2D283F245600FE47E4 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2C283F245600FE47E4 /* PopupView.swift */; };
+		CC0D0B30283F373900FE47E4 /* ProgressDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */; };
+		CC0D0B32283F5BFF00FE47E4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B31283F5BFF00FE47E4 /* Date.swift */; };
 		CC0E1B97280E574D00A7AE1D /* HeaderPracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B96280E574D00A7AE1D /* HeaderPracticeView.swift */; };
 		CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */; };
 		CC0E1B9D280E743D00A7AE1D /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */; };
@@ -50,6 +53,7 @@
 		CC6CA46D2807FE9300F60E63 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6CA46C2807FE9300F60E63 /* PracticeView.swift */; };
 		CC6CA46F2807FFC800F60E63 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6CA46E2807FFC800F60E63 /* TestView.swift */; };
 		CC6CA4712807FFE100F60E63 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6CA4702807FFE100F60E63 /* ReviewView.swift */; };
+		CC6E300D2840798D0062BC86 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E300C2840798D0062BC86 /* TestViewModel.swift */; };
 		CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */; };
 		CC74C1802810F3E3009D612E /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C17F2810F3E3009D612E /* Screen.swift */; };
 		CC74C18228110117009D612E /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C18128110117009D612E /* ButtonView.swift */; };
@@ -59,6 +63,7 @@
 		CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C18E28114C51009D612E /* BackHearderLeftView.swift */; };
 		CC74C191281160EA009D612E /* BackGroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C190281160EA009D612E /* BackGroundView.swift */; };
 		CC78C9B928096C340089FD30 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78C9B828096C340089FD30 /* TabViewModel.swift */; };
+		CC7904B1283F10180021F1DA /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = CC7904B0283F10180021F1DA /* PopupView */; };
 		CC7B2C1B282A0C3F005610C3 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C15282A0C3E005610C3 /* db.realm */; };
 		CC7B2C1C282A0C3F005610C3 /* db.realm.lock in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C16282A0C3F005610C3 /* db.realm.lock */; };
 		CC7B2C1D282A0C3F005610C3 /* access_control.balance.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */; };
@@ -92,6 +97,9 @@
 
 /* Begin PBXFileReference section */
 		80A1F361282600430045C993 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		CC0D0B2C283F245600FE47E4 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDayView.swift; sourceTree = "<group>"; };
+		CC0D0B31283F5BFF00FE47E4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		CC0E1B96280E574D00A7AE1D /* HeaderPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPracticeView.swift; sourceTree = "<group>"; };
 		CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
@@ -133,6 +141,7 @@
 		CC6CA46C2807FE9300F60E63 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		CC6CA46E2807FFC800F60E63 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		CC6CA4702807FFE100F60E63 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		CC6E300C2840798D0062BC86 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTopicProgress.swift; sourceTree = "<group>"; };
 		CC74C17F2810F3E3009D612E /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		CC74C18128110117009D612E /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -163,6 +172,7 @@
 			files = (
 				CC4F6C96282E4EF2005D7DDD /* RealmSwift in Frameworks */,
 				CC4F6C94282E4EF2005D7DDD /* Realm in Frameworks */,
+				CC7904B1283F10180021F1DA /* PopupView in Frameworks */,
 				CC43B17D280FF6590080B6B3 /* SVGKitSwift in Frameworks */,
 				CC43B17B280FF6590080B6B3 /* SVGKit in Frameworks */,
 			);
@@ -193,6 +203,14 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		CC0D0B2E283F363B00FE47E4 /* HeaderViews */ = {
+			isa = PBXGroup;
+			children = (
+				CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */,
+			);
+			path = HeaderViews;
+			sourceTree = "<group>";
+		};
 		CC0E1B98280E5CB600A7AE1D /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +221,7 @@
 				CC74C183281108C8009D612E /* DividingLineView.swift */,
 				CC74C18E28114C51009D612E /* BackHearderLeftView.swift */,
 				CC74C190281160EA009D612E /* BackGroundView.swift */,
+				CC0D0B2C283F245600FE47E4 /* PopupView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -236,6 +255,7 @@
 				CC516C1C2806DB110045DAB1 /* Color.swift */,
 				CC3C621D281A3B490035E71E /* String.swift */,
 				CC839155282CC23000C87C29 /* Data.swift */,
+				CC0D0B31283F5BFF00FE47E4 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -308,6 +328,7 @@
 		CC516C182806CAE10045DAB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC0D0B2E283F363B00FE47E4 /* HeaderViews */,
 				CC584A4128373DC200B26798 /* StartView */,
 				CC0E1B98280E5CB600A7AE1D /* Components */,
 				CC6CA46B2807FE5900F60E63 /* ReviewViews */,
@@ -340,6 +361,7 @@
 				CC7C011A2807BE170078E93C /* PracticeViewModel.swift */,
 				CC78C9B828096C340089FD30 /* TabViewModel.swift */,
 				CC2C65FA28194CDE00CD99A5 /* ViewModel.swift */,
+				CC6E300C2840798D0062BC86 /* TestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -443,6 +465,7 @@
 				CC43B17C280FF6590080B6B3 /* SVGKitSwift */,
 				CC4F6C93282E4EF2005D7DDD /* Realm */,
 				CC4F6C95282E4EF2005D7DDD /* RealmSwift */,
+				CC7904B0283F10180021F1DA /* PopupView */,
 			);
 			productName = CodeDeLaRoute;
 			productReference = CC516BEB2806CAC80045DAB1 /* CodeDeLaRoute.app */;
@@ -519,6 +542,7 @@
 			packageReferences = (
 				CC43B179280FF6590080B6B3 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				CC4F6C92282E4EF2005D7DDD /* XCRemoteSwiftPackageReference "realm-swift" */,
+				CC7904AF283F10170021F1DA /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = CC516BEC2806CAC80045DAB1 /* Products */;
 			projectDirPath = "";
@@ -575,9 +599,11 @@
 				CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */,
 				CC6CA4662807CDFA00F60E63 /* Question.swift in Sources */,
 				CC34F31C281789320024BA4B /* Answer.swift in Sources */,
+				CC0D0B30283F373900FE47E4 /* ProgressDayView.swift in Sources */,
 				CC516BEF2806CAC80045DAB1 /* CodeDeLaRouteApp.swift in Sources */,
 				CC34F32028178D8D0024BA4B /* TopicProgress.swift in Sources */,
 				CC74C18D281147CF009D612E /* TopicChildView.swift in Sources */,
+				CC0D0B32283F5BFF00FE47E4 /* Date.swift in Sources */,
 				CC2C65F3281931F400CD99A5 /* QuestionView.swift in Sources */,
 				CC516C1D2806DB110045DAB1 /* Color.swift in Sources */,
 				CC59EF41281B9A21005F251A /* BodyQuestionView.swift in Sources */,
@@ -601,6 +627,7 @@
 				CC3C6220281A56CA0035E71E /* FooterQuestionView.swift in Sources */,
 				CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */,
 				CC2C65FB28194CDE00CD99A5 /* ViewModel.swift in Sources */,
+				CC0D0B2D283F245600FE47E4 /* PopupView.swift in Sources */,
 				CC6CA4682807CE5800F60E63 /* TopicQuestion.swift in Sources */,
 				CC6CA46F2807FFC800F60E63 /* TestView.swift in Sources */,
 				CC0E1B97280E574D00A7AE1D /* HeaderPracticeView.swift in Sources */,
@@ -617,6 +644,7 @@
 				CC0E1B9F280E76F200A7AE1D /* TopicRowView.swift in Sources */,
 				CC74C18828113694009D612E /* AppInfo.swift in Sources */,
 				CC3C621E281A3B490035E71E /* String.swift in Sources */,
+				CC6E300D2840798D0062BC86 /* TestViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,6 +1011,14 @@
 				kind = branch;
 			};
 		};
+		CC7904AF283F10170021F1DA /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1005,6 +1041,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CC4F6C92282E4EF2005D7DDD /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		CC7904B0283F10180021F1DA /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC7904AF283F10170021F1DA /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

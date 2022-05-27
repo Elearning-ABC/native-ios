@@ -13,7 +13,7 @@ struct PracticeView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 0) {
             HeaderPracticeView()
   
             ScrollView{
@@ -34,10 +34,7 @@ struct PracticeView: View {
                     }
                     
                 }.padding()
-            }
-            .padding(.vertical, -8.0)
-            Spacer()
-                
+            }           
         }
         
     }

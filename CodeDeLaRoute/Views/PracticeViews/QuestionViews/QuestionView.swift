@@ -6,24 +6,51 @@
 //
 
 import SwiftUI
+import PopupView
 
 struct QuestionView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
+    @State var showPopup: Bool = false
     var body: some View {
         VStack {
-            ZStack {
-                if viewModel.showSucsessAnswer{
-                    AnswerSuccessView()
-                }else{
+            if viewModel.showSucsessAnswer{
+                AnswerSuccessView()
+            }else{
+                ZStack {
                     VStack {
                         HearderQuestionView(title: viewModel.process.title)
                         VStack{
                             BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
                         }
                         .padding()
-                        FooterQuestionView()
+                        FooterQuestionView(showPopup: $showPopup)
+                    }
+                    
+                    if showPopup{
+                        VStack{
+                            Spacer()
+                        }
+                        .frame(width: Screen.width, height: Screen.height)
+                        .background(Color.black)
+                        .opacity(0.4)
                     }
                 }
+                .popup(isPresented: $showPopup, type: .toast, position: .bottom,closeOnTap: false, closeOnTapOutside: true) {
+                    
+                    PopupView(showPopup: $showPopup){
+                        VStack{
+                            Text("Report mistake")
+                                .font(.title2)
+                                .foregroundColor(.blue1)
+                                .padding()
+                            Spacer()
+                        }
+                        .frame(width: Screen.width, height: Screen.height/2)
+                        .background(BackGroundView())
+                    }
+                }
+                    
+                
             }
         }
         .background(BackGroundView())
@@ -33,6 +60,6 @@ struct QuestionView: View {
 
 struct QuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView()
+        QuestionView().environmentObject(PracticeViewModel())
     }
 }

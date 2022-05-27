@@ -14,7 +14,7 @@ struct TopicChildView: View {
     var body: some View {
         let value = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].correctNumber)
         let total = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].totalQuestionNumber)
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 BackHearderLeftView(title: title, color: Color.blue1!)
                     
@@ -75,7 +75,6 @@ struct TopicChildView: View {
                                 .padding(.bottom, 14.0)
                     }
                 }
-                .padding(.bottom, -8.0)
                 Spacer()
             }
             .padding(.horizontal, 20.0)
@@ -83,9 +82,6 @@ struct TopicChildView: View {
             .background(Color.white.opacity(0.6))
             .cornerRadius(25, corners: [.topLeft, .topRight])
             
-            
-            Spacer()
-     
         }.padding(.top, Screen.statusBarHeight)
          .background(BackGroundView())
          .ignoresSafeArea()

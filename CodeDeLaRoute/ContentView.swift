@@ -13,43 +13,42 @@ struct ContentView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     
     var body: some View {
-        VStack() {
-            VStack{
-                TabView(selection: $tabViewModel.active){
-                    PracticeView()
-                        .tag(Tabs.tab1)
-                    TestView()
-                        .tag(Tabs.tab2)
-                    ReviewView()
-                        .tag(Tabs.tab3)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .padding(.top, -Screen.statusBarHeight)
-                .padding(.bottom, -8.0)
-                
-                HStack{
-                    Spacer()
-                        ForEach(
-                            tabViewModel.TabData,
-                            id: \.self
-                        ) {
-                            item in
-                            VStack{
-                                Image(item.image)
-                                    .renderingMode(item.active == tabViewModel.active ? .template : .original)
-                                    .foregroundColor(.blue1)
-                            }
-                            .onTapGesture {
-                                tabViewModel.switchTab(tab: item.active)
-                            }
-                            .frame(width: 60, height: 30)
-                            Spacer()
-                        }
-                }
-                .padding(.vertical, 30.0)
-                .background(Color.white)
-                
+        VStack(spacing:0){
+            TabView(selection: $tabViewModel.active){
+                PracticeView()
+                    .tag(Tabs.tab1)
+                TestView()
+                    .tag(Tabs.tab2)
+                ReviewView()
+                    .tag(Tabs.tab3)
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .padding(.top, -Screen.statusBarHeight)
+            
+            
+            HStack{
+                Spacer()
+                    ForEach(
+                        tabViewModel.TabData,
+                        id: \.self
+                    ) {
+                        item in
+                        VStack{
+                            Image(item.image)
+                                .renderingMode(item.active == tabViewModel.active ? .template : .original)
+                                .foregroundColor(.blue1)
+                        }
+                        .onTapGesture {
+                            tabViewModel.switchTab(tab: item.active)
+                        }
+                        .frame(width: 60, height: 30)
+                        Spacer()
+                    }
+            }
+            .padding(.bottom, 40.0)
+            .padding(.top, 15.0)
+            .background(Color.white)
+                
         }
         .background(BackGroundView())
         .ignoresSafeArea()

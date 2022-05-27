@@ -13,6 +13,7 @@ extension Color {
     static let blue1 = Color("#002395")
     static let blue2 = Color("#2B5AF5")
     static let blue3 = Color("#CAD1F5")
+    static let blue4 = Color("#EDF0FF")
     static let red = Color("#ED2939")
     static let gray2 = Color("#C4C4C4")
     static let green = Color("#00C17C")

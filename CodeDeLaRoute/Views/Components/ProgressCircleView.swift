@@ -11,6 +11,7 @@ struct ProgressCircleView: View {
     @State var progress: Double
     var total: Double
     var color: Color = Color.blue
+    var content: String
     var width: Double = 10
         
     var body: some View {
@@ -29,7 +30,7 @@ struct ProgressCircleView: View {
                 .rotation3DEffect(
                     Angle.degrees(180), axis: (0, 1, 0))
 
-            Text(String(Int(self.progress)))
+            Text(content)
                 .foregroundColor(.blue1)
                 .font(.system(size: 12, weight: .heavy))
                 .bold()
@@ -39,6 +40,6 @@ struct ProgressCircleView: View {
 
 struct ProgressCircle_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressCircleView(progress: 2, total: 10)
+        ProgressCircleView(progress: 2, total: 10, content: "ok")
     }
 }

@@ -8,6 +8,13 @@
 import Foundation
 
 class ViewModel: ObservableObject{
-   
-
+    @Published var testViewModel: TestViewModel
+    init(testViewModel: TestViewModel = TestViewModel()){
+        self.testViewModel = testViewModel
+    }
+    
+    
+    func test()->TestViewModel{
+        return TestViewModel()
+    }
 }
