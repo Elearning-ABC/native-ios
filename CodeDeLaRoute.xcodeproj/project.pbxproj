@@ -76,6 +76,7 @@
 		CC839156282CC23000C87C29 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC839155282CC23000C87C29 /* Data.swift */; };
 		CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */; };
 		CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */; };
+		CCF12E182845BE5900589287 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF12E172845BE5900589287 /* RealmManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +164,7 @@
 		CC839155282CC23000C87C29 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSuccessView.swift; sourceTree = "<group>"; };
 		CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionService.swift; sourceTree = "<group>"; };
+		CCF12E172845BE5900589287 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +376,7 @@
 				CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */,
 				CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */,
 				CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */,
+				CCF12E172845BE5900589287 /* RealmManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				CC0E1B97280E574D00A7AE1D /* HeaderPracticeView.swift in Sources */,
 				CC43B17F280FFF440080B6B3 /* Image.swift in Sources */,
 				CC7C011B2807BE170078E93C /* PracticeViewModel.swift in Sources */,
+				CCF12E182845BE5900589287 /* RealmManager.swift in Sources */,
 				CC6CA4712807FFE100F60E63 /* ReviewView.swift in Sources */,
 				CC34F32228178E2C0024BA4B /* QuestionProgress.swift in Sources */,
 				CC6CA46D2807FE9300F60E63 /* PracticeView.swift in Sources */,

@@ -24,13 +24,13 @@ class RealmService {
         self.realmQuestionProgress = RealmQuestionProgress(realm: self.localRealm)
         self.realmTopicProgress = RealmTopicProgress(realm: self.localRealm)
     }
+    
 }
 
 class RealmFile{
     private var realm : Realm?
     
     func openRealm()-> Realm {
-        
         do{
             let confige = Realm.Configuration(
                 fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
@@ -56,11 +56,9 @@ class RealmLocal{
             let config = Realm.Configuration(schemaVersion: 1)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
-            return try Realm()
         }catch{
             print("Error opening Realm: \(error)")
         }
         return localRealm!
     }
-    
 }
