@@ -26,11 +26,21 @@ struct FooterQuestionView: View {
             
             Spacer()
             VStack{
-                Image(systemName: "heart")
-                    .foregroundColor(.blue3)
-                    .font(.system(size: 20))
+                if viewModel.listQuestionProgress[0].bookmark
+                {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.blue1)
+                        .font(.system(size: 20))
+                }else{
+                    Image(systemName: "heart")
+                        .foregroundColor(.blue3)
+                        .font(.system(size: 20))
+                }
             }
             .frame(width: 60, height: 30)
+            .onTapGesture {
+                viewModel.updateBookmark()
+            }
             
             Spacer()
             
@@ -41,7 +51,9 @@ struct FooterQuestionView: View {
             }
             .frame(width: 60, height: 30)
             .onTapGesture {
-                viewModel.updateListQuestionProgress()
+                withAnimation(.easeIn){
+                    viewModel.updateListQuestionProgress()
+                }
             }
             
             

@@ -45,8 +45,10 @@ class RealmTopicProgress{
     
     func write(topicProgressApp obj: TopicProgressApp){
         let topicProgress = realm.object(ofType: TopicProgress.self, forPrimaryKey: obj.id)
+        let now = Date().timeIntervalSince1970
+        
         if topicProgress == nil {
-            let newTopicProgress = TopicProgress(value: ["id": obj.id, "topicId": obj.topicId,"totalQuestionNumber": obj.totalQuestionNumber, "correctNumber": obj.correctNumber])
+            let newTopicProgress = TopicProgress(value: ["id": obj.id, "topicId": obj.topicId,"totalQuestionNumber": obj.totalQuestionNumber, "correctNumber": obj.correctNumber, "lastUpdate": now])
             
             try! realm.write{
                 realm.add(newTopicProgress)

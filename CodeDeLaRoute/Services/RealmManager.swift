@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 
-
 protocol RealmServicceProtocol{
     associatedtype Entity
     
@@ -54,7 +53,19 @@ class RealmManager<T: Object>: RealmServicceProtocol{
     }
     
     func save(entity: T) -> Bool {
-        return true
+        guard let realm = realm else {
+            return false
+        }
+        do{
+            try realm.write{
+                realm.add(entity, update: .all)
+                realm.refresh()
+            }
+            return true
+        }catch{
+            print("save error:",entity)
+            return false
+        }
     }
     
     func save(entities: [T]) -> [Bool] {

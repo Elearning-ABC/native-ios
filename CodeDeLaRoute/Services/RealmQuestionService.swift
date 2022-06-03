@@ -66,5 +66,9 @@ class RealmQuestionService{
         return array
     }
     
+    func getAnswer(id: String)-> Answer{
+        let answer = realm.object(ofType: Answer.self, forPrimaryKey: id)
+        return answer!
+    }
     
 }

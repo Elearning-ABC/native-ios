@@ -21,6 +21,7 @@ struct QuestionView: View {
                         HearderQuestionView(title: viewModel.process.title)
                         VStack{
                             BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
+                                .transition(.slide)
                         }
                         .padding()
                         FooterQuestionView(showPopup: $showPopup)

@@ -12,31 +12,16 @@ struct PracticeView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     
     var body: some View {
-        
-        VStack(spacing: 0) {
-            HeaderPracticeView()
-  
-            ScrollView{
+        ScrollView{
+            VStack{
+                ForEach(viewModel.topics){
+                    topic in
+                    TopicRowView(name: topic.name, urlIcon: topic.icon, id: topic.id, totalQuestion: topic.totalQuestion)
+                        .padding(.bottom, 14.0)
+                }
                 
-                ButtonView(title: "Sart learning", color: Color.red)
-                    .padding(.top)
-                    .padding(.horizontal, 50.0)
-                    .onTapGesture {
-                        print("ok")
-                    }
-                
-                VStack{
-                    ForEach(viewModel.topics){
-                        topic in
-                        TopicRowView(name: topic.name, urlIcon: topic.icon, id: topic.id, totalQuestion: topic.totalQuestion)
-                            .padding(.bottom, 14.0)
-                        
-                    }
-                    
-                }.padding()
-            }           
+            }.padding()
         }
-        
     }
 }
 

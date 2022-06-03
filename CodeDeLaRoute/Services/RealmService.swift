@@ -17,20 +17,25 @@ class RealmService {
     var realmTopicProgress: RealmTopicProgress
     
     init(realmFile: RealmFile = RealmFile(), localRealm: RealmLocal = RealmLocal()){
-        self.realmFile = realmFile.openRealm()
+        self.realmFile = RealmFile.shared.realm!
         self.localRealm = localRealm.openRealm()
         self.realmTopicService = RealmTopicService(realm: self.realmFile)
         self.realmQuestion = RealmQuestionService(realm: self.realmFile)
         self.realmQuestionProgress = RealmQuestionProgress(realm: self.localRealm)
         self.realmTopicProgress = RealmTopicProgress(realm: self.localRealm)
     }
-    
 }
 
 class RealmFile{
-    private var realm : Realm?
+    static let shared = RealmFile()
+    var realm : Realm?
     
-    func openRealm()-> Realm {
+    init(){
+        openRealm()
+    }
+    
+    func openRealm(){
+        
         do{
             let confige = Realm.Configuration(
                 fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
@@ -38,13 +43,9 @@ class RealmFile{
                 schemaVersion: 1
             )
             realm = try Realm(configuration: confige)
-            
         }catch{
             print("Error opening Realm: \(error)")
         }
-        
-        return realm!
-
     }
 }
 
@@ -61,4 +62,13 @@ class RealmLocal{
         }
         return localRealm!
     }
+    
+}
+
+func convertListToArray<T>(list: List<T>) -> [T]{
+    var array: [T] = []
+    for item in list{
+        array.append(item)
+    }
+    return array
 }

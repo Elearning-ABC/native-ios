@@ -14,6 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing:0){
+            HeaderView()
             TabView(selection: $tabViewModel.active){
                 PracticeView()
                     .tag(Tabs.tab1)
@@ -23,7 +24,7 @@ struct ContentView: View {
                     .tag(Tabs.tab3)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .padding(.top, -Screen.statusBarHeight)
+            .padding(.top)
             
             
             HStack{
@@ -52,7 +53,9 @@ struct ContentView: View {
         }
         .background(BackGroundView())
         .ignoresSafeArea()
-        
+        .onAppear{
+            print("test")
+        }
     }
 }
 

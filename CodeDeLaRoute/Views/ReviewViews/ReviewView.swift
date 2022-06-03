@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewView: View {
+    @StateObject var viewModel = ReviewViewModel()
     var body: some View {
         VStack {
             Text("Review")

@@ -42,10 +42,10 @@ struct TopicChildRowView: View {
             .cornerRadius(8)
             .shadow(color: .blue3!, radius: 5, x: 0, y: 14)
             .onTapGesture {
-                viewModel.getListQuestion(id: topic.id)
                 viewModel.process.indexTopic = indexTopicProgress
                 viewModel.process.indexListChildTopic = index
                 viewModel.process.title = topic.name
+                viewModel.getListQuestion(id: topic.id)
                 isActive = true
             }
         }

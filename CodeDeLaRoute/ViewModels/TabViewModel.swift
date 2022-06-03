@@ -25,11 +25,6 @@ class TabViewModel: ObservableObject{
         let tab3 = TabItemData(image: "Eye.icon", active: .tab3, title: "Review")
         
         self.TabData = [tab1, tab2, tab3]
-        
-        // test realmManager
-        let test = RealmManager<TopicProgress>()
-        let array = test.queryAll()
-        print(array)
     }
     
     func switchTab(tab: Tabs){
