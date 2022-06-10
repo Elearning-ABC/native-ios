@@ -16,7 +16,8 @@ struct TopicChildRowView: View {
         let indexTopicProgress = viewModel.getIndexTopicProgress(id: topic.id)
         let value = Double(viewModel.listTopicProgress[indexTopicProgress].correctNumber)
         let total = Double(viewModel.listTopicProgress[indexTopicProgress].totalQuestionNumber)
-        NavigationLink(destination: QuestionView()
+        NavigationLink(destination:
+                        QuestionView()
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
                        ,

@@ -46,7 +46,6 @@ class RealmQuestionProgress{
         let questionProgress = realm.objects(QuestionProgress.self).filter(NSPredicate(format: "id == %@", obj.id))
         let now = Date().timeIntervalSince1970
         guard !questionProgress.isEmpty else { return }
-        print(questionProgress)
         
         try! realm.write {
             questionProgress[0].boxNum = obj.boxNum

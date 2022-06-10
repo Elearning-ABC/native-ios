@@ -31,6 +31,7 @@ struct QuestionProgressApp: Identifiable{
     var boxNum: Int
     var lastUpdate: Double
     var bookmark: Bool
+    var index: Int?
     
     init(questionProgress obj: QuestionProgress){
         id = obj.id

@@ -12,10 +12,13 @@ protocol RealmServicceProtocol{
     associatedtype Entity
     
     func queryAll() -> [Entity]
-    func query(with predicate: NSPredicate, sortDesscriptors: [NSSortDescriptor]) -> [Entity]
+    func queryWithId(id: String) -> Entity?
+    func queryGroupByIdOther(id: String, properties: String)->[Entity]
     
     func save(entity: Entity) -> Bool
     func save(entities: [Entity])-> [Bool]
+    
+    func update(entity: Entity)-> Bool
     
     func delete(entity: Entity) -> Bool
     func delete(entities: [Entity]) ->Bool
@@ -30,11 +33,23 @@ class RealmManager<T: Object>: RealmServicceProtocol{
     private var realm: Realm?{
         return try? Realm(configuration: self.configuration)
     }
-    
-    init(){
-        self.configuration = Realm.Configuration(
-            schemaVersion: 1
-        )
+    enum fileURL{
+        case file
+        case local
+    }
+    init(fileURL: fileURL){
+        switch fileURL {
+        case .file:
+            self.configuration = Realm.Configuration(
+                fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+                encryptionKey: Data(hexString: Constant.encryptionKey),
+                schemaVersion: 1
+            )
+        case .local:
+            self.configuration = Realm.Configuration(
+                schemaVersion: 1
+            )
+        }
     }
     
     func queryAll() -> [T] {
@@ -48,8 +63,21 @@ class RealmManager<T: Object>: RealmServicceProtocol{
 
     }
     
-    func query(with predicate: NSPredicate, sortDesscriptors: [NSSortDescriptor]) -> [T] {
-        return []
+    func queryWithId(id: String) -> T?{
+        guard let realm = realm else {
+            return nil
+        }
+        let object = realm.object(ofType: T.self, forPrimaryKey: id)
+        return object
+    }
+    
+    func queryGroupByIdOther(id: String, properties: String) -> [T] {
+        guard let realm = realm else {
+            return []
+        }
+        let objects = realm.objects(T.self).filter(NSPredicate(format: "\(properties) == %@", id))
+        
+        return Array(objects)
     }
     
     func save(entity: T) -> Bool {
@@ -64,6 +92,22 @@ class RealmManager<T: Object>: RealmServicceProtocol{
             return true
         }catch{
             print("save error:",entity)
+            return false
+        }
+    }
+    
+    func update(entity: T) -> Bool {
+        guard let realm = realm else {
+            return false
+        }
+        do{
+            try realm.write{
+                realm.add(entity, update: .modified)
+                realm.refresh()
+            }
+            return true
+        }catch{
+            print("Update error:",entity)
             return false
         }
     }

@@ -18,7 +18,7 @@ struct BackHearderLeftView: View {
                 .font(.system(size: 20.0))
                 
             Text(title)
-                .font(.system(size: 24, weight: .medium))
+                .font(.system(size: 20, weight: .medium))
                 .foregroundColor(color)
             
         }

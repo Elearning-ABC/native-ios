@@ -53,9 +53,6 @@ struct ContentView: View {
         }
         .background(BackGroundView())
         .ignoresSafeArea()
-        .onAppear{
-            print("test")
-        }
     }
 }
 

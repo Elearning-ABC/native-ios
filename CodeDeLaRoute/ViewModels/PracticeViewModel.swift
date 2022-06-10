@@ -225,6 +225,7 @@ class PracticeViewModel: ObservableObject{
                 
             }
         }
+        
         setStatus(value: nil)
         resetQuestionView()
         if(process.correct == process.total){
