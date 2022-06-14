@@ -11,6 +11,7 @@ struct AnswerQuestionView: View {
     @StateObject var questionViewModel = QuestionViewModel()
     @EnvironmentObject var viewModel: ReviewViewModel
     var questionProgressApp: QuestionProgressApp
+    @State var showImage: Bool = false
     
     var body: some View {
         let Status = viewModel.status
@@ -139,6 +140,7 @@ struct AnswerQuestionView: View {
             }
             
             Spacer()
+            
         }
     }
 }
