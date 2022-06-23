@@ -7,20 +7,25 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 struct ContentView: View {
+    @Namespace var namespace
     @StateObject var tabViewModel = TabViewModel()
-    @EnvironmentObject var viewModel : PracticeViewModel
-    
+
     var body: some View {
         VStack(spacing:0){
+            
             HeaderView()
+            
             TabView(selection: $tabViewModel.active){
                 PracticeView()
+                    .environmentObject(PracticeViewModel())
                     .tag(Tabs.tab1)
+                
                 TestView()
                     .tag(Tabs.tab2)
+                
                 ReviewView()
+                    .environmentObject(ReviewViewModel(namespace: namespace))
                     .tag(Tabs.tab3)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -28,35 +33,36 @@ struct ContentView: View {
             
             
             HStack{
-                Spacer()
                     ForEach(
                         tabViewModel.TabData,
                         id: \.self
                     ) {
                         item in
-                        VStack{
+                        HStack{
+                            Spacer()
+
                             Image(item.image)
                                 .renderingMode(item.active == tabViewModel.active ? .template : .original)
                                 .foregroundColor(.blue1)
+                            Spacer()
                         }
+                        .frame(height: 60)
+                        .background(.white)
                         .onTapGesture {
-                            tabViewModel.switchTab(tab: item.active)
+                            withAnimation{
+                                tabViewModel.active = item.active
+                            }
                         }
-                        .frame(width: 60, height: 30)
-                        Spacer()
                     }
             }
-            .padding(.bottom, 40.0)
-            .padding(.top, 15.0)
+            .padding(.bottom)
             .background(Color.white)
-                
         }
         .background(BackGroundView())
         .ignoresSafeArea()
     }
 }
 
-@available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

@@ -36,7 +36,7 @@ class QuestionViewModel: ObservableObject{
     
     func getListAnswer(id: String) -> [Answer]{
         let realm = RealmManager<Answer>(fileURL: .file)
-        let listAnswer = realm.queryGroupByIdOther(id: id, properties: "questionId")
+        let listAnswer = realm.queryGroupByIdOther(id: id, property: .questionId)
         return listAnswer
     }
     

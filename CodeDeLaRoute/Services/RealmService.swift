@@ -16,9 +16,9 @@ class RealmService {
     var realmQuestionProgress: RealmQuestionProgress
     var realmTopicProgress: RealmTopicProgress
     
-    init(realmFile: RealmFile = RealmFile(), localRealm: RealmLocal = RealmLocal()){
+    init(){
+        self.localRealm = RealmLocal.shared.localRealm!
         self.realmFile = RealmFile.shared.realm!
-        self.localRealm = localRealm.openRealm()
         self.realmTopicService = RealmTopicService(realm: self.realmFile)
         self.realmQuestion = RealmQuestionService(realm: self.realmFile)
         self.realmQuestionProgress = RealmQuestionProgress(realm: self.localRealm)
@@ -35,32 +35,38 @@ class RealmFile{
     }
     
     func openRealm(){
-        
         do{
+            let key = Data(hexString: Constant.encryptionKey)
             let confige = Realm.Configuration(
                 fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
-                encryptionKey: Data(hexString: Constant.encryptionKey),
-                schemaVersion: 1
+                encryptionKey: key,
+                readOnly: true,
+                schemaVersion: 0
             )
             realm = try Realm(configuration: confige)
         }catch{
-            print("Error opening Realm: \(error)")
+            print("Error opening Realm file: \(error)")
         }
     }
 }
 
 class RealmLocal{
-    private var localRealm : Realm?
+    static let shared = RealmLocal()
+    var localRealm : Realm?
     
-    func openRealm()-> Realm{
+    init(){
+        openRealm()
+    }
+    
+    func openRealm(){
         do{
             let config = Realm.Configuration(schemaVersion: 1)
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         }catch{
-            print("Error opening Realm: \(error)")
+            print("Error opening Realm local: \(error)")
         }
-        return localRealm!
+        
     }
     
 }

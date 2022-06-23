@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct ReviewView: View {
-    @StateObject var viewModel = ReviewViewModel()
+    @EnvironmentObject var viewModel : ReviewViewModel
     
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             ReviewRowView(name: "Weak Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.weakQuestionPs)
-                .environmentObject(viewModel)
-            
+                
+
             ReviewRowView(name: "Medium Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.mediumQuestionPs)
-                .environmentObject(viewModel)
-            
+                
+
             ReviewRowView(name: "Strong Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.strongQuestionPs)
-                .environmentObject(viewModel)
-            
+                
+
             ReviewRowView(name: "All Familiar Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.allFamiliarQuestionPs)
-                .environmentObject(viewModel)
-            
+                
+
             ReviewRowView(name: "Your Favorite Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.favoriteQuestionPs)
-                .environmentObject(viewModel)
+                
         }
         .padding(.horizontal)
         .onAppear{

@@ -7,20 +7,19 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 @main
 struct CodeDeLaRouteApp: App {
-    @StateObject var viewModel = PracticeViewModel()
     @State var start = false
+    @StateObject var viewModel = ViewModel()
     var body: some Scene {
         WindowGroup {
             if start{
                 StartView(start: $start)
             }else{
                 NavigationView{
-                ContentView()
-                    .environmentObject(viewModel)
-                    .navigationBarHidden(true)
+                    ContentView()
+                            .environmentObject(viewModel)
+                            .navigationBarHidden(true)
                 }
             }
         }

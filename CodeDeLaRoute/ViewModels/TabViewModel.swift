@@ -26,12 +26,6 @@ class TabViewModel: ObservableObject{
         
         self.TabData = [tab1, tab2, tab3]
     }
-    
-    func switchTab(tab: Tabs){
-        self.active = tab
-    }
-    
-    
 }
 
 

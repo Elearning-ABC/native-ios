@@ -13,7 +13,7 @@ protocol RealmServicceProtocol{
     
     func queryAll() -> [Entity]
     func queryWithId(id: String) -> Entity?
-    func queryGroupByIdOther(id: String, properties: String)->[Entity]
+    func queryGroupByIdOther(id: String, property: Property)->[Entity]
     
     func save(entity: Entity) -> Bool
     func save(entities: [Entity])-> [Bool]
@@ -25,6 +25,11 @@ protocol RealmServicceProtocol{
     func deleteAll() -> Bool
 }
 
+enum Property: String{
+    case parentId = "parentId"
+    case questionId = "questionId"
+}
+
 class RealmManager<T: Object>: RealmServicceProtocol{
     typealias Entity = T
     
@@ -33,17 +38,23 @@ class RealmManager<T: Object>: RealmServicceProtocol{
     private var realm: Realm?{
         return try? Realm(configuration: self.configuration)
     }
+    
     enum fileURL{
         case file
         case local
     }
+    
+    
+    
     init(fileURL: fileURL){
         switch fileURL {
         case .file:
+            let key = Data(hexString: Constant.encryptionKey)
             self.configuration = Realm.Configuration(
                 fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
-                encryptionKey: Data(hexString: Constant.encryptionKey),
-                schemaVersion: 1
+                encryptionKey: key,
+                readOnly: true,
+                schemaVersion: 0
             )
         case .local:
             self.configuration = Realm.Configuration(
@@ -71,11 +82,11 @@ class RealmManager<T: Object>: RealmServicceProtocol{
         return object
     }
     
-    func queryGroupByIdOther(id: String, properties: String) -> [T] {
+    func queryGroupByIdOther(id: String, property : Property) -> [T] {
         guard let realm = realm else {
             return []
         }
-        let objects = realm.objects(T.self).filter(NSPredicate(format: "\(properties) == %@", id))
+        let objects = realm.objects(T.self).filter(NSPredicate(format: "\(property.rawValue) == %@", id))
         
         return Array(objects)
     }

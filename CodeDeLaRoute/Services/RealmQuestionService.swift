@@ -62,7 +62,6 @@ class RealmQuestionService{
             array.append(answer)
             
         }
-        array.shuffle()
         return array
     }
     

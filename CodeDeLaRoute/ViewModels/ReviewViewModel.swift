@@ -17,14 +17,16 @@ class ReviewViewModel: ObservableObject{
     @Published var favoriteQuestionPs = [QuestionProgressApp]()
     @Published var listQuestionProgress = [QuestionProgressApp]()
     @Published var isShowNoQuestion : Bool = false
+    @Published var showImage: Bool = false
+    @Published var imageString : String = ""
+    @Published var namespace: Namespace.ID
+    @Published var imageId: String = "0"
     
     
-
-    
-    
-    init(realmService: RealmService = RealmService()){
+    init(realmService: RealmService = RealmService(), namespace: Namespace.ID){
         self.realmService = realmService
         self.status = Status(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
+        self.namespace = namespace
         getAllQuestion()
     }
     

@@ -9,15 +9,16 @@ import SwiftUI
 
 struct TopicChildView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
-    var title: String
-    
+    @State var childrenTopics = [Topic]()
+    var topic: Topic
+
     var body: some View {
         let value = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].correctNumber)
         let total = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].totalQuestionNumber)
+        
         VStack(spacing: 0) {
             HStack {
-                BackHearderLeftView(title: title, color: Color.blue1!)
-                    
+                BackHearderLeftView(title: topic.name, color: Color.blue1!)
                 Spacer()
             }
             .padding(.horizontal, 24.0)
@@ -68,9 +69,9 @@ struct TopicChildView: View {
             
             VStack {
                 ScrollView(showsIndicators: false){
-                    ForEach(viewModel.listChildTopics){
+                    ForEach(childrenTopics){
                         topic in
-                        let index = viewModel.listChildTopics.firstIndex(where: {$0.id == topic.id})
+                        let index = childrenTopics.firstIndex(where: {$0.id == topic.id})
                         TopicChildRowView(topic: topic, index: index!)
                                 .padding(.bottom, 14.0)
                     }
@@ -85,13 +86,21 @@ struct TopicChildView: View {
         }.padding(.top, Screen.statusBarHeight)
          .background(BackGroundView())
          .ignoresSafeArea()
-         
-            
+         .onAppear{
+             childrenTopics = viewModel.getTopicsWithId(id: topic.id)
+
+             if childrenTopics != viewModel.listChildTopics{
+                 childrenTopics = viewModel.getTopicsWithId(id: topic.id)
+                 viewModel.listChildTopics = childrenTopics
+                 let indexTopicProgressApp = viewModel.getIndexTopicProgress(id: topic.id)
+                 viewModel.process.indexParentTopic = indexTopicProgressApp
+             }
+         }
     }
 }
 
 struct TopicChildView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicChildView(title: "Topic")
+        TopicChildView(topic: Topic())
     }
 }

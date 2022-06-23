@@ -20,7 +20,10 @@ class RealmTopicService{
     
     func getAppInfo(){
         let AppInfos = realm.objects(AppInfo.self)
-        self.appInfo = AppInfos[0]
+        if !AppInfos.isEmpty{
+            self.appInfo = AppInfos[0]
+        }
+        
         
     }
     

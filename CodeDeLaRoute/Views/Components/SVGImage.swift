@@ -51,22 +51,24 @@ struct SVGKFastImageViewSUI:UIViewRepresentable
     @Binding var url:URL
     @Binding var size:CGSize
     @Binding var tintColor: Color
-    
+
     func makeUIView(context: Context) -> SVGKFastImageView {
-       
+
        // let url = url
       //  let data = try? Data(contentsOf: url)
         let svgImage = SVGKImage(contentsOf: url)
-        return SVGKFastImageView(svgkImage: svgImage ?? SVGKImage())
+        svgImage!.size = size
+        svgImage!.fillColor(color: tintColor, opacity: 1)
         
+        return SVGKFastImageView(svgkImage: svgImage ?? SVGKImage())
+
     }
     func updateUIView(_ uiView: SVGKFastImageView, context: Context) {
-        uiView.image = SVGKImage(contentsOf: url)
-        
-        uiView.image.size = size
-        
-        uiView.image.fillColor(color: tintColor, opacity: 1)
+//        uiView.image = SVGKImage(contentsOf: url)
+//        uiView.image.size = size
+//        print(Date())
+//        uiView.image.fillColor(color: tintColor, opacity: 1)
     }
-    
-    
+
+
 }

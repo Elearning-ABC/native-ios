@@ -13,6 +13,7 @@ struct ReviewDetailView: View {
     var title: String
     
     var body: some View {
+        
         VStack{
             HStack {
                 BackHearderLeftView(title: "\(title) (\(viewModel.listQuestionProgress.count))")
@@ -22,28 +23,12 @@ struct ReviewDetailView: View {
                 ForEach(viewModel.listQuestionProgress){ questionProgressApp in
                     VStack{
                         HStack(alignment: .top) {
-                            HStack(alignment: .bottom) {
-                                ForEach(0..<questionProgressApp.progress.count, id: \.self){i in
-                                        VStack{
-                                            if questionProgressApp.progress[i] == 1{
-                                                Image(systemName: "checkmark")
-                                                    .foregroundColor(.green)
-                                                    .font(.system(size: 10))
-                                            }else{
-                                                Image(systemName: "multiply")
-                                                    .foregroundColor(.red)
-                                                    .font(.system(size: 12))
-
-                                            }
-                                        }
-
-                                }
-                            }
+                            ListProgressView(questionProgressApp: questionProgressApp)
                             Spacer()
                             BookmarkView(bookmark: questionProgressApp.bookmark, questionProgressApp: questionProgressApp)
                         }
                         .padding(.bottom, 8.0)
-                        
+
 
                         if let question = viewModel.getQuestion(questionId: questionProgressApp.questionId){
                             QuestionReviewRowView(question: question )
@@ -56,7 +41,7 @@ struct ReviewDetailView: View {
                 }
             }
             Spacer()
-            
+
             NavigationLink(
                 destination: ReviewQuestionView( title: title)
                     .environmentObject(viewModel)
@@ -78,12 +63,13 @@ struct ReviewDetailView: View {
                     isActive = true
                 }
             }
-            
-            
-
         }
         .padding(.horizontal)
+        .padding(.top, Screen.statusBarHeight)
+        .padding(.bottom)
         .background(BackGroundView())
+        .ignoresSafeArea()
+        .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
         .onAppear(){
             viewModel.resetReviewAnswer()
         }
@@ -115,6 +101,29 @@ struct BookmarkView: View {
         }.onTapGesture {
             bookmark.toggle()
             viewModel.bookmarkToggle(questionProgressApp: questionProgressApp)
+        }
+    }
+}
+
+struct ListProgressView: View{
+    var questionProgressApp: QuestionProgressApp
+    var body: some View{
+        HStack(alignment: .bottom) {
+            ForEach(0..<questionProgressApp.progress.count, id: \.self){i in
+                    VStack{
+                        if questionProgressApp.progress[i] == 1{
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.green)
+                                .font(.system(size: 10))
+                        }else{
+                            Image(systemName: "multiply")
+                                .foregroundColor(.red)
+                                .font(.system(size: 12))
+
+                        }
+                    }
+
+            }
         }
     }
 }

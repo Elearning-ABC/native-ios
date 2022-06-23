@@ -44,10 +44,11 @@ class PracticeViewModel: ObservableObject{
         return index!
     }
     
-    func getListChildTopics(id: String){
-        let result = realmService.realmTopicService.getChildTopics(id: id)
-        self.listChildTopics = result
-        
+    func getTopicsWithId(id: String)->[Topic]{
+        let topicRealm = RealmManager<Topic>(fileURL: .file)
+        var topics = topicRealm.queryGroupByIdOther(id: id, property: .parentId)
+        topics = topics.sorted(by: {$0.name < $1.name})
+        return topics
     }
     
     func reset(){
@@ -73,7 +74,6 @@ class PracticeViewModel: ObservableObject{
                 newQuestion += 1
             }
         }
-        
         process.newQuestion = newQuestion
         process.total = CGFloat(listQuestion.count)
         updateProcess()
@@ -86,12 +86,18 @@ class PracticeViewModel: ObservableObject{
     }
     
     func getListAnswer(id: String) -> [Answer]{
-        let listAnswer = (realmService.realmQuestion.getListAnswer(id: id))
+        var listAnswer = (realmService.realmQuestion.getListAnswer(id: id))
+        listAnswer.shuffle()
         return listAnswer
     }
     
+    func updateBookmark(){
+        let bookmark = listQuestionProgress[0].bookmark
+        listQuestionProgress[0].bookmark = !bookmark
+        realmService.realmQuestionProgress.updateBookmark(questionProgress: listQuestionProgress[0])
+    }
+    
     func setStatus(value: Int?){
-        
         let questionProgress = listQuestionProgress[0]
         let question = getQuestion(id: questionProgress.questionId)
         let lengthChoiceSelected = questionProgress.choiceSelectedIds.count
@@ -140,7 +146,6 @@ class PracticeViewModel: ObservableObject{
                 listTopicProgress[process.indexTopic].correctNumber += 1
                 listTopicProgress[process.indexParentTopic].correctNumber += 1
             }
-            
             listQuestionProgress[0].boxNum = 1
             listQuestionProgress[0].progress.append(1)
             setStatus(value: 2)
@@ -149,8 +154,10 @@ class PracticeViewModel: ObservableObject{
             setStatus(value: 3)
             
             if listQuestionProgress[0].boxNum == 1 && listTopicProgress[process.indexTopic].correctNumber > 0{
+                
                 listTopicProgress[process.indexTopic].correctNumber += -1
                 listTopicProgress[process.indexParentTopic].correctNumber += -1
+                
             }
             listQuestionProgress[0].progress.append(0)
             listQuestionProgress[0].boxNum = -1
@@ -167,11 +174,7 @@ class PracticeViewModel: ObservableObject{
         showCorrectAnswer = true
     }
     
-    func updateBookmark(){
-        let bookmark = listQuestionProgress[0].bookmark
-        listQuestionProgress[0].bookmark = !bookmark
-        realmService.realmQuestionProgress.updateBookmark(questionProgress: listQuestionProgress[0])
-    }
+    
     
     func updateProcess(){
         let correct = listTopicProgress[process.indexTopic].correctNumber

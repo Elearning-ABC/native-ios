@@ -17,13 +17,13 @@ struct QuestionView: View {
                 AnswerSuccessView()
             }else{
                 ZStack {
-                    VStack {
+                    VStack(spacing: 0) {
                         HearderQuestionView(title: viewModel.process.title)
-                        VStack{
+                        VStack(spacing: 0){
                             BodyQuestionView(questionProgress: viewModel.listQuestionProgress[0])
                                 .transition(.slide)
                         }
-                        .padding()
+                        .padding([.top, .leading, .trailing])
                         FooterQuestionView(showPopup: $showPopup)
                     }
                     
@@ -50,8 +50,6 @@ struct QuestionView: View {
                         .background(BackGroundView())
                     }
                 }
-                    
-                
             }
         }
         .background(BackGroundView())

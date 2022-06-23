@@ -7,36 +7,29 @@
 
 import SwiftUI
 
-
-@available(iOS 15.0, *)
 struct TopicRowView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
-    @State var isActive: Bool = false
-    var name: String
-    var urlIcon: String
-    var id: String
-    var totalQuestion: Int
+    var topic: Topic
     
     var body: some View {
-        let index = viewModel.getIndexTopicProgress(id: id)
+        let index = viewModel.getIndexTopicProgress(id: topic.id)
         let value = Double(viewModel.listTopicProgress[index].correctNumber)
         let total = Double(viewModel.listTopicProgress[index].totalQuestionNumber)
         let percent = 100*value/total
-        NavigationLink(destination: TopicChildView(title: name)
+        
+        NavigationLink(destination: TopicChildView( topic: topic)
                         .environmentObject(viewModel)
                         .navigationBarHidden(true)
-                       ,
-                       isActive: $isActive
         ){
             VStack {
                 VStack {
                     HStack(alignment: .top) {
-                        Text(name)
+                        Text(topic.name)
                             .foregroundColor(.blue1)
                             .font(.system(size: 24, weight: .semibold))
                         Spacer()
                         VStack {
-                            SVGKFastImageViewSUI(url: .constant(URL(string: urlIcon)!), size: .constant(CGSize(width: 16,height: 16)), tintColor:  .constant(Color.white))
+                            SVGKFastImageViewSUI(url: .constant(URL(string: topic.icon)!), size: .constant(CGSize(width: 16,height: 16)), tintColor:  .constant(Color.white))
                                 .frame(width: 16, height: 16)
                         }
                         .frame(width: 24, height: 24)
@@ -71,19 +64,13 @@ struct TopicRowView: View {
             .padding()
             .background(Color.white)
             .cornerRadius(8)
-            .onTapGesture{
-                viewModel.getListChildTopics(id: id)
-                viewModel.process.indexParentTopic = index
-                isActive = true
-            }
         }
     }
 }
 
-@available(iOS 15.0, *)
 struct TopicRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TopicRowView(name: "Topic", urlIcon: "https://storage.googleapis.com/micro-enigma-235001.appspot.com/g1/icons/file-1620185333946-icon2.svg", id: "", totalQuestion: 10)
+        TopicRowView(topic: Topic())
     }
 }
 

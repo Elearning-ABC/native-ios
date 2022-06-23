@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct AnswerQuestionView: View {
+    var namespace : Namespace.ID
     @StateObject var questionViewModel = QuestionViewModel()
     @EnvironmentObject var viewModel: ReviewViewModel
     var questionProgressApp: QuestionProgressApp
-    @State var showImage: Bool = false
+    var imageId = "image_question"
     
     var body: some View {
         let Status = viewModel.status
         
         let question = questionViewModel.getQuestion(questionId: questionProgressApp.questionId)
-        
+    
         VStack {
             ZStack(alignment: .topLeading) {
                 VStack(alignment: .leading) {
@@ -28,10 +29,18 @@ struct AnswerQuestionView: View {
                         if question.image != ""{
                             Image(question.image.replace(target: ".png", withString: ""))
                                 .resizable()
+                                .matchedGeometryEffect(id: question.id, in: viewModel.namespace)
+                                .scaledToFit()
                                 .frame(width:80,height: 80)
                                 .onTapGesture{
-                                    print("ok")
+                                    viewModel.imageString = question.image.replace(target: ".png", withString: "")
+                                    viewModel.imageId = question.id
+                                    withAnimation(.easeOut){
+                                        viewModel.showImage.toggle()
+                                        
+                                    }
                                 }
+                                
                         }
                     }
                     
@@ -70,83 +79,84 @@ struct AnswerQuestionView: View {
             
 // answer......................
 
-            if viewModel.inCorrectAnswerText != ""{
-                HStack{
-                    Text(viewModel.inCorrectAnswerText)
-                        .font(.system(size: 16))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading)
-                    Spacer()
+            ScrollView{
+                if viewModel.inCorrectAnswerText != ""{
+                    HStack{
+                        Text(viewModel.inCorrectAnswerText)
+                            .font(.system(size: 16))
+                            .multilineTextAlignment(.leading)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 8)
+                         .stroke(Color.red, lineWidth: 1))
+                    .background(Color.white)
+                    .cornerRadius(8)
                 }
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 8)
-                     .stroke(Color.red, lineWidth: 1))
-                .background(Color.white)
-                .cornerRadius(8)
-            }
 
 
-            if viewModel.showCorrectAnswer{
-                VStack(alignment: .leading){
-                    Text(question.correctAnswers[0])
-                        .font(.system(size: 16))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading)
-                    DividingLineView()
+                if viewModel.showCorrectAnswer{
+                    VStack(alignment: .leading){
+                        Text(question.correctAnswers[0])
+                            .font(.system(size: 16))
+                            .multilineTextAlignment(.leading)
+                            .padding(.leading)
+                        DividingLineView()
 
-                    if viewModel.showExplanation{
-                        VStack(alignment: .leading){
-                            Text(question.explanation)
-                                .font(.system(size: 16))
-                                .multilineTextAlignment(.leading)
-                                .padding(.leading)
+                        if viewModel.showExplanation{
+                            VStack(alignment: .leading){
+                                Text(question.explanation)
+                                    .font(.system(size: 16))
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.leading)
 
+                                Button{
+                                    withAnimation(.easeOut){
+                                        viewModel.showExplanation = false
+                                    }
+
+                                }label: {
+                                    Text("Hide")
+                                        .padding(.leading)
+                                }
+                            }
+                        }else{
                             Button{
                                 withAnimation(.easeOut){
-                                    viewModel.showExplanation = false
+                                    viewModel.showExplanation = true
                                 }
-
                             }label: {
-                                Text("Hide")
+                                Text("Show Explanation")
                                     .padding(.leading)
                             }
                         }
-                    }else{
-                        Button{
-                            withAnimation(.easeOut){
-                                viewModel.showExplanation = true
+                    }
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 8)
+                         .stroke(Color.green, lineWidth: 1))
+                    .background(Color.white)
+                    .cornerRadius(8)
+                }else{
+                    ForEach(questionViewModel.getListAnswer(id: question.id)){
+                        answer in
+                        AnswerView(answer: answer.text)
+                            .onTapGesture {
+                                withAnimation(.easeOut){
+                                    viewModel.checkAnswer(answer: answer)
+                                }
                             }
-                        }label: {
-                            Text("Show Explanation")
-                                .padding(.leading)
-                        }
                     }
                 }
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 8)
-                     .stroke(Color.green, lineWidth: 1))
-                .background(Color.white)
-                .cornerRadius(8)
-            }else{
-                ForEach(questionViewModel.getListAnswer(id: question.id)){
-                    answer in
-                    AnswerView(answer: answer.text)
-                        .onTapGesture {
-                            withAnimation(.easeOut){
-                                viewModel.checkAnswer(answer: answer)
-                            }
-                        }
-                }
+                
             }
-            
-            Spacer()
-            
         }
     }
 }
 
-struct AnswerQuestionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnswerQuestionView( questionProgressApp: QuestionProgressApp(questionProgress: QuestionProgress()))
-    }
-}
+//struct AnswerQuestionView_Previews: PreviewProvider {
+//    @Namespace var namespace
+//    static var previews: some View {
+//        AnswerQuestionView(namespace: Namespace.ID, questionProgressApp: QuestionProgressApp(questionProgress: QuestionProgress()))
+//    }
+//}

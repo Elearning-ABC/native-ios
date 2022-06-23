@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReviewQuestionView: View {
+    @Namespace var namespace
     @EnvironmentObject var viewModel: ReviewViewModel
     @State var showReport: Bool = false
     var title: String
@@ -20,55 +21,70 @@ struct ReviewQuestionView: View {
         
         let correctWidth = Screen.width*viewModel.progressBar
         let unfinishedWidth = Screen.width - correctWidth
-        VStack {
-            VStack {
-                HStack {
-                    BackHearderLeftView(title: "\(title) \(viewModel.correctNumber)/\(viewModel.listQuestionProgress.count)")
-                    Spacer()
-                    
-                    Button{
+        VStack(spacing: 0) {
+                VStack {
+                    HStack {
+                        BackHearderLeftView(title: "\(title) \(viewModel.correctNumber)/\(viewModel.listQuestionProgress.count)")
+                        Spacer()
                         
-                    }label: {
-                        Text("aA")
+                        Button{
+                            
+                        }label: {
+                            Text("aA")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20))
+                        }
+                        Image("Book")
+                            .renderingMode(.template)
                             .foregroundColor(.black)
-                            .font(.system(size: 20))
                     }
-                    Image("Book")
-                        .renderingMode(.template)
-                        .foregroundColor(.black)
+                    .padding(.trailing, 24.0)
+                    .padding(.leading)
+                    
+                    HStack {
+                        HStack{
+                            Spacer()
+                        }
+                        .frame(width: correctWidth, height: 4)
+                        .background(Color.green)
+
+                        HStack{
+                          Spacer()
+                        }
+                        .frame(width: unfinishedWidth, height: 4)
+                        .background(Color.blue3)
+                    }.padding(.bottom)
+                        .padding(.top, 8.0)
+                    
                 }
-                .padding(.trailing, 24.0)
-                .padding(.leading)
+                .padding(.top, Screen.statusBarHeight)
                 
-                HStack {
-                    HStack{
+                VStack{
+                    AnswerQuestionView(namespace: namespace, questionProgressApp: viewModel.listQuestionProgress[0])
+                        
+                    
+                }
+                .padding(.horizontal)
+           
+                ReviewFooterView(showPopup: $showReport, tabRight: update)
+            }
+            .background(BackGroundView())
+            .ignoresSafeArea()
+            .popup(isPresented: $showReport, type: .toast, position: .bottom, closeOnTap: false, closeOnTapOutside: true) {
+                
+                PopupView(showPopup: $showReport){
+                    VStack{
+                        Text("Report mistake")
+                            .font(.title2)
+                            .foregroundColor(.blue1)
+                            .padding()
                         Spacer()
                     }
-                    .frame(width: correctWidth, height: 4)
-                    .background(Color.green)
-
-                    HStack{
-                      Spacer()
-                    }
-                    .frame(width: unfinishedWidth, height: 4)
-                    .background(Color.blue3)
-                }.padding(.bottom)
-                    .padding(.top, 8.0)
-                
+                    .frame(width: Screen.width, height: Screen.height/2)
+                    .background(BackGroundView())
+                }
             }
-            .padding(.top, Screen.statusBarHeight)
-            
-            VStack{
-                AnswerQuestionView(questionProgressApp: viewModel.listQuestionProgress[0])
-                
-            }
-            .padding(.horizontal)
-       
-            ReviewFooterView(showPopup: $showReport, tabRight: update)
-        }
-        .background(BackGroundView())
-        .ignoresSafeArea()
-        
+            .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
     }
 }
 

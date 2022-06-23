@@ -9,9 +9,13 @@ import SwiftUI
 
 struct QuestionReviewRowView: View {
     var question: Question
+    @EnvironmentObject var viewModel: ReviewViewModel
     @State var showAnswer = false
+    @State var showImage : Bool = false
+    
     
     var body: some View {
+        let imageId = "\(question.id)i"
         VStack {
             Button{
                 withAnimation(.easeInOut){
@@ -26,13 +30,22 @@ struct QuestionReviewRowView: View {
                     if question.image != ""{
                         Image(question.image.replace(target: ".png", withString: ""))
                             .resizable()
+                            .matchedGeometryEffect(id: imageId, in: viewModel.namespace)
+                            .scaledToFit()
                             .frame(width:80,height: 80)
+                            .onTapGesture{
+                                viewModel.imageString = question.image.replace(target: ".png", withString: "")
+                                viewModel.imageId = imageId
+                                withAnimation(.easeOut){
+                                    viewModel.showImage.toggle()
+                                    
+                                }
+                            }
                     }
                 }
             }
             .buttonStyle(HideOpacity())
-            
-            
+
             if showAnswer{
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){

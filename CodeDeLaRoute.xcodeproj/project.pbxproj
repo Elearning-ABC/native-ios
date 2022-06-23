@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18015788286313830099E95D /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 18015787286313830099E95D /* SVGKit */; };
+		1801578A286313830099E95D /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18015789286313830099E95D /* SVGKitSwift */; };
+		1801578D286401A20099E95D /* PracticeEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801578C286401A20099E95D /* PracticeEndView.swift */; };
+		1801578F286408270099E95D /* ProgressHalfCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801578E286408270099E95D /* ProgressHalfCircleView.swift */; };
+		18015791286419B90099E95D /* ReviewTopicRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18015790286419B90099E95D /* ReviewTopicRowView.swift */; };
 		80A1F362282600430045C993 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A1F361282600430045C993 /* Tabs.swift */; };
 		CC0D0B2D283F245600FE47E4 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2C283F245600FE47E4 /* PopupView.swift */; };
 		CC0D0B30283F373900FE47E4 /* ProgressDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */; };
@@ -28,8 +33,6 @@
 		CC34F3272817A3C70024BA4B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34F3262817A3C70024BA4B /* Constants.swift */; };
 		CC3C621E281A3B490035E71E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C621D281A3B490035E71E /* String.swift */; };
 		CC3C6220281A56CA0035E71E /* FooterQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3C621F281A56CA0035E71E /* FooterQuestionView.swift */; };
-		CC43B17B280FF6590080B6B3 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC43B17A280FF6590080B6B3 /* SVGKit */; };
-		CC43B17D280FF6590080B6B3 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CC43B17C280FF6590080B6B3 /* SVGKitSwift */; };
 		CC43B17F280FFF440080B6B3 /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43B17E280FFF440080B6B3 /* SVGImage.swift */; };
 		CC46531E2849EEC300D6CF50 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC46531D2849EEC300D6CF50 /* ReviewViewModel.swift */; };
 		CC4F6C94282E4EF2005D7DDD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CC4F6C93282E4EF2005D7DDD /* Realm */; };
@@ -108,6 +111,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1801578C286401A20099E95D /* PracticeEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeEndView.swift; sourceTree = "<group>"; };
+		1801578E286408270099E95D /* ProgressHalfCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHalfCircleView.swift; sourceTree = "<group>"; };
+		18015790286419B90099E95D /* ReviewTopicRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTopicRowView.swift; sourceTree = "<group>"; };
+		18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeDeLaRoute.entitlements; sourceTree = "<group>"; };
 		80A1F361282600430045C993 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CC0D0B2C283F245600FE47E4 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDayView.swift; sourceTree = "<group>"; };
@@ -196,9 +203,9 @@
 			files = (
 				CC4F6C96282E4EF2005D7DDD /* RealmSwift in Frameworks */,
 				CC4F6C94282E4EF2005D7DDD /* Realm in Frameworks */,
+				1801578A286313830099E95D /* SVGKitSwift in Frameworks */,
+				18015788286313830099E95D /* SVGKit in Frameworks */,
 				CC7904B1283F10180021F1DA /* PopupView in Frameworks */,
-				CC43B17D280FF6590080B6B3 /* SVGKitSwift in Frameworks */,
-				CC43B17B280FF6590080B6B3 /* SVGKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +226,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1801578B2863FD400099E95D /* AnswerEndView */ = {
+			isa = PBXGroup;
+			children = (
+				CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */,
+				1801578C286401A20099E95D /* PracticeEndView.swift */,
+				18015790286419B90099E95D /* ReviewTopicRowView.swift */,
+			);
+			path = AnswerEndView;
+			sourceTree = "<group>";
+		};
 		80A1F3602826000F0045C993 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +258,7 @@
 			children = (
 				CC43B17E280FFF440080B6B3 /* SVGImage.swift */,
 				CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */,
+				1801578E286408270099E95D /* ProgressHalfCircleView.swift */,
 				CC74C17F2810F3E3009D612E /* Screen.swift */,
 				CC74C18128110117009D612E /* ButtonView.swift */,
 				CC74C183281108C8009D612E /* DividingLineView.swift */,
@@ -265,13 +283,13 @@
 		CC2C65F1281931C200CD99A5 /* QuestionViews */ = {
 			isa = PBXGroup;
 			children = (
+				1801578B2863FD400099E95D /* AnswerEndView */,
 				CC2C65F2281931F400CD99A5 /* QuestionView.swift */,
 				CC59EF3E281B8B06005F251A /* HearderQuestionView.swift */,
 				CC2C65F42819328C00CD99A5 /* QuestionBoxView.swift */,
 				CC2C65F628193C9B00CD99A5 /* AnswerView.swift */,
 				CC3C621F281A56CA0035E71E /* FooterQuestionView.swift */,
 				CC59EF40281B9A21005F251A /* BodyQuestionView.swift */,
-				CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */,
 			);
 			path = QuestionViews;
 			sourceTree = "<group>";
@@ -312,6 +330,7 @@
 		CC516BED2806CAC80045DAB1 /* CodeDeLaRoute */ = {
 			isa = PBXGroup;
 			children = (
+				18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */,
 				CC7B2C14282A033B005610C3 /* Database */,
 				80A1F3602826000F0045C993 /* Enum */,
 				CC3C621C281A3B270035E71E /* Extension */,
@@ -463,8 +482,8 @@
 		CC7B2C14282A033B005610C3 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				CC7B2C15282A0C3E005610C3 /* db.realm */,
 				CC7B2C16282A0C3F005610C3 /* db.realm.lock */,
+				CC7B2C15282A0C3E005610C3 /* db.realm */,
 				CC7B2C17282A0C3F005610C3 /* db.realm.management */,
 			);
 			path = Database;
@@ -497,11 +516,11 @@
 			);
 			name = CodeDeLaRoute;
 			packageProductDependencies = (
-				CC43B17A280FF6590080B6B3 /* SVGKit */,
-				CC43B17C280FF6590080B6B3 /* SVGKitSwift */,
 				CC4F6C93282E4EF2005D7DDD /* Realm */,
 				CC4F6C95282E4EF2005D7DDD /* RealmSwift */,
 				CC7904B0283F10180021F1DA /* PopupView */,
+				18015787286313830099E95D /* SVGKit */,
+				18015789286313830099E95D /* SVGKitSwift */,
 			);
 			productName = CodeDeLaRoute;
 			productReference = CC516BEB2806CAC80045DAB1 /* CodeDeLaRoute.app */;
@@ -576,9 +595,9 @@
 			);
 			mainGroup = CC516BE22806CAC80045DAB1;
 			packageReferences = (
-				CC43B179280FF6590080B6B3 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				CC4F6C92282E4EF2005D7DDD /* XCRemoteSwiftPackageReference "realm-swift" */,
 				CC7904AF283F10170021F1DA /* XCRemoteSwiftPackageReference "PopupView" */,
+				18015786286313830099E95D /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = CC516BEC2806CAC80045DAB1 /* Products */;
 			projectDirPath = "";
@@ -632,6 +651,7 @@
 				CC516BF12806CAC80045DAB1 /* ContentView.swift in Sources */,
 				CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */,
 				CC584A4328373DD800B26798 /* StartView.swift in Sources */,
+				18015791286419B90099E95D /* ReviewTopicRowView.swift in Sources */,
 				CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */,
 				CC6CA4662807CDFA00F60E63 /* Question.swift in Sources */,
 				CC34F31C281789320024BA4B /* Answer.swift in Sources */,
@@ -639,6 +659,7 @@
 				CC516BEF2806CAC80045DAB1 /* CodeDeLaRouteApp.swift in Sources */,
 				CCAAEB3F2853594900AC0F6A /* ImageZoomble.swift in Sources */,
 				CC34F32028178D8D0024BA4B /* TopicProgress.swift in Sources */,
+				1801578D286401A20099E95D /* PracticeEndView.swift in Sources */,
 				CC74C18D281147CF009D612E /* TopicChildView.swift in Sources */,
 				CC0D0B32283F5BFF00FE47E4 /* Date.swift in Sources */,
 				CC2C65F3281931F400CD99A5 /* QuestionView.swift in Sources */,
@@ -653,6 +674,7 @@
 				CC46531E2849EEC300D6CF50 /* ReviewViewModel.swift in Sources */,
 				CC67D2A22851E27800D4FE06 /* ReviewFooterView.swift in Sources */,
 				CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */,
+				1801578F286408270099E95D /* ProgressHalfCircleView.swift in Sources */,
 				CC839156282CC23000C87C29 /* Data.swift in Sources */,
 				CC584A4528373E9600B26798 /* ContainerView.swift in Sources */,
 				CC74C1802810F3E3009D612E /* Screen.swift in Sources */,
@@ -851,6 +873,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = CodeDeLaRoute/CodeDeLaRoute.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CodeDeLaRoute/Preview Content\"";
@@ -863,7 +886,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -883,6 +906,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = CodeDeLaRoute/CodeDeLaRoute.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CodeDeLaRoute/Preview Content\"";
@@ -895,7 +919,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1043,12 +1067,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CC43B179280FF6590080B6B3 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+		18015786286313830099E95D /* XCRemoteSwiftPackageReference "SVGKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			repositoryURL = "https://github.com/SVGKit/SVGKit";
 			requirement = {
-				branch = 3.x;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
 			};
 		};
 		CC4F6C92282E4EF2005D7DDD /* XCRemoteSwiftPackageReference "realm-swift" */ = {
@@ -1070,14 +1094,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CC43B17A280FF6590080B6B3 /* SVGKit */ = {
+		18015787286313830099E95D /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CC43B179280FF6590080B6B3 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			package = 18015786286313830099E95D /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKit;
 		};
-		CC43B17C280FF6590080B6B3 /* SVGKitSwift */ = {
+		18015789286313830099E95D /* SVGKitSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CC43B179280FF6590080B6B3 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			package = 18015786286313830099E95D /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKitSwift;
 		};
 		CC4F6C93282E4EF2005D7DDD /* Realm */ = {
