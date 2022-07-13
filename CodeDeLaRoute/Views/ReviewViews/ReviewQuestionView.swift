@@ -9,70 +9,51 @@ import SwiftUI
 
 struct ReviewQuestionView: View {
     @Namespace var namespace
-    @EnvironmentObject var viewModel: ReviewViewModel
+    @EnvironmentObject var reviewViewModel: ReviewViewModel
     @State var showReport: Bool = false
+    @State var isShowBody: Bool = true
+    
     var title: String
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     func update(){
-        viewModel.upDateListQuestion(mode: mode)
+        if reviewViewModel.navigtorAnswer{
+            isShowBody.toggle()
+            withAnimation{
+                reviewViewModel.upDateListQuestion(mode: mode)
+                isShowBody.toggle()
+            }
+        } 
     }
+    
+    func onHeart(){
+        reviewViewModel.onHeart(questionProgressApp: reviewViewModel.questionProgressApps[0])
+    }
+    
+    
     var body: some View {
-        
-        let correctWidth = Screen.width*viewModel.progressBar
-        let unfinishedWidth = Screen.width - correctWidth
         VStack(spacing: 0) {
-                VStack {
-                    HStack {
-                        BackHearderLeftView(title: "\(title) \(viewModel.correctNumber)/\(viewModel.listQuestionProgress.count)")
-                        Spacer()
-                        
-                        Button{
-                            
-                        }label: {
-                            Text("aA")
-                                .foregroundColor(.black)
-                                .font(.system(size: 20))
-                        }
-                        Image("Book")
-                            .renderingMode(.template)
-                            .foregroundColor(.black)
-                    }
-                    .padding(.trailing, 24.0)
-                    .padding(.leading)
-                    
-                    HStack {
-                        HStack{
-                            Spacer()
-                        }
-                        .frame(width: correctWidth, height: 4)
-                        .background(Color.green)
-
-                        HStack{
-                          Spacer()
-                        }
-                        .frame(width: unfinishedWidth, height: 4)
-                        .background(Color.blue3)
-                    }.padding(.bottom)
-                        .padding(.top, 8.0)
-                    
-                }
-                .padding(.top, Screen.statusBarHeight)
-                
+            
+            HeaderAnswerQuestionView(title: title, correctNumber: reviewViewModel.correctNumber, totalQuestion: reviewViewModel.questionProgressApps.count, showNumberCorrect: true, isProgress: true,onSubmit: {})
+            if isShowBody{
                 VStack{
-                    AnswerQuestionView(namespace: namespace, questionProgressApp: viewModel.listQuestionProgress[0])
-                        
+                    AnswerQuestionView<ReviewViewModel>(questionProgressApp: reviewViewModel.questionProgressApps[0])
+                        .transition(.slide)
                     
                 }
                 .padding(.horizontal)
+                .transition(.move(edge: .trailing))
+            }
+                
+            Spacer()
            
-                ReviewFooterView(showPopup: $showReport, tabRight: update)
+            FooterAnswerQuestionView(bookmark: reviewViewModel.questionProgressApps[0].bookmark, showPopup: $showReport, onRight: update, onHeart: onHeart)
+            
             }
             .background(BackGroundView())
             .ignoresSafeArea()
             .popup(isPresented: $showReport, type: .toast, position: .bottom, closeOnTap: false, closeOnTapOutside: true) {
                 
-                PopupView(showPopup: $showReport){
                     VStack{
                         Text("Report mistake")
                             .font(.title2)
@@ -82,9 +63,10 @@ struct ReviewQuestionView: View {
                     }
                     .frame(width: Screen.width, height: Screen.height/2)
                     .background(BackGroundView())
-                }
+                    .cornerRadius(25,corners: [.topLeft, .topRight])
+                
             }
-            .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
+            .showImageView(show: $reviewViewModel.showImage, image: reviewViewModel.imageString, namespace: reviewViewModel.namespace, id: reviewViewModel.imageId)
     }
 }
 
@@ -93,3 +75,4 @@ struct ReviewQuestionView_Previews: PreviewProvider {
         ReviewQuestionView( title: "")
     }
 }
+

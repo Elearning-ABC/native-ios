@@ -17,23 +17,7 @@ struct HearderQuestionView: View {
         let inCorrect = Screen.width*(process.inCorrect / process.total)
         let newQuestion = Screen.width - correct - inCorrect
         VStack {
-            HStack {
-                BackHearderLeftView(title: title)
-                Spacer()
-                
-                Button{
-                    
-                }label: {
-                    Text("aA")
-                        .foregroundColor(.black)
-                        .font(.system(size: 20))
-                }
-                
-                Image("Book")
-                    .renderingMode(.template)
-                    .foregroundColor(.black)
-            }
-            .padding(.horizontal, 24.0)
+            HeaderAnswerQuestionView(title: title, correctNumber: 0, totalQuestion: 0,onSubmit: {})
             
             HStack {
                 HStack{
@@ -54,10 +38,7 @@ struct HearderQuestionView: View {
             }.padding(.bottom)
                 .padding(.top, 8.0)
             
-        }
-        .padding(.top, Screen.statusBarHeight)
-        
-        
+        }    
     }
 }
 

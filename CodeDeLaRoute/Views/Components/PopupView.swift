@@ -1,44 +1,37 @@
 //
-//  PopupView.swift
+//  ShowChangeFontSizeView.swift
 //  CodeDeLaRoute
 //
-//  Created by Nhung Nguyen on 26/05/2022.
+//  Created by HongTuan on 23/06/2022.
 //
 
 import SwiftUI
 
-struct PopupView<Content:View>: View {
-    @Binding var showPopup: Bool
-    let viewBuilder: () -> Content
-    var body: some View {
-        VStack {
-            Image("SwipeHint")
-                .onTapGesture {
-                    showPopup.toggle()
-                }
-            VStack{
-                viewBuilder()
+struct PopupView: ViewModifier {
+    @Binding var isShow: Bool
+    let view: AnyView
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            if isShow{
+                body
             }
-            .cornerRadius(25,corners: [.topLeft, .topRight])
+        }
+    }
+    
+    private var body: some View {
+        ZStack {
+            Color.gray.opacity(0.3).ignoresSafeArea(.all)
+                .onTapGesture {
+                    isShow.toggle()
+                }
+            view
         }
     }
 }
 
-struct PopupView_Previews: PreviewProvider {
-    static var previews: some View {
-        PopupView(showPopup: .constant(false)){
-            VStack {
-                VStack{
-                    Text("Report mistake")
-                        .font(.title2)
-                        .foregroundColor(.blue1)
-                        .padding()
-                    Spacer()
-                }
-                .frame(width: Screen.width, height: Screen.height/2)
-                .background(Color.blue1)
-                .cornerRadius(25,corners: [.topLeft, .topRight])
-            }
-        }
+extension View{
+    func popupView(isShow: Binding<Bool>, view: AnyView)-> some View{
+        self.modifier(PopupView(isShow: isShow, view: view))
     }
 }

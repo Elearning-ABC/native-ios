@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProgressCircleView: View {
-    @State var progress: Double
+    var progress: Double
     var total: Double
     var color: Color = Color.blue
-    var content: String
     var width: Double = 10
+    var content: AnyView?
         
     var body: some View {
         ZStack {
@@ -26,20 +26,19 @@ struct ProgressCircleView: View {
                 .stroke(style: StrokeStyle(lineWidth: width, lineCap: .round, lineJoin: .round))
                 .foregroundColor(color)
                 .rotationEffect(Angle(degrees: 270.0))
-                .animation(.linear)
+                .animation(.linear, value: progress)
                 .rotation3DEffect(
                     Angle.degrees(180), axis: (0, 1, 0))
 
-            Text(content)
-                .foregroundColor(.blue1)
-                .font(.system(size: 12, weight: .heavy))
-                .bold()
+            if let content = content {
+                content
+            }
         }
     }
 }
 
 struct ProgressCircle_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressCircleView(progress: 2, total: 10, content: "ok")
+        ProgressCircleView(progress: 2, total: 10, content: AnyView(Text("okkk")))
     }
 }

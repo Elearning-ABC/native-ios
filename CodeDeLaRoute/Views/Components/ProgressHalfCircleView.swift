@@ -33,7 +33,7 @@ struct ProgressHalfCircleView: View {
                     Angle.degrees(-90), axis: (0, 0, 1))
 
             HStack(spacing: 0.0) {
-                Text("\((progress/total)*100)")
+                Text("\(Int((progress/total)*100))")
                     .font(.system(size: size, weight: .bold))
                 Text("%")
                     .font(.system(size: 12, weight: .bold))

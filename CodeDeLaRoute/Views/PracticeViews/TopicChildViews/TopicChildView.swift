@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct TopicChildView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
+    @EnvironmentObject var practiceViewModel : PracticeViewModel
     @State var childrenTopics = [Topic]()
     var topic: Topic
+    
+    func fetchData(){
+        childrenTopics = practiceViewModel.getTopicsWithId(id: topic.id)
+        if childrenTopics != practiceViewModel.listChildTopics{
+            childrenTopics = practiceViewModel.getTopicsWithId(id: topic.id)
+            practiceViewModel.listChildTopics = childrenTopics
+            let indexTopicProgressApp = practiceViewModel.getIndexTopicProgress(id: topic.id)
+            practiceViewModel.process.indexParentTopic = indexTopicProgressApp
+        }
+    }
 
     var body: some View {
-        let value = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].correctNumber)
-        let total = Double(viewModel.listTopicProgress[viewModel.process.indexParentTopic].totalQuestionNumber)
+        let value = Double(practiceViewModel.listTopicProgress[practiceViewModel.process.indexParentTopic].correctNumber)
+        let total = Double(practiceViewModel.listTopicProgress[practiceViewModel.process.indexParentTopic].totalQuestionNumber)
         
         VStack(spacing: 0) {
             HStack {
@@ -72,8 +82,10 @@ struct TopicChildView: View {
                     ForEach(childrenTopics){
                         topic in
                         let index = childrenTopics.firstIndex(where: {$0.id == topic.id})
-                        TopicChildRowView(topic: topic, index: index!)
-                                .padding(.bottom, 14.0)
+                        if topic.status != -1{
+                            TopicChildRowView(topic: topic, index: index!)
+                                    .padding(.bottom, 14.0)
+                        }
                     }
                 }
                 Spacer()
@@ -87,14 +99,7 @@ struct TopicChildView: View {
          .background(BackGroundView())
          .ignoresSafeArea()
          .onAppear{
-             childrenTopics = viewModel.getTopicsWithId(id: topic.id)
-
-             if childrenTopics != viewModel.listChildTopics{
-                 childrenTopics = viewModel.getTopicsWithId(id: topic.id)
-                 viewModel.listChildTopics = childrenTopics
-                 let indexTopicProgressApp = viewModel.getIndexTopicProgress(id: topic.id)
-                 viewModel.process.indexParentTopic = indexTopicProgressApp
-             }
+             fetchData()
          }
     }
 }

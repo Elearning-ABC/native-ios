@@ -34,6 +34,7 @@ class RealmManager<T: Object>: RealmServicceProtocol{
     typealias Entity = T
     
     private let configuration: Realm.Configuration
+    private let encryptionKey: String = "0100006f00010000000300000000020000007b000000000000000300000700007b000000002b00000000000c00002d0000004d0000030000002c000000000906"
     
     private var realm: Realm?{
         return try? Realm(configuration: self.configuration)
@@ -49,12 +50,12 @@ class RealmManager<T: Object>: RealmServicceProtocol{
     init(fileURL: fileURL){
         switch fileURL {
         case .file:
-            let key = Data(hexString: Constant.encryptionKey)
+            let key = Data(hexString: encryptionKey)
             self.configuration = Realm.Configuration(
-                fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+                fileURL: Bundle.main.url(forResource: "asvab", withExtension: "realm"),
                 encryptionKey: key,
                 readOnly: true,
-                schemaVersion: 0
+                schemaVersion: 2
             )
         case .local:
             self.configuration = Realm.Configuration(

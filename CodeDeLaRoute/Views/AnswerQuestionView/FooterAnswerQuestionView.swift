@@ -1,32 +1,36 @@
 //
-//  FooterQuestionView.swift
+//  FooterAnswerQuestionView.swift
 //  CodeDeLaRoute
 //
-//  Created by Nhung Nguyen on 28/04/2022.
+//  Created by HongTuan on 30/06/2022.
 //
 
 import SwiftUI
-import PopupView
 
-struct FooterQuestionView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
+struct FooterAnswerQuestionView: View {
+    var bookmark: Bool
     @Binding var showPopup : Bool
+    
+    var onRight: () -> Void
+    var onHeart: () -> Void
+    
     var body: some View {
         HStack {
-            
-            VStack{
+            HStack{
+                Spacer()
                 Image(systemName: "flag")
                     .foregroundColor(.blue3)
                     .font(.system(size: 20, weight: .bold))
+                Spacer()
             }
-            .frame(width: 60, height: 30)
+            .background(.white)
             .onTapGesture {
                 showPopup.toggle()
             }
             
-            Spacer()
-            VStack{
-                if viewModel.listQuestionProgress[0].bookmark
+            HStack{
+                Spacer()
+                if bookmark
                 {
                     Image(systemName: "heart.fill")
                         .foregroundColor(.blue1)
@@ -36,27 +40,24 @@ struct FooterQuestionView: View {
                         .foregroundColor(.blue3)
                         .font(.system(size: 20))
                 }
+                Spacer()
             }
-            .frame(width: 60, height: 30)
+            .background(.white)
             .onTapGesture {
-                viewModel.updateBookmark()
+                onHeart()
             }
             
-            Spacer()
-            
-            VStack{
+            HStack{
+                Spacer()
                 Image(systemName: "chevron.right")
                     .foregroundColor(.blue1)
                     .font(.system(size: 20))
+                Spacer()
             }
-            .frame(width: 60, height: 30)
+            .background(.white)
             .onTapGesture {
-                withAnimation(.easeIn){
-                    viewModel.updateListQuestionProgress()
-                }
+                onRight()
             }
-            
-            
         }
         .padding(.horizontal, 30.0)
         .padding(.bottom, 40.0)
@@ -65,8 +66,8 @@ struct FooterQuestionView: View {
     }
 }
 
-struct FooterQuestionView_Previews: PreviewProvider {
-    static var previews: some View {
-        FooterQuestionView(showPopup: .constant(false))
-    }
-}
+//struct FooterAnswerQuestionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FooterAnswerQuestionView()
+//    }
+//}

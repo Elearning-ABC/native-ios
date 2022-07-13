@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReviewDetailView: View {
-    @EnvironmentObject var viewModel: ReviewViewModel
+    @EnvironmentObject var reviewViewModel: ReviewViewModel
     @State var isActive : Bool = false
     var title: String
     
@@ -16,21 +16,26 @@ struct ReviewDetailView: View {
         
         VStack{
             HStack {
-                BackHearderLeftView(title: "\(title) (\(viewModel.listQuestionProgress.count))")
+                BackHearderLeftView(title: "\(title) (\(reviewViewModel.questionProgressApps.count))")
                 Spacer()
             }
+            
             ScrollView {
-                ForEach(viewModel.listQuestionProgress){ questionProgressApp in
+                ForEach(reviewViewModel.questionProgressApps){ questionProgressApp in
                     VStack{
                         HStack(alignment: .top) {
-                            ListProgressView(questionProgressApp: questionProgressApp)
+                            ListProgressView(progress: questionProgressApp.progress)
                             Spacer()
-                            BookmarkView(bookmark: questionProgressApp.bookmark, questionProgressApp: questionProgressApp)
+                            BookmarkView(bookmark: questionProgressApp.bookmark)
+                                .onTapGesture {
+                                    reviewViewModel.onHeart(questionProgressApp: questionProgressApp)
+                                }
                         }
                         .padding(.bottom, 8.0)
 
 
-                        if let question = viewModel.getQuestion(questionId: questionProgressApp.questionId){
+                        if let question = reviewViewModel.getQuestion(questionId: questionProgressApp.questionId){
+                            
                             QuestionReviewRowView(question: question )
                         }
 
@@ -44,7 +49,7 @@ struct ReviewDetailView: View {
 
             NavigationLink(
                 destination: ReviewQuestionView( title: title)
-                    .environmentObject(viewModel)
+                    .environmentObject(reviewViewModel)
                     .navigationBarHidden(true)
                 ,isActive: $isActive
             ){
@@ -59,7 +64,7 @@ struct ReviewDetailView: View {
                 .background(Color.blue1)
                 .cornerRadius(16)
                 .onTapGesture{
-                    viewModel.navigatorReviewQuestion()
+                    reviewViewModel.navigatorReviewQuestion()
                     isActive = true
                 }
             }
@@ -69,9 +74,9 @@ struct ReviewDetailView: View {
         .padding(.bottom)
         .background(BackGroundView())
         .ignoresSafeArea()
-        .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
+        .showImageView(show: $reviewViewModel.showImage, image: reviewViewModel.imageString, namespace: reviewViewModel.namespace, id: reviewViewModel.imageId)
         .onAppear(){
-            viewModel.resetReviewAnswer()
+            reviewViewModel.resetReviewAnswer()
         }
     }
 }
@@ -83,9 +88,7 @@ struct ReviewDetailView_Previews: PreviewProvider {
 }
 
 struct BookmarkView: View {
-    @State var bookmark: Bool
-    @EnvironmentObject var viewModel: ReviewViewModel
-    var questionProgressApp: QuestionProgressApp
+    var bookmark: Bool
     var body: some View {
         VStack{
             if bookmark
@@ -98,31 +101,29 @@ struct BookmarkView: View {
                     .foregroundColor(.blue3)
                     .font(.system(size: 20))
             }
-        }.onTapGesture {
-            bookmark.toggle()
-            viewModel.bookmarkToggle(questionProgressApp: questionProgressApp)
         }
     }
 }
 
 struct ListProgressView: View{
-    var questionProgressApp: QuestionProgressApp
+    var progress: [Int]
+    
     var body: some View{
+        
         HStack(alignment: .bottom) {
-            ForEach(0..<questionProgressApp.progress.count, id: \.self){i in
-                    VStack{
-                        if questionProgressApp.progress[i] == 1{
-                            Image(systemName: "checkmark")
-                                .foregroundColor(.green)
-                                .font(.system(size: 10))
-                        }else{
-                            Image(systemName: "multiply")
-                                .foregroundColor(.red)
-                                .font(.system(size: 12))
+            ForEach(0..<progress.count, id: \.self){i in
+                VStack{
+                    if progress[i] == 1{
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.green)
+                            .font(.system(size: 10))
+                    }else{
+                        Image(systemName: "multiply")
+                            .foregroundColor(.red)
+                            .font(.system(size: 12))
 
-                        }
                     }
-
+                }
             }
         }
     }

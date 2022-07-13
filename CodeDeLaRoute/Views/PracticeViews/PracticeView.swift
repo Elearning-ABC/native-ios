@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct PracticeView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
-    
+    @EnvironmentObject var practiceViewModel : PracticeViewModel
     var body: some View {
         VStack {
             ScrollView{
                 VStack{
-                    ForEach(viewModel.topics){
+                    ForEach(practiceViewModel.topics){
                         topic in
                         TopicRowView(topic: topic)
-                            .environmentObject(viewModel)
                             .padding(.bottom, 14.0)
                     }
 

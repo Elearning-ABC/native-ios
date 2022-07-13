@@ -8,5 +8,7 @@
 import Foundation
 
 struct Constant{
-    static let encryptionKey: String = "0100006f00010000000300000000020000007b000000000000000300000700007b000000002b00000000000c00002d0000004d0000030000002c000000000906"
+    static let EASY : String = "Easy test"
+    static let MEDIUM: String = "Medium test"
+    static let HARDEST: String = "Hardest test"
 }

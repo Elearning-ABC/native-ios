@@ -13,9 +13,8 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing:0){
-            
             HeaderView()
-            
+        
             TabView(selection: $tabViewModel.active){
                 PracticeView()
                     .environmentObject(PracticeViewModel())

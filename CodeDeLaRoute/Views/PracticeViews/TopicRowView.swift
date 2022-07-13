@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct TopicRowView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
+    @EnvironmentObject var practiceViewModel : PracticeViewModel
     var topic: Topic
     
     var body: some View {
-        let index = viewModel.getIndexTopicProgress(id: topic.id)
-        let value = Double(viewModel.listTopicProgress[index].correctNumber)
-        let total = Double(viewModel.listTopicProgress[index].totalQuestionNumber)
+        let index = practiceViewModel.getIndexTopicProgress(id: topic.id)
+        let value = Double(practiceViewModel.listTopicProgress[index].correctNumber)
+        let total = Double(practiceViewModel.listTopicProgress[index].totalQuestionNumber)
         let percent = 100*value/total
         
         NavigationLink(destination: TopicChildView( topic: topic)
-                        .environmentObject(viewModel)
+                        .environmentObject(practiceViewModel)
                         .navigationBarHidden(true)
         ){
             VStack {

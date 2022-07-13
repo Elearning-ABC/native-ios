@@ -18,8 +18,6 @@ struct ButtonView: View {
             .font(.system(size: 16, weight: .bold))
             .background(color)
             .cornerRadius(12)
-        
-        
     }
 }
 

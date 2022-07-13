@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     @State var selection: Int = 0
-    @Binding var start : Bool
+    @EnvironmentObject var viewModel: ViewModel
     let arrayNumber: [Int] = [0,1,2]
     var body: some View {
         VStack {
@@ -34,7 +34,7 @@ struct StartView: View {
                 .padding()
                 .onTapGesture {
                     if selection == 2{
-                        start = false
+                        viewModel.setSetting()
                     }else{
                         selection += 1
                     }
@@ -46,6 +46,6 @@ struct StartView: View {
 
 struct StartView_Previews: PreviewProvider {
     static var previews: some View {
-        StartView(start: .constant(false))
+        StartView()
     }
 }

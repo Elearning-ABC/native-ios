@@ -80,7 +80,7 @@ struct HeaderView: View {
                             Text("Wed")
                                 .foregroundColor(.blue1)
                                 .font(.system(size: 12,weight: .semibold))
-                            ProgressCircleView(progress: 11, total: 20, content: Date().formatDate(formatter: "d"), width: 2)
+                            ProgressCircleView(progress: 11, total: 20, width: 2, content: AnyView(Text(Date().formatDate(formatter: "d")).font(.system(size: 12))))
                                 .frame(width: 30, height: 30)
                            
                         }

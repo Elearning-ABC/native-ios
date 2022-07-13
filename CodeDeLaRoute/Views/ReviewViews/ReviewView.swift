@@ -8,34 +8,33 @@
 import SwiftUI
 
 struct ReviewView: View {
-    @EnvironmentObject var viewModel : ReviewViewModel
-    
+    @EnvironmentObject var reviewViewModel : ReviewViewModel
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            ReviewRowView(name: "Weak Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.weakQuestionPs)
-                
-
-            ReviewRowView(name: "Medium Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.mediumQuestionPs)
-                
-
-            ReviewRowView(name: "Strong Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.strongQuestionPs)
-                
-
-            ReviewRowView(name: "All Familiar Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.allFamiliarQuestionPs)
-                
-
-            ReviewRowView(name: "Your Favorite Questions", imageString: "heart.fill", listQuestionProgressApp: viewModel.favoriteQuestionPs)
-                
+            ReviewRowView(name: "Weak Questions", imageString: "heart.fill", listQuestionProgressApp: reviewViewModel.weakQuestionPs)
+            
+            
+            ReviewRowView(name: "Medium Questions", imageString: "heart.fill", listQuestionProgressApp: reviewViewModel.mediumQuestionPs)
+            
+            
+            ReviewRowView(name: "Strong Questions", imageString: "heart.fill", listQuestionProgressApp: reviewViewModel.strongQuestionPs)
+            
+            
+            ReviewRowView(name: "All Familiar Questions", imageString: "heart.fill", listQuestionProgressApp: reviewViewModel.allFamiliarQuestionPs)
+            
+            
+            ReviewRowView(name: "Your Favorite Questions", imageString: "heart.fill", listQuestionProgressApp: reviewViewModel.favoriteQuestionPs)
+            
         }
         .padding(.horizontal)
         .onAppear{
-            viewModel.getAllQuestion()
+            reviewViewModel.getAllQuestion()
         }
-        .toast(message: "No question available", isShowing: $viewModel.isShowNoQuestion, config: .init(textColor: .red, backgroundColor: Color.red1!,duration: Toast.short), image: imageAlert)
+        .toast(message: "No question available", isShowing: $reviewViewModel.isShowNoQuestion, config: .init(textColor: .red, backgroundColor: Color.red1!,duration: Toast.short), alertType: .error)
     }
     
-    var imageAlert: Image = Image(systemName: "exclamationmark.circle")
+    
     
 }
 

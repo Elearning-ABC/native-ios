@@ -15,35 +15,35 @@ struct ShowImageView: ViewModifier {
     @State var scale: CGFloat = 1
     
     func body(content: Content) -> some View {
-      ZStack {
-        content
-        imageView
-      }
+        ZStack {
+            content
+            imageView
+        }
     }
-
+    
     private var imageView: some View {
-      ZStack {
-          if show{
-            ZStack {
-                Color.gray.opacity(0.6).ignoresSafeArea(.all)
-                ZStack{
-                    Image(image)
-                        .resizable()
-                        .matchedGeometryEffect(id: id, in: namespace)
-                        .scaledToFit()
+        ZStack {
+            if show{
+                ZStack {
+                    Color.gray.opacity(0.6).ignoresSafeArea(.all)
+                    ZStack{
+                        Image(image)
+                            .resizable()
+                            .matchedGeometryEffect(id: id, in: namespace)
+                            .scaledToFit()
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
-            }
-            .onTapGesture {
-                withAnimation(.easeOut){
-                    show.toggle()
+                .onTapGesture {
+                    withAnimation(.easeOut){
+                        show.toggle()
+                    }
                 }
+                
             }
-            
-          }
-      }
+        }
     }
-          
+    
 }
 
 extension View {

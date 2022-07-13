@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct ReviewTopicRowView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
-    var topic: Topic
+    var name: String
+    var value: Double
+    var total: Double
+    
     var body: some View {
-        let indexTopicProgress = viewModel.getIndexTopicProgress(id: topic.id)
-        let value = Double(viewModel.listTopicProgress[indexTopicProgress].correctNumber)
-        let total = Double(viewModel.listTopicProgress[indexTopicProgress].totalQuestionNumber)
         VStack(alignment: .leading) {
             HStack{
-                Text(topic.name)
+                Text(name)
                     .foregroundColor(.black)
                     .font(.system(size: 18, weight: .semibold))
                 Spacer()
-                Text("\(value/total)%")
+                Text("\(Int(100*value/total))%")
                     .foregroundColor(.gray)
                     .font(.system(size: 16))
             }
@@ -34,12 +33,11 @@ struct ReviewTopicRowView: View {
         .padding()
         .background(Color.white)
         .cornerRadius(8)
-        .shadow(color: .blue3!, radius: 5, x: 0, y: 14)
     }
 }
 
 struct ReviewTopicRow_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewTopicRowView(topic: Topic())
+        ReviewTopicRowView(name: "", value: 1, total: 1)
     }
 }

@@ -12,6 +12,7 @@ struct AnswerSuccessView: View {
     @State var isActive = false
     var body: some View {
         let index = viewModel.process.indexListChildTopic
+        let topic = viewModel.listChildTopics[index]
         VStack {
             HStack {
                 BackHearderLeftView(title: viewModel.process.title)
@@ -24,8 +25,13 @@ struct AnswerSuccessView: View {
                 .foregroundColor(.blue1)
                 .font(.system(size: 24, weight: .semibold))
                 .padding(.bottom, 8.0)
-            Text("You’ve successfully completed part \(index + 1)!")
+            HStack {
+                Text("You’ve successfully completed")
                 .font(.system(size: 16))
+                Text("\(topic.name)!")
+                    .textCase(.lowercase)
+                    .font(.system(size: 16))
+            }
             
             Image("SuccessImage")
             
@@ -52,35 +58,37 @@ struct AnswerSuccessView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: QuestionView()
-                                .environmentObject(viewModel)
-                                .navigationBarHidden(true)
-                               ,
-                               isActive: $isActive
-                ){
-                
-                    HStack {
-                        Spacer()
-                        Text("Go to part \(index + 2)")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .semibold))
-        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.blue1)
-                    .cornerRadius(12)
-                    .onTapGesture {
-                        let topic = viewModel.listChildTopics[index + 1]
-                        viewModel.process.indexListChildTopic = index + 1
-                        viewModel.process.indexTopic = viewModel.getIndexTopicProgress(id: topic.id)
-                        viewModel.process.title = topic.name
-                        viewModel.getListQuestion(id: topic.id)
-                        isActive = true
+                if index < viewModel.listChildTopics.count - 1{
+                    NavigationLink(destination: QuestionView()
+                                    .environmentObject(viewModel)
+                                    .navigationBarHidden(true)
+                                   ,
+                                   isActive: $isActive
+                    ){
+                        HStack {
+                            Spacer()
+                            Text("Go to")
+                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("\(viewModel.listChildTopics[index + 1].name)")
+                                .textCase(.lowercase)
+                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .semibold))
+                            Spacer()
+                        }
+                        .padding()
+                        .background(Color.blue1)
+                        .cornerRadius(12)
+                        .onTapGesture {
+                            let topic = viewModel.listChildTopics[index + 1]
+                            viewModel.process.indexListChildTopic = index + 1
+                            viewModel.process.indexTopic = viewModel.getIndexTopicProgress(id: topic.id)
+                            viewModel.process.title = topic.name
+                            viewModel.getQuestionProgressApps(topicId: topic.id)
+                            isActive = true
+                        }
                     }
                 }
-                
-                
             }
             .padding()
             .padding(.bottom, 30.0)

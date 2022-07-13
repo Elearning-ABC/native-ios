@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReviewRowView: View {
-    @EnvironmentObject var viewModel: ReviewViewModel
+    @EnvironmentObject var reviewViewModel: ReviewViewModel
     var name: String
     var imageString: String
     var listQuestionProgressApp : [QuestionProgressApp]
@@ -16,7 +16,7 @@ struct ReviewRowView: View {
     var body: some View {
        
         NavigationLink(destination: ReviewDetailView(title: name)
-                        .environmentObject(viewModel)
+                        .environmentObject(reviewViewModel)
                         .navigationBarHidden(true)
                        ,isActive: $isActive
         ){
@@ -46,7 +46,7 @@ struct ReviewRowView: View {
                 DividingLineView(color: Color.blue3!)
                     .padding(.vertical, 8.0)
                 Text("\(listQuestionProgressApp.count) questions")
-                    .foregroundColor(.gray2)
+                    .foregroundColor(.gray1)
             }
             .padding()
             .background(Color.white)
@@ -54,10 +54,10 @@ struct ReviewRowView: View {
             .padding(.bottom, 8.0)
             .onTapGesture {
                 if listQuestionProgressApp.count != 0{
-                    viewModel.listQuestionProgress = listQuestionProgressApp
+                    reviewViewModel.questionProgressApps = listQuestionProgressApp
                     isActive = true
                 }else{
-                    viewModel.isShowNoQuestion = true
+                    reviewViewModel.isShowNoQuestion = true
                 }
             }
         }

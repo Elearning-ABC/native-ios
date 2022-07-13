@@ -20,9 +20,24 @@ class QuestionProgress: Object, ObjectKeyIdentifiable{
 //    @Persisted var round: Int
     @Persisted var lastUpdate: Double
     @Persisted var bookmark: Bool
+    
+    func setValue(questionProgressApp: QuestionProgressApp){
+        id = questionProgressApp.id
+        questionId = questionProgressApp.questionId
+        topicId = questionProgressApp.topicId
+        progress = convertArrayToList(array: questionProgressApp.progress)
+        choiceSelectedIds = convertArrayToList(array: questionProgressApp.choiceSelectedIds)
+        boxNum = questionProgressApp.boxNum
+        lastUpdate = questionProgressApp.lastUpdate
+        bookmark = questionProgressApp.bookmark
+    }
 }
 
-struct QuestionProgressApp: Identifiable{
+class QuestionProgressApp: Identifiable, Equatable{
+    static func == (lhs: QuestionProgressApp, rhs: QuestionProgressApp) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String
     var questionId: String
     var topicId: String
@@ -32,6 +47,8 @@ struct QuestionProgressApp: Identifiable{
     var lastUpdate: Double
     var bookmark: Bool
     var index: Int?
+    var answers: [Answer]?
+    var question: Question?
     
     init(questionProgress obj: QuestionProgress){
         id = obj.id

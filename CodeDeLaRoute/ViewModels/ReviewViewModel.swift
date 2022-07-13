@@ -8,24 +8,28 @@
 import Foundation
 import SwiftUI
 
-class ReviewViewModel: ObservableObject{
+class ReviewViewModel: AnswerQuestionProtocol{
     private var realmService: RealmService
     @Published var allFamiliarQuestionPs = [QuestionProgressApp]()
     @Published var weakQuestionPs = [QuestionProgressApp]()
     @Published var mediumQuestionPs = [QuestionProgressApp]()
     @Published var strongQuestionPs = [QuestionProgressApp]()
     @Published var favoriteQuestionPs = [QuestionProgressApp]()
-    @Published var listQuestionProgress = [QuestionProgressApp]()
+    @Published var questionProgressApps = [QuestionProgressApp]()
     @Published var isShowNoQuestion : Bool = false
     @Published var showImage: Bool = false
     @Published var imageString : String = ""
     @Published var namespace: Namespace.ID
     @Published var imageId: String = "0"
+    @Published var answerQuestion = 0
+    @Published var navigtorAnswer = false
+    @Published var progressBar : CGFloat = 0
+    var correctNumber = 0
+    var inCorrectNumber = 0
     
     
     init(realmService: RealmService = RealmService(), namespace: Namespace.ID){
         self.realmService = realmService
-        self.status = Status(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
         self.namespace = namespace
         getAllQuestion()
     }
@@ -78,6 +82,8 @@ class ReviewViewModel: ObservableObject{
         let average = Double(total)/Double(length)
         return average
     }
+
+    
     
     func getQuestion(questionId: String) -> Question?{
         let realm = RealmManager<Question>(fileURL: .file)
@@ -85,84 +91,81 @@ class ReviewViewModel: ObservableObject{
         return question
     }
     
-    func bookmarkToggle(questionProgressApp obj: QuestionProgressApp){
-        let realm = RealmManager<QuestionProgress>(fileURL: .local)
+    func onHeart(questionProgressApp : QuestionProgressApp){
+        let index = questionProgressApps.firstIndex(where: {$0.id == questionProgressApp.id})
         let now = Date().timeIntervalSince1970
-        let questionProgress = QuestionProgress(value: ["id": obj.id, "questionId":obj.questionId,"topicId": obj.topicId, "progress" : obj.progress,"choiceSelectedIds": obj.choiceSelectedIds, "boxNum": obj.boxNum, "lastUpdate": now, "bookmark": !obj.bookmark])
+        questionProgressApps[index!].lastUpdate = now
+        questionProgressApps[index!].bookmark = !questionProgressApps[index!].bookmark
+        bookmarkToggle(questionProgressApp: questionProgressApp)
+        objectWillChange.send()
+    }
+    
+    func bookmarkToggle(questionProgressApp : QuestionProgressApp){
+        let realm = RealmManager<QuestionProgress>(fileURL: .local)
+        let questionProgress = QuestionProgress()
+        questionProgress.setValue(questionProgressApp: questionProgressApp)
         let result = realm.update(entity: questionProgress)
         if result{
             print("changed bookmark")
         }
     }
-    // check answer question
-    @Published var answerQuestion = 0
-    @Published var navigtorAnswer = false
-    @Published var inCorrectAnswerText = ""
-    @Published var showCorrectAnswer = false
-    @Published var showExplanation : Bool = false
-    @Published var status : Status
-    @Published var progressBar : CGFloat = 0
-    var correctNumber = 0
-    var inCorrectNumber = 0
-    var round = false
+  
     
     func resetReviewAnswer(){
-        showExplanation = false
-        showCorrectAnswer = false
-        inCorrectAnswerText = ""
-        correctNumber = 0
-        inCorrectNumber = 0
-        progressBar = 0
-        round = false
+        if !questionProgressApps.isEmpty{
+            if questionProgressApps[0].index != nil{
+                questionProgressApps = questionProgressApps.sorted(by: {$0.index! < $1.index!})
+            }
+            
+            correctNumber = 0
+            inCorrectNumber = 0
+            progressBar = 0
+        }
     }
     
     func navigatorReviewQuestion(){
-        for i in listQuestionProgress.indices {
-            listQuestionProgress[i].index = i
+        for i in questionProgressApps.indices {
+            let questionId = questionProgressApps[i].questionId
+            let question = getQuestion(questionId: questionId)
+            let answers = getAnswers(questionId: questionId)
+            questionProgressApps[i].index = i
+            questionProgressApps[i].question = question
+            questionProgressApps[i].answers = answers
+            questionProgressApps[i].boxNum = 0
         }
-        answerQuestion = listQuestionProgress.count
-        setStatus(value: listQuestionProgress[0].progress.last)
-        print("navigator")
+    }
+    
+    func checkCorrect(answer: Answer) {
+        if questionProgressApps[0].boxNum == -1{
+            correctNumber += 1
+            inCorrectNumber -= 1
+        }
+        if questionProgressApps[0].boxNum == 0{
+            correctNumber += 1
+        }
+        questionProgressApps[0].boxNum = 1
+        questionProgressApps[0].progress.append(1)
+        checkAnswer(answer: answer)
+    }
+    func checkInCorrect(answer: Answer) {
+        if questionProgressApps[0].boxNum == 1{
+            correctNumber -= 1
+            inCorrectNumber += 1
+        }
+        if questionProgressApps[0].boxNum == 0{
+            inCorrectNumber += 1
+        }
+        questionProgressApps[0].progress.append(0)
+        questionProgressApps[0].boxNum = -1
+        checkAnswer(answer: answer)
     }
     
     func checkAnswer(answer: Answer){
-        if answerQuestion != 0{
-            answerQuestion -= 1
-        }
+        progressBar = CGFloat(correctNumber)/CGFloat(questionProgressApps.count)
         
-        if answer.isCorrect{
-            setStatus(value: 2)
-            if listQuestionProgress[0].boxNum != 1 && round{
-                correctNumber += 1
-                inCorrectNumber -= 1
-            }
-            if !round{
-                correctNumber += 1
-            }
-            listQuestionProgress[0].boxNum = 1
-            listQuestionProgress[0].progress.append(1)
-        }else{
-            setStatus(value: 3)
-            if listQuestionProgress[0].boxNum == 1 && round{
-                correctNumber -= 1
-                inCorrectNumber += 1
-            }
-            if !round{
-                inCorrectNumber += 1
-            }
-            listQuestionProgress[0].progress.append(0)
-            listQuestionProgress[0].boxNum = -1
-            
-            inCorrectAnswerText = answer.text
-        }
-        
-        
-        progressBar = CGFloat(correctNumber)/CGFloat(listQuestionProgress.count)
-        showExplanation = true
-        showCorrectAnswer = true
         navigtorAnswer = true
         
-        upDateWhenAnswer(questionProgersApp: listQuestionProgress[0])
+        upDateWhenAnswer(questionProgersApp: questionProgressApps[0])
     }
     
     func upDateWhenAnswer(questionProgersApp obj: QuestionProgressApp){
@@ -175,68 +178,12 @@ class ReviewViewModel: ObservableObject{
     func upDateListQuestion(mode: Binding<PresentationMode>){
         if navigtorAnswer == false { return }
         navigtorAnswer = false
+
+        questionProgressApps = questionProgressApps.sortQuestionProgressApps()
         
-        
-        if answerQuestion > 0 {
-            let progresQuestion = listQuestionProgress[0]
-            listQuestionProgress.remove(at: 0)
-            listQuestionProgress.append(progresQuestion)
-        }
-        
-        if answerQuestion == 0{
-            round = true
-            
-            if inCorrectNumber > 1{
-                answerQuestion = inCorrectNumber
-                var listArray = listQuestionProgress.sorted( by: {$0.boxNum < $1.boxNum} )
-                if inCorrectNumber == 2 && (listQuestionProgress[0].id == listArray[0].id){
-                    listArray.swapAt(0, 1)
-                }
-                listQuestionProgress = listArray
-            }
-            if inCorrectNumber == 1{
-                var listArray = listQuestionProgress.sorted( by: {$0.boxNum < $1.boxNum} )
-                
-                if listQuestionProgress[0].id == listArray[0].id{
-                    listArray = listQuestionProgress.shuffled()
-                    listQuestionProgress = listArray.sorted(by: {$0.boxNum > $1.boxNum})
-                }else{
-                    listQuestionProgress = listArray
-                }
-                
-            }
-        }
-        
-        setStatus(value: listQuestionProgress[0].progress.last)
-        showExplanation = false
-        showCorrectAnswer = false
-        inCorrectAnswerText = ""
-        
-        if correctNumber == listQuestionProgress.count{
-            listQuestionProgress = listQuestionProgress.sorted(by: {$0.index! < $1.index!})
+        if correctNumber == questionProgressApps.count{
+            questionProgressApps = questionProgressApps.sorted(by: {$0.index! < $1.index!})
             mode.wrappedValue.dismiss()
-        }
-    }
-    
-    
-    
-    func setStatus(value: Int?){
-        var check = value
-        if value == nil{
-            check = -1
-        }
-        switch check{
-            case 0:
-            status.upDate(status: "LEARNING", color: Color.yellow, iconName: "alert-circle", text: "You got this wrong last time")
-            case 1:
-            status.upDate(status: "REVIEWING", color: Color.green!, iconName: "check-circle", text: "You got this question last time")
-            case 2:
-            status.upDate(status: "CORRECT", color: Color.green!, iconName: "check-circle", text: "You will not see this question in a while")
-            case 3:
-            status.upDate(status: "INCORRECT", color: Color.red, iconName: "alert-circle", text: "You will see this question soon")
-            
-            default:
-            status.upDate(status: "NEW QUESTION", color: Color.black, iconName: "", text: "")
         }
     }
 }

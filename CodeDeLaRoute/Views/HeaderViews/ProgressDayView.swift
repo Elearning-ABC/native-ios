@@ -29,7 +29,7 @@ struct ProgressDayView: View {
                                 .foregroundColor(.blue1)
                                 .font(.system(size: 12,weight: .semibold))
                             
-                            ProgressCircleView(progress: 11, total: 20, content: day.formatDate(formatter: "d"), width: 2)
+                            ProgressCircleView(progress: 11, total: 20, width: 2, content: AnyView(Text(day.formatDate(formatter: "d")).font(.system(size: 12))))
                                 .frame(width: 30, height: 30)
                            
                         }
@@ -45,7 +45,7 @@ struct ProgressDayView: View {
                                 .foregroundColor(.gray)
                                 .font(.system(size: 12, weight: .semibold))
                             
-                            ProgressCircleView(progress: 11, total: 20, content: day.formatDate(formatter: "d"), width: 2)
+                            ProgressCircleView(progress: 11, total: 20, width: 2, content: AnyView(Text(day.formatDate(formatter: "d")).font(.system(size: 12))))
                                 .frame(width: 30, height: 30)
                            
                         }

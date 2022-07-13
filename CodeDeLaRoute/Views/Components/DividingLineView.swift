@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DividingLineView: View {
-    var color: Color = Color.gray2!
+    var color: Color = Color.gray1!
     var body: some View {
         HStack{
             Spacer()

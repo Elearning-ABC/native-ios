@@ -29,6 +29,7 @@ class RealmService {
 class RealmFile{
     static let shared = RealmFile()
     var realm : Realm?
+    private let encryptionKey: String = "0100006f00010000000300000000020000007b000000000000000300000700007b000000002b00000000000c00002d0000004d0000030000002c000000000906"
     
     init(){
         openRealm()
@@ -36,12 +37,12 @@ class RealmFile{
     
     func openRealm(){
         do{
-            let key = Data(hexString: Constant.encryptionKey)
+            let key = Data(hexString: encryptionKey)
             let confige = Realm.Configuration(
-                fileURL: Bundle.main.url(forResource: "db", withExtension: "realm"),
+                fileURL: Bundle.main.url(forResource: "asvab", withExtension: "realm"),
                 encryptionKey: key,
                 readOnly: true,
-                schemaVersion: 0
+                schemaVersion: 2
             )
             realm = try Realm(configuration: confige)
         }catch{
@@ -71,6 +72,9 @@ class RealmLocal{
     
 }
 
+
+
+
 func convertListToArray<T>(list: List<T>) -> [T]{
     var array: [T] = []
     for item in list{
@@ -78,3 +82,12 @@ func convertListToArray<T>(list: List<T>) -> [T]{
     }
     return array
 }
+
+func convertArrayToList<T>(array: [T]) -> List<T>{
+    let list = List<T>()
+    for item in array{
+        list.append(item)
+    }
+    return list
+}
+

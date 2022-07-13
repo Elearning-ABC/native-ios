@@ -16,10 +16,12 @@ extension Color {
     static let blue4 = Color("#EDF0FF")
     static let red = Color("#ED2939")
     static let red1 = Color("#F5A89A")
-    static let gray2 = Color("#C4C4C4")
+    static let gray1 = Color("#C4C4C4")
+    static let gray2 = Color("#F6F6F6")
     static let green = Color("#00C17C")
     static let yellow1 = Color("#EBAD34")
     static let black = Color("#0C1827")
+    static let orange1 = Color("#FFCC99")
     
 //  convert hex to Color SwiftUi
     init?(_ hex: String) {
