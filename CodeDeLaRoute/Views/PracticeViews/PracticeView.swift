@@ -13,7 +13,7 @@ struct PracticeView: View {
         VStack {
             ScrollView{
                 VStack{
-                    ForEach(practiceViewModel.topics){
+                    ForEach(practiceViewModel.parentTopics){
                         topic in
                         TopicRowView(topic: topic)
                             .padding(.bottom, 14.0)

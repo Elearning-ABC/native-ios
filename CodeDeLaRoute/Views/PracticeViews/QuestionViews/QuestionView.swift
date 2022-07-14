@@ -12,7 +12,7 @@ struct QuestionView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     @State var showPopup: Bool = false
     @State var isShowBody: Bool = true
-    
+    @State var topic: Topic
     func onRight(){
         if viewModel.navigtorAnswer{
             isShowBody.toggle()
@@ -30,23 +30,25 @@ struct QuestionView: View {
     var body: some View {
         VStack {
             if viewModel.showSucsessAnswer{
-                AnswerSuccessView()
+                AnswerSuccessView(topic: $topic)
             }else{
                 ZStack {
-                    VStack(spacing: 0) {
-                        HearderQuestionView(title: viewModel.process.title)
-                        if isShowBody{
-                            VStack(spacing: 0){
-                                AnswerQuestionView<PracticeViewModel>(questionProgressApp: viewModel.questionProgressApps[0])
-                                    .transition(.slide)
+                    if !viewModel.questionProgressApps.isEmpty{
+                        VStack(spacing: 0) {
+                            HearderQuestionView(topic: topic)
+                            if isShowBody{
+                                VStack(spacing: 0){
+                                    AnswerQuestionView<PracticeViewModel>(questionProgressApp: viewModel.questionProgressApps[0])
+                                        .transition(.slide)
+                                }
+                                .padding([.top, .leading, .trailing])
+                                .transition(.move(edge: .trailing))
                             }
-                            .padding([.top, .leading, .trailing])
-                            .transition(.move(edge: .trailing))
+                            
+                            Spacer()
+                            
+                            FooterAnswerQuestionView(bookmark: viewModel.questionProgressApps[0].bookmark, showPopup: $showPopup, onRight: onRight, onHeart: onHeart)
                         }
-                        
-                        Spacer()
-                        
-                        FooterAnswerQuestionView(bookmark: viewModel.questionProgressApps[0].bookmark, showPopup: $showPopup, onRight: onRight, onHeart: onHeart)
                     }
                     
                     if showPopup{
@@ -74,11 +76,14 @@ struct QuestionView: View {
         }
         .background(BackGroundView())
         .ignoresSafeArea()
+        .onAppear{
+            viewModel.getQuestionProgressApps(topicId: topic.id)
+        }
     }
 }
 
 struct QuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionView().environmentObject(PracticeViewModel())
+        QuestionView(topic: Topic()).environmentObject(PracticeViewModel())
     }
 }

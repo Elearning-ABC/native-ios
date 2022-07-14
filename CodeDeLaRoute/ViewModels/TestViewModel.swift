@@ -178,7 +178,7 @@ class TestViewModel: AnswerQuestionProtocol{
             isCorrectAdded = true
         }
         
-        if indexQuestion < questions.count{
+        if indexQuestion < questions.count - 1{
             let indexNext = indexQuestion + 1
             saveCurrentQuestion(index: indexNext)
         }else{
@@ -198,7 +198,7 @@ class TestViewModel: AnswerQuestionProtocol{
             isCorrectAdded = false
         }
         
-        if indexQuestion < questions.count{
+        if indexQuestion < questions.count - 1{
             let indexNext = indexQuestion + 1
             saveCurrentQuestion(index: indexNext)
         }else{

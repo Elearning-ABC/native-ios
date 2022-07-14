@@ -17,14 +17,12 @@ struct TopicChildView: View {
         if childrenTopics != practiceViewModel.listChildTopics{
             childrenTopics = practiceViewModel.getTopicsWithId(id: topic.id)
             practiceViewModel.listChildTopics = childrenTopics
-            let indexTopicProgressApp = practiceViewModel.getIndexTopicProgress(id: topic.id)
-            practiceViewModel.process.indexParentTopic = indexTopicProgressApp
         }
     }
 
     var body: some View {
-        let value = Double(practiceViewModel.listTopicProgress[practiceViewModel.process.indexParentTopic].correctNumber)
-        let total = Double(practiceViewModel.listTopicProgress[practiceViewModel.process.indexParentTopic].totalQuestionNumber)
+        let value = practiceViewModel.getCorrectNumberInTopic(topicId: topic.id)
+        let total = Double(topic.totalQuestion)
         
         VStack(spacing: 0) {
             HStack {

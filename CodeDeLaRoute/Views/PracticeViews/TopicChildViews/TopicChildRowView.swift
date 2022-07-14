@@ -9,19 +9,17 @@ import SwiftUI
 
 struct TopicChildRowView: View {
     @EnvironmentObject var practiceViewModel : PracticeViewModel
-    @State var isActive: Bool = false
     var topic: Topic
     var index: Int
     var body: some View {
-        let indexTopicProgress = practiceViewModel.getIndexTopicProgress(id: topic.id)
-        let value = Double(practiceViewModel.listTopicProgress[indexTopicProgress].correctNumber)
-        let total = Double(practiceViewModel.listTopicProgress[indexTopicProgress].totalQuestionNumber)
+        let value = practiceViewModel.getCorrectNumberInTopic(topicId: topic.id)
+        let total = Double(topic.totalQuestion)
+       
+        
         NavigationLink(destination:
-                        QuestionView()
+                        QuestionView(topic: topic)
                         .environmentObject(practiceViewModel)
                         .navigationBarHidden(true)
-                       ,
-                       isActive: $isActive
         ){
             VStack(alignment: .leading) {
                 Text(topic.name)
@@ -42,16 +40,7 @@ struct TopicChildRowView: View {
             .background(Color.white)
             .cornerRadius(8)
             .shadow(color: .blue3!, radius: 5, x: 0, y: 14)
-            .onTapGesture {
-                practiceViewModel.process.indexTopic = indexTopicProgress
-                practiceViewModel.process.indexListChildTopic = index
-                practiceViewModel.process.title = topic.name
-                practiceViewModel.getQuestionProgressApps(topicId: topic.id)
-                isActive = true
-            }
         }
-        
-        
     }
 }
 

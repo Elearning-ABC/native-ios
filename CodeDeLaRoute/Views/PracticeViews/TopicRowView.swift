@@ -12,9 +12,8 @@ struct TopicRowView: View {
     var topic: Topic
     
     var body: some View {
-        let index = practiceViewModel.getIndexTopicProgress(id: topic.id)
-        let value = Double(practiceViewModel.listTopicProgress[index].correctNumber)
-        let total = Double(practiceViewModel.listTopicProgress[index].totalQuestionNumber)
+        let value = practiceViewModel.getCorrectNumberInTopic(topicId: topic.id)
+        let total = Double(topic.totalQuestion)
         let percent = 100*value/total
         
         NavigationLink(destination: TopicChildView( topic: topic)

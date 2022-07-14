@@ -43,7 +43,7 @@ struct PracticeTestRowView: View{
     var totalQuestion: Int
     
     func getCurrentTest(testProgressApp: TestProgressApp)->TestLevel?{
-        if testProgressApp.status == 1{
+        if testProgressApp.status == 1 || testProgressApp.time == 0{
             return nil
         }else{
             switch testProgressApp.testSetting{

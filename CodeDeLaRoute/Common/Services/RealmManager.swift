@@ -8,6 +8,22 @@
 import Foundation
 import RealmSwift
 
+func convertListToArray<T>(list: List<T>) -> [T]{
+    var array: [T] = []
+    for item in list{
+        array.append(item)
+    }
+    return array
+}
+
+func convertArrayToList<T>(array: [T]) -> List<T>{
+    let list = List<T>()
+    for item in array{
+        list.append(item)
+    }
+    return list
+}
+
 protocol RealmServicceProtocol{
     associatedtype Entity
     
@@ -72,7 +88,7 @@ class RealmManager<T: Object>: RealmServicceProtocol{
         let objects = realm.objects(Entity.self)
         
         return Array(objects)
-
+        
     }
     
     func queryWithId(id: String) -> T?{

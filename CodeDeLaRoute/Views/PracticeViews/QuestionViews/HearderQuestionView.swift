@@ -9,15 +9,14 @@ import SwiftUI
 
 struct HearderQuestionView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
-    var title: String
+    var topic: Topic
     
     var body: some View {
-        let process = viewModel.process
-        let correct = Screen.width*(process.correct / process.total)
-        let inCorrect = Screen.width*(process.inCorrect / process.total)
+        let correct = Screen.width*viewModel.getCorrectNumberInTopic(topicId: topic.id)/Double(topic.totalQuestion)
+        let inCorrect = Screen.width*Double(viewModel.inCorrectNumber)/Double(topic.totalQuestion)
         let newQuestion = Screen.width - correct - inCorrect
         VStack {
-            HeaderAnswerQuestionView(title: title, correctNumber: 0, totalQuestion: 0,onSubmit: {})
+            HeaderAnswerQuestionView(title: topic.name, correctNumber: 0, totalQuestion: 0,onSubmit: {})
             
             HStack {
                 HStack{
@@ -38,12 +37,12 @@ struct HearderQuestionView: View {
             }.padding(.bottom)
                 .padding(.top, 8.0)
             
-        }    
+        }
     }
 }
 
 struct HearderQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        HearderQuestionView(title: "ABC")
+        HearderQuestionView(topic: Topic())
     }
 }

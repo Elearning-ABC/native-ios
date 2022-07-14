@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class ReviewViewModel: AnswerQuestionProtocol{
-    private var realmService: RealmService
     @Published var allFamiliarQuestionPs = [QuestionProgressApp]()
     @Published var weakQuestionPs = [QuestionProgressApp]()
     @Published var mediumQuestionPs = [QuestionProgressApp]()
@@ -28,14 +27,19 @@ class ReviewViewModel: AnswerQuestionProtocol{
     var inCorrectNumber = 0
     
     
-    init(realmService: RealmService = RealmService(), namespace: Namespace.ID){
-        self.realmService = realmService
+    init(namespace: Namespace.ID){
         self.namespace = namespace
         getAllQuestion()
     }
     
     func getAllQuestion(){
-        let allQuestion = realmService.realmQuestionProgress.getAll()
+        let realm = RealmManager<QuestionProgress>(fileURL: .local)
+        let allQuestionProgress = realm.queryAll()
+        var questionProgessApps = [QuestionProgressApp]()
+        
+        for questionProgress in allQuestionProgress{
+            questionProgessApps.append(QuestionProgressApp(questionProgress: questionProgress))
+        }
         
         var allFamiliarQuestionPs = [QuestionProgressApp]()
         var weakQuestionPs = [QuestionProgressApp]()
@@ -43,27 +47,26 @@ class ReviewViewModel: AnswerQuestionProtocol{
         var strongQuestionPs = [QuestionProgressApp]()
         var favoriteQuestionPs = [QuestionProgressApp]()
         
-        for question in allQuestion{
-    
-            if !question.progress.isEmpty{
+        for questionProgessApp in questionProgessApps {
+            if !questionProgessApp.progress.isEmpty{
                 
-                allFamiliarQuestionPs.append(question)
+                allFamiliarQuestionPs.append(questionProgessApp)
                 
-                let average = averageProgress(progress: question.progress)
+                let average = averageProgress(progress: questionProgessApp.progress)
                 
                 if average >= 0.8{
-                    strongQuestionPs.append(question)
+                    strongQuestionPs.append(questionProgessApp)
                 }
                 if average >= 0.5 && average < 0.8{
-                    mediumQuestionPs.append(question)
+                    mediumQuestionPs.append(questionProgessApp)
                 }
                 if average < 0.5{
-                    weakQuestionPs.append(question)
+                    weakQuestionPs.append(questionProgessApp)
                 }
             }
             
-            if question.bookmark == true {
-                favoriteQuestionPs.append(question)
+            if questionProgessApp.bookmark == true {
+                favoriteQuestionPs.append(questionProgessApp)
             }
         }
         self.allFamiliarQuestionPs = allFamiliarQuestionPs
@@ -100,15 +103,7 @@ class ReviewViewModel: AnswerQuestionProtocol{
         objectWillChange.send()
     }
     
-    func bookmarkToggle(questionProgressApp : QuestionProgressApp){
-        let realm = RealmManager<QuestionProgress>(fileURL: .local)
-        let questionProgress = QuestionProgress()
-        questionProgress.setValue(questionProgressApp: questionProgressApp)
-        let result = realm.update(entity: questionProgress)
-        if result{
-            print("changed bookmark")
-        }
-    }
+    
   
     
     func resetReviewAnswer(){

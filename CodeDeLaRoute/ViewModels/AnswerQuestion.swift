@@ -4,7 +4,6 @@
 //
 //  Created by HongTuan on 12/07/2022.
 //
-
 import Foundation
 
 protocol AnswerQuestionProtocol: ObservableObject{
@@ -24,6 +23,16 @@ extension AnswerQuestionProtocol{
         let realm = RealmManager<Question>(fileURL: .file)
         let question = realm.queryWithId(id: questionId)
         return question!
+    }
+    
+    func bookmarkToggle(questionProgressApp : QuestionProgressApp){
+        let realm = RealmManager<QuestionProgress>(fileURL: .local)
+        let questionProgress = QuestionProgress()
+        questionProgress.setValue(questionProgressApp: questionProgressApp)
+        let result = realm.update(entity: questionProgress)
+        if result{
+            print("changed bookmark")
+        }
     }
     
 }

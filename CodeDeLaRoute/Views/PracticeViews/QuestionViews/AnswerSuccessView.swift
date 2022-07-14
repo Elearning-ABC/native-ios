@@ -10,24 +10,25 @@ import SwiftUI
 struct AnswerSuccessView: View {
     @EnvironmentObject var viewModel : PracticeViewModel
     @State var isActive = false
+    @Binding var topic : Topic
     var body: some View {
-        let index = viewModel.process.indexListChildTopic
+        let index = viewModel.getIndexChildTopics(topicId: topic.id)
         let topic = viewModel.listChildTopics[index]
         VStack {
             HStack {
-                BackHearderLeftView(title: viewModel.process.title)
+                BackHearderLeftView(title: topic.name)
                 Spacer()
             }
             .padding(.horizontal, 24.0)
             .padding(.top, Screen.statusBarHeight)
-
+            
             Text("Congratulations!")
                 .foregroundColor(.blue1)
                 .font(.system(size: 24, weight: .semibold))
                 .padding(.bottom, 8.0)
             HStack {
                 Text("You’ve successfully completed")
-                .font(.system(size: 16))
+                    .font(.system(size: 16))
                 Text("\(topic.name)!")
                     .textCase(.lowercase)
                     .font(.system(size: 16))
@@ -59,11 +60,9 @@ struct AnswerSuccessView: View {
                 Spacer()
                 
                 if index < viewModel.listChildTopics.count - 1{
-                    NavigationLink(destination: QuestionView()
-                                    .environmentObject(viewModel)
-                                    .navigationBarHidden(true)
-                                   ,
-                                   isActive: $isActive
+                    NavigationLink(destination: QuestionView(topic: viewModel.listChildTopics[index + 1])
+                        .environmentObject(viewModel)
+                        .navigationBarHidden(true)
                     ){
                         HStack {
                             Spacer()
@@ -80,12 +79,8 @@ struct AnswerSuccessView: View {
                         .background(Color.blue1)
                         .cornerRadius(12)
                         .onTapGesture {
-                            let topic = viewModel.listChildTopics[index + 1]
-                            viewModel.process.indexListChildTopic = index + 1
-                            viewModel.process.indexTopic = viewModel.getIndexTopicProgress(id: topic.id)
-                            viewModel.process.title = topic.name
-                            viewModel.getQuestionProgressApps(topicId: topic.id)
-                            isActive = true
+                            self.topic = viewModel.listChildTopics[index + 1]
+                            viewModel.getQuestionProgressApps(topicId: self.topic.id)
                         }
                     }
                 }
@@ -96,8 +91,8 @@ struct AnswerSuccessView: View {
     }
 }
 
-struct AnswerSuccessView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnswerSuccessView()
-    }
-}
+//struct AnswerSuccessView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AnswerSuccessView(topic: Topic())
+//    }
+//}

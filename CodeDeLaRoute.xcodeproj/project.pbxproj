@@ -16,7 +16,6 @@
 		1801579528644CCA0099E95D /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801579428644CCA0099E95D /* CustomSlider.swift */; };
 		1801579728644EDE0099E95D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801579628644EDE0099E95D /* Setting.swift */; };
 		1827AC59286E9C3B00D19F3E /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827AC58286E9C3B00D19F3E /* TimerTestView.swift */; };
-		18895944287D0B8200C2A533 /* AnswerQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18895943287D0B8200C2A533 /* AnswerQuestion.swift */; };
 		1897E928286A932100E865C6 /* asvab.realm in Resources */ = {isa = PBXBuildFile; fileRef = 1897E927286A932100E865C6 /* asvab.realm */; };
 		1897E92A286A978500E865C6 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897E929286A978500E865C6 /* Array.swift */; };
 		1897E92C286A9C0700E865C6 /* TestInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897E92B286A9C0700E865C6 /* TestInfo.swift */; };
@@ -28,6 +27,7 @@
 		18C0EE06286D3B6800845F4F /* PracticeTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0EE05286D3B6800845F4F /* PracticeTestView.swift */; };
 		18C0EE08286D3EDB00845F4F /* HeaderAnswerQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0EE07286D3EDB00845F4F /* HeaderAnswerQuestionView.swift */; };
 		18C0EE0A286D4A8C00845F4F /* FooterAnswerQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0EE09286D4A8C00845F4F /* FooterAnswerQuestionView.swift */; };
+		18EF762C287FD70B00CB744E /* AnswerQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF762B287FD70B00CB744E /* AnswerQuestion.swift */; };
 		80A1F362282600430045C993 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A1F361282600430045C993 /* Tabs.swift */; };
 		CC0D0B2D283F245600FE47E4 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2C283F245600FE47E4 /* PopupView.swift */; };
 		CC0D0B30283F373900FE47E4 /* ProgressDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */; };
@@ -36,7 +36,6 @@
 		CC0E1B9A280E629200A7AE1D /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */; };
 		CC0E1B9D280E743D00A7AE1D /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */; };
 		CC0E1B9F280E76F200A7AE1D /* TopicRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0E1B9E280E76F200A7AE1D /* TopicRowView.swift */; };
-		CC2AA032282BAC4200322582 /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2AA031282BAC4200322582 /* Process.swift */; };
 		CC2C65F3281931F400CD99A5 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F2281931F400CD99A5 /* QuestionView.swift */; };
 		CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F42819328C00CD99A5 /* QuestionBoxView.swift */; };
 		CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2C65F628193C9B00CD99A5 /* AnswerView.swift */; };
@@ -65,7 +64,6 @@
 		CC584A4528373E9600B26798 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC584A4428373E9600B26798 /* ContainerView.swift */; };
 		CC59EF3F281B8B06005F251A /* HearderQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC59EF3E281B8B06005F251A /* HearderQuestionView.swift */; };
 		CC59EF41281B9A21005F251A /* AnswerQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC59EF40281B9A21005F251A /* AnswerQuestionView.swift */; };
-		CC5B2AEF28125B0200D16886 /* RealmTopicSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */; };
 		CC5B2AF12812639900D16886 /* TopicChildRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B2AF02812639900D16886 /* TopicChildRowView.swift */; };
 		CC67D2A028518BC800D4FE06 /* ReviewQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC67D29F28518BC800D4FE06 /* ReviewQuestionView.swift */; };
 		CC6C311B284EE48500EF1F67 /* ReviewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6C311A284EE48500EF1F67 /* ReviewRowView.swift */; };
@@ -77,7 +75,6 @@
 		CC6CA46F2807FFC800F60E63 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6CA46E2807FFC800F60E63 /* TestView.swift */; };
 		CC6CA4712807FFE100F60E63 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6CA4702807FFE100F60E63 /* ReviewView.swift */; };
 		CC6E300D2840798D0062BC86 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E300C2840798D0062BC86 /* TestViewModel.swift */; };
-		CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */; };
 		CC74C1802810F3E3009D612E /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C17F2810F3E3009D612E /* Screen.swift */; };
 		CC74C18228110117009D612E /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C18128110117009D612E /* ButtonView.swift */; };
 		CC74C184281108C8009D612E /* DividingLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC74C183281108C8009D612E /* DividingLineView.swift */; };
@@ -93,15 +90,12 @@
 		CC7B2C1D282A0C3F005610C3 /* access_control.balance.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */; };
 		CC7B2C1E282A0C3F005610C3 /* access_control.write.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C19282A0C3F005610C3 /* access_control.write.mx */; };
 		CC7B2C1F282A0C3F005610C3 /* access_control.control.mx in Resources */ = {isa = PBXBuildFile; fileRef = CC7B2C1A282A0C3F005610C3 /* access_control.control.mx */; };
-		CC7C01142807BCA00078E93C /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C01132807BCA00078E93C /* RealmService.swift */; };
 		CC7C011B2807BE170078E93C /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C011A2807BE170078E93C /* PracticeViewModel.swift */; };
 		CC7C01202807C5E60078E93C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C011F2807C5E60078E93C /* Topic.swift */; };
-		CC839154282CC1C200C87C29 /* RealmQuestionProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */; };
 		CC839156282CC23000C87C29 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC839155282CC23000C87C29 /* Data.swift */; };
 		CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */; };
 		CCAAEB3F2853594900AC0F6A /* ImageZoomble.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAAEB3E2853594900AC0F6A /* ImageZoomble.swift */; };
 		CCAAEB4128535D7A00AC0F6A /* ShowImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAAEB4028535D7A00AC0F6A /* ShowImageView.swift */; };
-		CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */; };
 		CCF12E182845BE5900589287 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF12E172845BE5900589287 /* RealmManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -131,7 +125,6 @@
 		1801579628644EDE0099E95D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1827AC58286E9C3B00D19F3E /* TimerTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestView.swift; sourceTree = "<group>"; };
 		18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeDeLaRoute.entitlements; sourceTree = "<group>"; };
-		18895943287D0B8200C2A533 /* AnswerQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerQuestion.swift; sourceTree = "<group>"; };
 		1897E927286A932100E865C6 /* asvab.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = asvab.realm; sourceTree = "<group>"; };
 		1897E929286A978500E865C6 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		1897E92B286A9C0700E865C6 /* TestInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInfo.swift; sourceTree = "<group>"; };
@@ -143,6 +136,7 @@
 		18C0EE05286D3B6800845F4F /* PracticeTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestView.swift; sourceTree = "<group>"; };
 		18C0EE07286D3EDB00845F4F /* HeaderAnswerQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderAnswerQuestionView.swift; sourceTree = "<group>"; };
 		18C0EE09286D4A8C00845F4F /* FooterAnswerQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterAnswerQuestionView.swift; sourceTree = "<group>"; };
+		18EF762B287FD70B00CB744E /* AnswerQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerQuestion.swift; sourceTree = "<group>"; };
 		80A1F361282600430045C993 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CC0D0B2C283F245600FE47E4 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		CC0D0B2F283F373900FE47E4 /* ProgressDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDayView.swift; sourceTree = "<group>"; };
@@ -151,7 +145,6 @@
 		CC0E1B99280E629200A7AE1D /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		CC0E1B9C280E743D00A7AE1D /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
 		CC0E1B9E280E76F200A7AE1D /* TopicRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRowView.swift; sourceTree = "<group>"; };
-		CC2AA031282BAC4200322582 /* Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		CC2C65F2281931F400CD99A5 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		CC2C65F42819328C00CD99A5 /* QuestionBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBoxView.swift; sourceTree = "<group>"; };
 		CC2C65F628193C9B00CD99A5 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
@@ -181,7 +174,6 @@
 		CC584A4428373E9600B26798 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		CC59EF3E281B8B06005F251A /* HearderQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HearderQuestionView.swift; sourceTree = "<group>"; };
 		CC59EF40281B9A21005F251A /* AnswerQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerQuestionView.swift; sourceTree = "<group>"; };
-		CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTopicSevice.swift; sourceTree = "<group>"; };
 		CC5B2AF02812639900D16886 /* TopicChildRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicChildRowView.swift; sourceTree = "<group>"; };
 		CC67D29F28518BC800D4FE06 /* ReviewQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQuestionView.swift; sourceTree = "<group>"; };
 		CC6C311A284EE48500EF1F67 /* ReviewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRowView.swift; sourceTree = "<group>"; };
@@ -193,7 +185,6 @@
 		CC6CA46E2807FFC800F60E63 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		CC6CA4702807FFE100F60E63 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		CC6E300C2840798D0062BC86 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
-		CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTopicProgress.swift; sourceTree = "<group>"; };
 		CC74C17F2810F3E3009D612E /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		CC74C18128110117009D612E /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		CC74C183281108C8009D612E /* DividingLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividingLineView.swift; sourceTree = "<group>"; };
@@ -208,15 +199,12 @@
 		CC7B2C18282A0C3F005610C3 /* access_control.balance.mx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = access_control.balance.mx; sourceTree = "<group>"; };
 		CC7B2C19282A0C3F005610C3 /* access_control.write.mx */ = {isa = PBXFileReference; lastKnownFileType = file; path = access_control.write.mx; sourceTree = "<group>"; };
 		CC7B2C1A282A0C3F005610C3 /* access_control.control.mx */ = {isa = PBXFileReference; lastKnownFileType = file; path = access_control.control.mx; sourceTree = "<group>"; };
-		CC7C01132807BCA00078E93C /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		CC7C011A2807BE170078E93C /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
 		CC7C011F2807C5E60078E93C /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
-		CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionProgress.swift; sourceTree = "<group>"; };
 		CC839155282CC23000C87C29 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		CC849C4E28333508009FBFEF /* AnswerSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerSuccessView.swift; sourceTree = "<group>"; };
 		CCAAEB3E2853594900AC0F6A /* ImageZoomble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomble.swift; sourceTree = "<group>"; };
 		CCAAEB4028535D7A00AC0F6A /* ShowImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageView.swift; sourceTree = "<group>"; };
-		CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionService.swift; sourceTree = "<group>"; };
 		CCF12E172845BE5900589287 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +248,26 @@
 				18C0EE09286D4A8C00845F4F /* FooterAnswerQuestionView.swift */,
 			);
 			path = AnswerQuestionView;
+			sourceTree = "<group>";
+		};
+		18EF7628287FC30900CB744E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CC3C621C281A3B270035E71E /* Extension */,
+				CC0E1B9B280E741200A7AE1D /* Constants */,
+				80A1F3602826000F0045C993 /* Enum */,
+				CC516C1B2806CBBA0045DAB1 /* Services */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		18EF7629287FC33B00CB744E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CC516BF02806CAC80045DAB1 /* ContentView.swift */,
+				CC516BEE2806CAC80045DAB1 /* CodeDeLaRouteApp.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		80A1F3602826000F0045C993 /* Enum */ = {
@@ -357,16 +365,12 @@
 			isa = PBXGroup;
 			children = (
 				18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */,
+				18EF7629287FC33B00CB744E /* Application */,
+				18EF7628287FC30900CB744E /* Common */,
 				CC7B2C14282A033B005610C3 /* Database */,
-				80A1F3602826000F0045C993 /* Enum */,
-				CC3C621C281A3B270035E71E /* Extension */,
-				CC0E1B9B280E741200A7AE1D /* Constants */,
-				CC516C1B2806CBBA0045DAB1 /* Services */,
 				CC516C1A2806CB870045DAB1 /* ViewModels */,
 				CC516C192806CB020045DAB1 /* Models */,
 				CC516C182806CAE10045DAB1 /* Views */,
-				CC516BEE2806CAC80045DAB1 /* CodeDeLaRouteApp.swift */,
-				CC516BF02806CAC80045DAB1 /* ContentView.swift */,
 				CC516BF22806CACA0045DAB1 /* Assets.xcassets */,
 				CC516BF42806CACA0045DAB1 /* Preview Content */,
 				CC34F32328178FAB0024BA4B /* LaunchScreen.storyboard */,
@@ -425,7 +429,6 @@
 				CC34F31D28178D0B0024BA4B /* UserInfo.swift */,
 				CC34F31F28178D8D0024BA4B /* TopicProgress.swift */,
 				CC34F32128178E2C0024BA4B /* QuestionProgress.swift */,
-				CC2AA031282BAC4200322582 /* Process.swift */,
 				1897E92B286A9C0700E865C6 /* TestInfo.swift */,
 				1897E92D286A9CF000E865C6 /* TestDataItem.swift */,
 				1897E92F286A9F7C00E865C6 /* TestProgress.swift */,
@@ -442,7 +445,7 @@
 				CC7C011A2807BE170078E93C /* PracticeViewModel.swift */,
 				CC6E300C2840798D0062BC86 /* TestViewModel.swift */,
 				CC46531D2849EEC300D6CF50 /* ReviewViewModel.swift */,
-				18895943287D0B8200C2A533 /* AnswerQuestion.swift */,
+				18EF762B287FD70B00CB744E /* AnswerQuestion.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -450,11 +453,6 @@
 		CC516C1B2806CBBA0045DAB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CC7C01132807BCA00078E93C /* RealmService.swift */,
-				CC5B2AEE28125B0200D16886 /* RealmTopicSevice.swift */,
-				CCD08F3A2819248B00E98F50 /* RealmQuestionService.swift */,
-				CC839153282CC1C200C87C29 /* RealmQuestionProgress.swift */,
-				CC6EFBC02834CE2400E00FB1 /* RealmTopicProgress.swift */,
 				CCF12E172845BE5900589287 /* RealmManager.swift */,
 			);
 			path = Services;
@@ -685,7 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC5B2AF12812639900D16886 /* TopicChildRowView.swift in Sources */,
-				18895944287D0B8200C2A533 /* AnswerQuestion.swift in Sources */,
+				18EF762C287FD70B00CB744E /* AnswerQuestion.swift in Sources */,
 				1801579528644CCA0099E95D /* CustomSlider.swift in Sources */,
 				CC516BF12806CAC80045DAB1 /* ContentView.swift in Sources */,
 				CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */,
@@ -693,7 +691,6 @@
 				CC584A4328373DD800B26798 /* StartView.swift in Sources */,
 				1897E92C286A9C0700E865C6 /* TestInfo.swift in Sources */,
 				18015791286419B90099E95D /* ReviewTopicRowView.swift in Sources */,
-				CC6EFBC12834CE2400E00FB1 /* RealmTopicProgress.swift in Sources */,
 				18C0EE0A286D4A8C00845F4F /* FooterAnswerQuestionView.swift in Sources */,
 				CC6CA4662807CDFA00F60E63 /* Question.swift in Sources */,
 				CC34F31C281789320024BA4B /* Answer.swift in Sources */,
@@ -713,7 +710,6 @@
 				CC0E1B9D280E743D00A7AE1D /* CornerRadiusStyle.swift in Sources */,
 				CC34F3272817A3C70024BA4B /* Constants.swift in Sources */,
 				18BB14AC287692C30083FD54 /* Int.swift in Sources */,
-				CC5B2AEF28125B0200D16886 /* RealmTopicSevice.swift in Sources */,
 				CC46531E2849EEC300D6CF50 /* ReviewViewModel.swift in Sources */,
 				CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */,
 				1801578F286408270099E95D /* ProgressHalfCircleView.swift in Sources */,
@@ -727,15 +723,12 @@
 				18C0EE08286D3EDB00845F4F /* HeaderAnswerQuestionView.swift in Sources */,
 				1801579728644EDE0099E95D /* Setting.swift in Sources */,
 				CC78C9B928096C340089FD30 /* TabViewModel.swift in Sources */,
-				CC2AA032282BAC4200322582 /* Process.swift in Sources */,
 				CC6C311B284EE48500EF1F67 /* ReviewRowView.swift in Sources */,
 				CC34F31E28178D0B0024BA4B /* UserInfo.swift in Sources */,
-				CCD08F3B2819248B00E98F50 /* RealmQuestionService.swift in Sources */,
 				CC67D2A028518BC800D4FE06 /* ReviewQuestionView.swift in Sources */,
 				CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */,
 				CC54CA3B28532A1E0033E981 /* Toast.swift in Sources */,
 				80A1F362282600430045C993 /* Tabs.swift in Sources */,
-				CC7C01142807BCA00078E93C /* RealmService.swift in Sources */,
 				1897E92A286A978500E865C6 /* Array.swift in Sources */,
 				CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */,
 				CC2C65FB28194CDE00CD99A5 /* ViewModel.swift in Sources */,
@@ -757,7 +750,6 @@
 				CC7C01202807C5E60078E93C /* Topic.swift in Sources */,
 				CC74C184281108C8009D612E /* DividingLineView.swift in Sources */,
 				1897E93A286C55DA00E865C6 /* DetailTestView.swift in Sources */,
-				CC839154282CC1C200C87C29 /* RealmQuestionProgress.swift in Sources */,
 				CC0E1B9F280E76F200A7AE1D /* TopicRowView.swift in Sources */,
 				CC74C18828113694009D612E /* AppInfo.swift in Sources */,
 				CC3C621E281A3B490035E71E /* String.swift in Sources */,
