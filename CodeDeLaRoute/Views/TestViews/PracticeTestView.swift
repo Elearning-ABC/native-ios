@@ -8,24 +8,20 @@
 import SwiftUI
 
 struct PracticeTestView: View {
+    @StateObject var practiceTestViewModel = PracticeTestViewModel()
     @EnvironmentObject var testViewModel: TestViewModel
-    @State var showReport: Bool = false
-    @State var counter : Int = 0
-    @State var isShowSubmitTest: Bool = false
-    @State var bookmark: Bool = false
-    @State var isShowBody: Bool = true
-    
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var title: String
+    @State var counter : Int = 0
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var testInfo: TestInfo
     var testLevel: TestLevel
-    
+
     init(testInfo: TestInfo, testLevel: TestLevel){
         self.testInfo = testInfo
         self.testLevel = testLevel
         switch testLevel {
         case .easy:
-            title = Constant.EASY
+                title = Constant.EASY
         case .medium:
             title = Constant.MEDIUM
         case .hardest:
@@ -45,17 +41,17 @@ struct PracticeTestView: View {
     }
     
     func onRight(){
-        isShowBody = false
+        practiceTestViewModel.isShowBody = false
         withAnimation{
             testViewModel.nextQuestion()
-            isShowBody.toggle()
+            practiceTestViewModel.isShowBody.toggle()
         }
         
     }
     
     func onHeart(questionId : String){
-        bookmark.toggle()
-        testViewModel.onHeart(questionId: questionId, bookmark: bookmark)
+        practiceTestViewModel.bookmark.toggle()
+        practiceTestViewModel.onHeart(questionId: questionId, testDataItems: convertListToArray(list: testInfo.testQuestionData))
     }
     
     func actionTimeEnd(){
@@ -65,7 +61,7 @@ struct PracticeTestView: View {
     }
     
     func onSubmitTest(){
-        isShowSubmitTest .toggle()
+        practiceTestViewModel.isShowSubmitTest .toggle()
     }
     
     var body: some View {
@@ -76,7 +72,7 @@ struct PracticeTestView: View {
                     
                     if testProgressApp.status == 1{
                         
-                        TestEndView(testInfo: testInfo, testLevel: testLevel, title: title)
+                        TestEndView(testProgressApp: testProgressApp, testInfo: testInfo, testLevel: testLevel, title: title)
                         
                     }else{
                         if let index = testViewModel.indexQuestion{
@@ -90,21 +86,18 @@ struct PracticeTestView: View {
                                                      onSubmit: {onSubmitTest()})
                             
                             if testLevel != .easy{
-                                let time = testViewModel.getTime()
-                                if let time = time {
-                                    TimerTestView(time: time,
-                                                  duration: testInfo.duration,
-                                                  testLevel: testLevel,
-                                                  totalQuestion: testInfo.totalQuestion,
-                                                  index: index,
-                                                  actionTimeEnd: actionTimeEnd)
-                                }
+                                let time = practiceTestViewModel.getTime(testProgressApp: testProgressApp)
+                                TimerTestView(time: time,
+                                              duration: testInfo.duration,
+                                              testLevel: testLevel,
+                                              totalQuestion: testInfo.totalQuestion,
+                                              index: index,
+                                              actionTimeEnd: actionTimeEnd)
                                 
                             }
-                            if isShowBody{
+                            if practiceTestViewModel.isShowBody{
                                 VStack{
                                     QuestionBoxView(question: question.text, iconName: "")
-                                    
                                     AnswerView(testLevel: testLevel,
                                                answers: answers,
                                                explanation: question.explanation ,
@@ -117,19 +110,19 @@ struct PracticeTestView: View {
                             
                             Spacer()
                             
-                            FooterAnswerQuestionView(bookmark: bookmark, showPopup: $showReport, onRight: onRight, onHeart: {
+                            FooterAnswerQuestionView(bookmark: practiceTestViewModel.bookmark, showPopup: $practiceTestViewModel.showReport, onRight: onRight, onHeart: {
                                 onHeart(questionId: question.id)
                             })
                             .onAppear{
-                                bookmark = testViewModel.getBookMark(questionId: question.id)
+                                practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: question.id)
                             }
                             .onChange(of: question.id, perform: { questionId in
-                                bookmark = testViewModel.getBookMark(questionId: questionId)
+                                practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: questionId)
                             })
                         }
                     }
                 }
-                .popupView(isShow: $isShowSubmitTest, view: AnyView(SubmitTestView(isShowSubmitTest: $isShowSubmitTest, testInfo: testInfo, answered: testProgressApp.answeredQuestions.count, total: testProgressApp.totalQuestion)))
+                .popupView(isShow: $practiceTestViewModel.isShowSubmitTest, view: AnyView(SubmitTestView(isShowSubmitTest: $practiceTestViewModel.isShowSubmitTest, testInfo: testInfo, answered: testProgressApp.answeredQuestions.count, total: testProgressApp.totalQuestion)))
             }
         }
         .onAppear{

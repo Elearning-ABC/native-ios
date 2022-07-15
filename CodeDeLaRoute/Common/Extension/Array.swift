@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 extension Array where Element : QuestionProgressApp {
     
