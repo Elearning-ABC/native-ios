@@ -270,6 +270,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		18EF762D28802F0400CB744E /* TestViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CC6E300C2840798D0062BC86 /* TestViewModel.swift */,
+			);
+			path = TestViewModel;
+			sourceTree = "<group>";
+		};
 		80A1F3602826000F0045C993 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,10 +448,10 @@
 		CC516C1A2806CB870045DAB1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				18EF762D28802F0400CB744E /* TestViewModel */,
 				CC2C65FA28194CDE00CD99A5 /* ViewModel.swift */,
 				CC78C9B828096C340089FD30 /* TabViewModel.swift */,
 				CC7C011A2807BE170078E93C /* PracticeViewModel.swift */,
-				CC6E300C2840798D0062BC86 /* TestViewModel.swift */,
 				CC46531D2849EEC300D6CF50 /* ReviewViewModel.swift */,
 				18EF762B287FD70B00CB744E /* AnswerQuestion.swift */,
 			);

@@ -61,8 +61,6 @@ class RealmManager<T: Object>: RealmServicceProtocol{
         case local
     }
     
-    
-    
     init(fileURL: fileURL){
         switch fileURL {
         case .file:

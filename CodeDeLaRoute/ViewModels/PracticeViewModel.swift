@@ -41,6 +41,7 @@ class PracticeViewModel: AnswerQuestionProtocol{
             return 0
         }
     }
+    
     func getListTopicProgress(){
         let topicProgresses = realmTopicProgress.queryAll()
         for topicProgress in topicProgresses {
