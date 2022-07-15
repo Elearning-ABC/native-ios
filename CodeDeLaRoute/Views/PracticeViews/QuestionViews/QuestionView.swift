@@ -9,36 +9,36 @@ import SwiftUI
 import PopupView
 
 struct QuestionView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
+    @EnvironmentObject var practicViewModel : PracticeViewModel
     @State var showPopup: Bool = false
     @State var isShowBody: Bool = true
     @State var topic: Topic
     func onRight(){
-        if viewModel.navigtorAnswer{
+        if practicViewModel.navigtorAnswer{
             isShowBody.toggle()
             withAnimation{
-                viewModel.updateListQuestionProgress()
+                practicViewModel.updateListQuestionProgress()
                 isShowBody.toggle()
             }
         }
     }
     
     func onHeart(){
-        viewModel.updateBookmark()
+        practicViewModel.updateBookmark()
     }
     
     var body: some View {
         VStack {
-            if viewModel.showSucsessAnswer{
+            if practicViewModel.showSucsessAnswer{
                 AnswerSuccessView(topic: $topic)
             }else{
                 ZStack {
-                    if !viewModel.questionProgressApps.isEmpty{
+                    if !practicViewModel.questionProgressApps.isEmpty{
                         VStack(spacing: 0) {
                             HearderQuestionView(topic: topic)
                             if isShowBody{
                                 VStack(spacing: 0){
-                                    AnswerQuestionView<PracticeViewModel>(questionProgressApp: viewModel.questionProgressApps[0])
+                                    AnswerQuestionView<PracticeViewModel>(questionProgressApp: practicViewModel.questionProgressApps[0])
                                         .transition(.slide)
                                 }
                                 .padding([.top, .leading, .trailing])
@@ -47,7 +47,7 @@ struct QuestionView: View {
                             
                             Spacer()
                             
-                            FooterAnswerQuestionView(bookmark: viewModel.questionProgressApps[0].bookmark, showPopup: $showPopup, onRight: onRight, onHeart: onHeart)
+                            FooterAnswerQuestionView(bookmark: practicViewModel.questionProgressApps[0].bookmark, showPopup: $showPopup, onRight: onRight, onHeart: onHeart)
                         }
                     }
                     
@@ -77,7 +77,7 @@ struct QuestionView: View {
         .background(BackGroundView())
         .ignoresSafeArea()
         .onAppear{
-            viewModel.getQuestionProgressApps(topicId: topic.id)
+            practicViewModel.getQuestionProgressApps(topicId: topic.id)
         }
     }
 }

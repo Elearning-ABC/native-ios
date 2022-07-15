@@ -17,6 +17,7 @@
 		1801579728644EDE0099E95D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801579628644EDE0099E95D /* Setting.swift */; };
 		18192A622881082300EF3499 /* TestEndViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18192A612881082300EF3499 /* TestEndViewModel.swift */; };
 		18192A64288119AD00EF3499 /* PracticeTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18192A63288119AD00EF3499 /* PracticeTestViewModel.swift */; };
+		18192A66288155F900EF3499 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18192A65288155F900EF3499 /* MainView.swift */; };
 		1827AC59286E9C3B00D19F3E /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827AC58286E9C3B00D19F3E /* TimerTestView.swift */; };
 		1897E928286A932100E865C6 /* asvab.realm in Resources */ = {isa = PBXBuildFile; fileRef = 1897E927286A932100E865C6 /* asvab.realm */; };
 		1897E92A286A978500E865C6 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897E929286A978500E865C6 /* Array.swift */; };
@@ -127,6 +128,7 @@
 		1801579628644EDE0099E95D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		18192A612881082300EF3499 /* TestEndViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEndViewModel.swift; sourceTree = "<group>"; };
 		18192A63288119AD00EF3499 /* PracticeTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestViewModel.swift; sourceTree = "<group>"; };
+		18192A65288155F900EF3499 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1827AC58286E9C3B00D19F3E /* TimerTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestView.swift; sourceTree = "<group>"; };
 		18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeDeLaRoute.entitlements; sourceTree = "<group>"; };
 		1897E927286A932100E865C6 /* asvab.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = asvab.realm; sourceTree = "<group>"; };
@@ -268,8 +270,9 @@
 		18EF7629287FC33B00CB744E /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				CC516BF02806CAC80045DAB1 /* ContentView.swift */,
 				CC516BEE2806CAC80045DAB1 /* CodeDeLaRouteApp.swift */,
+				CC516BF02806CAC80045DAB1 /* ContentView.swift */,
+				18192A65288155F900EF3499 /* MainView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				1801579528644CCA0099E95D /* CustomSlider.swift in Sources */,
 				CC516BF12806CAC80045DAB1 /* ContentView.swift in Sources */,
 				CC2C65F728193C9B00CD99A5 /* AnswerView.swift in Sources */,
+				18192A66288155F900EF3499 /* MainView.swift in Sources */,
 				1897E930286A9F7C00E865C6 /* TestProgress.swift in Sources */,
 				CC584A4328373DD800B26798 /* StartView.swift in Sources */,
 				1897E92C286A9C0700E865C6 /* TestInfo.swift in Sources */,

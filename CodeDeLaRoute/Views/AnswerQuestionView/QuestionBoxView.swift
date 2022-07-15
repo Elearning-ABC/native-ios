@@ -12,8 +12,9 @@ struct QuestionBoxView: View {
     var question: String
     var iconName: String
     var status: StatusQuestion?
-        
+    
     var body: some View {
+        let imageId = iconName
         let content = setStatus(statusQuestion: status)
         let size = viewModel.settingApp?.fontSize ?? 16.0
         ZStack(alignment: .topLeading) {
@@ -26,7 +27,16 @@ struct QuestionBoxView: View {
                     if iconName != ""{
                         Image(iconName.replace(target: ".png", withString: ""))
                             .resizable()
+                            .matchedGeometryEffect(id: imageId, in: viewModel.namespace)
+                            .scaledToFit()
                             .frame(width:80,height: 80)
+                            .onTapGesture{
+                                viewModel.imageString = iconName.replace(target: ".png", withString: "")
+                                viewModel.imageId = imageId
+                                withAnimation(.easeOut){
+                                    viewModel.showImage.toggle()
+                                }
+                            }
                     }
                 }
                 if let content = content {
@@ -54,10 +64,10 @@ struct QuestionBoxView: View {
                         .foregroundColor(content.color)
                         .font(.system(size: 16, weight: .semibold))
                         .padding(.horizontal, 8.0)
-
+                    
                 }
                 .background(LinearGradient(gradient: Gradient(colors: [ Color(red: 0.888, green: 0.898, blue: 0.934),Color(red: 0.922, green: 0.925, blue: 0.943)]), startPoint: .bottomLeading, endPoint: .topTrailing)
-    )
+                )
                 .padding(.top, -8.0)
                 .padding(.horizontal)
             }

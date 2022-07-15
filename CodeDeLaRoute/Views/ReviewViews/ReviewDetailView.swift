@@ -74,7 +74,6 @@ struct ReviewDetailView: View {
         .padding(.bottom)
         .background(BackGroundView())
         .ignoresSafeArea()
-        .showImageView(show: $reviewViewModel.showImage, image: reviewViewModel.imageString, namespace: reviewViewModel.namespace, id: reviewViewModel.imageId)
         .onAppear(){
             reviewViewModel.resetReviewAnswer()
         }

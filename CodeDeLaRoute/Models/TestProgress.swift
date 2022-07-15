@@ -46,7 +46,7 @@ class TestProgress: Object, Identifiable{
 }
 
 struct TestProgressApp: Identifiable{
-    var id: String = "\(UUID())"
+    var id: String = UUID().uuidString
     var testInfoId: String
     var testSetting: Int
     var time: Int

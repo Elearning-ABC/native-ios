@@ -66,7 +66,6 @@ struct ReviewQuestionView: View {
                     .cornerRadius(25,corners: [.topLeft, .topRight])
                 
             }
-            .showImageView(show: $reviewViewModel.showImage, image: reviewViewModel.imageString, namespace: reviewViewModel.namespace, id: reviewViewModel.imageId)
     }
 }
 

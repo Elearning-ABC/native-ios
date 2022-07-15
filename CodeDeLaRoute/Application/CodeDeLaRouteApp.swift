@@ -9,21 +9,11 @@ import SwiftUI
 
 @main
 struct CodeDeLaRouteApp: App {
-    @StateObject var viewModel = ViewModel()
+    @Namespace var namespace
     var body: some Scene {
         WindowGroup {
-            if viewModel.settingApp == nil {
-                StartView()
-                    .environmentObject(viewModel)
-            }else{
-                NavigationView{
-                    ContentView()
-                            
-                            .navigationBarHidden(true)
-                }
-                .showChangeFontSizeView(show: $viewModel.showChangeFontSize, fontSize: viewModel.settingApp!.fontSize, onChangeFontSize: { size in  viewModel.onChangeFontSize(size: size)})
-                .environmentObject(viewModel)
-            }
+            ContentView()
+                .environmentObject(ViewModel(namespace: namespace))
         }
     }
 }

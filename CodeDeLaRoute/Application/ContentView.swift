@@ -8,57 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Namespace var namespace
-    @StateObject var tabViewModel = TabViewModel()
-
+    @EnvironmentObject var viewModel : ViewModel
     var body: some View {
-        VStack(spacing:0){
-            HeaderView()
-        
-            TabView(selection: $tabViewModel.active){
-                PracticeView()
-                    .environmentObject(PracticeViewModel())
-                    .tag(Tabs.tab1)
-                
-                TestView()
-                    .tag(Tabs.tab2)
-                
-                ReviewView()
-                    .environmentObject(ReviewViewModel(namespace: namespace))
-                    .tag(Tabs.tab3)
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .padding(.top)
-            
-            
-            HStack{
-                    ForEach(
-                        tabViewModel.TabData,
-                        id: \.self
-                    ) {
-                        item in
-                        HStack{
-                            Spacer()
+        if viewModel.settingApp == nil {
+            StartView()
+                .environmentObject(viewModel)
+        }else{
+            VStack{
+                NavigationView{
+                    MainView()
+                            .navigationBarHidden(true)
+                }
+                .showChangeFontSizeView(show: $viewModel.showChangeFontSize, fontSize: viewModel.settingApp!.fontSize, onChangeFontSize: { size in  viewModel.onChangeFontSize(size: size)})
+                .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
 
-                            Image(item.image)
-                                .renderingMode(item.active == tabViewModel.active ? .template : .original)
-                                .foregroundColor(.blue1)
-                            Spacer()
-                        }
-                        .frame(height: 60)
-                        .background(.white)
-                        .onTapGesture {
-                            withAnimation{
-                                tabViewModel.active = item.active
-                            }
-                        }
-                    }
             }
-            .padding(.bottom)
-            .background(Color.white)
         }
-        .background(BackGroundView())
-        .ignoresSafeArea()
     }
 }
 

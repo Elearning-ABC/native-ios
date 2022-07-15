@@ -9,13 +9,13 @@ import SwiftUI
 
 struct QuestionReviewRowView: View {
     var question: Question
-    @EnvironmentObject var viewModel: ReviewViewModel
+    @EnvironmentObject var viewModel: ViewModel
     @State var showAnswer = false
     @State var showImage : Bool = false
     
     
     var body: some View {
-        let imageId = "\(question.id)i"
+        let imageId = question.id
         VStack {
             Button{
                 withAnimation(.easeInOut){

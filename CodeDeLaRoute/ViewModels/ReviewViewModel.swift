@@ -16,10 +16,6 @@ class ReviewViewModel: AnswerQuestionProtocol{
     @Published var favoriteQuestionPs = [QuestionProgressApp]()
     @Published var questionProgressApps = [QuestionProgressApp]()
     @Published var isShowNoQuestion : Bool = false
-    @Published var showImage: Bool = false
-    @Published var imageString : String = ""
-    @Published var namespace: Namespace.ID
-    @Published var imageId: String = "0"
     @Published var answerQuestion = 0
     @Published var navigtorAnswer = false
     @Published var progressBar : CGFloat = 0
@@ -27,8 +23,7 @@ class ReviewViewModel: AnswerQuestionProtocol{
     var inCorrectNumber = 0
     
     
-    init(namespace: Namespace.ID){
-        self.namespace = namespace
+    init(){
         getAllQuestion()
     }
     

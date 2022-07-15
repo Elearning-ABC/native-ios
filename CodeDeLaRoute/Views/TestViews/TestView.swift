@@ -10,7 +10,7 @@ import SwiftUI
 struct TestView: View {
     @EnvironmentObject var viewModel : ViewModel
     @StateObject var testViewModel = TestViewModel()
-    
+
     @State var isShowToast: Bool = false
     var body: some View {
         ScrollView{
@@ -18,7 +18,7 @@ struct TestView: View {
                 let title = testInfo.title + " \(testInfo.index + 1)"
                 PracticeTestRowView(isShowToast: $isShowToast, testInfo: testInfo, title: title, totalQuestion: testInfo.totalQuestion)
                     .environmentObject(testViewModel)
-                
+
             }
         }
         .padding()
