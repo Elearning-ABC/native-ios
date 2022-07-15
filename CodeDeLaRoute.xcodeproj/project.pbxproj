@@ -15,6 +15,8 @@
 		18015793286426500099E95D /* ShowChangeFontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18015792286426500099E95D /* ShowChangeFontSizeView.swift */; };
 		1801579528644CCA0099E95D /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801579428644CCA0099E95D /* CustomSlider.swift */; };
 		1801579728644EDE0099E95D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1801579628644EDE0099E95D /* Setting.swift */; };
+		18192A622881082300EF3499 /* TestEndViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18192A612881082300EF3499 /* TestEndViewModel.swift */; };
+		18192A64288119AD00EF3499 /* PracticeTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18192A63288119AD00EF3499 /* PracticeTestViewModel.swift */; };
 		1827AC59286E9C3B00D19F3E /* TimerTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827AC58286E9C3B00D19F3E /* TimerTestView.swift */; };
 		1897E928286A932100E865C6 /* asvab.realm in Resources */ = {isa = PBXBuildFile; fileRef = 1897E927286A932100E865C6 /* asvab.realm */; };
 		1897E92A286A978500E865C6 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897E929286A978500E865C6 /* Array.swift */; };
@@ -123,6 +125,8 @@
 		18015792286426500099E95D /* ShowChangeFontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowChangeFontSizeView.swift; sourceTree = "<group>"; };
 		1801579428644CCA0099E95D /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		1801579628644EDE0099E95D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		18192A612881082300EF3499 /* TestEndViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEndViewModel.swift; sourceTree = "<group>"; };
+		18192A63288119AD00EF3499 /* PracticeTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTestViewModel.swift; sourceTree = "<group>"; };
 		1827AC58286E9C3B00D19F3E /* TimerTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestView.swift; sourceTree = "<group>"; };
 		18831C37285AEFFA00E5B412 /* CodeDeLaRoute.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodeDeLaRoute.entitlements; sourceTree = "<group>"; };
 		1897E927286A932100E865C6 /* asvab.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = asvab.realm; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 			isa = PBXGroup;
 			children = (
 				CC6E300C2840798D0062BC86 /* TestViewModel.swift */,
+				18192A612881082300EF3499 /* TestEndViewModel.swift */,
+				18192A63288119AD00EF3499 /* PracticeTestViewModel.swift */,
 			);
 			path = TestViewModel;
 			sourceTree = "<group>";
@@ -448,9 +454,9 @@
 		CC516C1A2806CB870045DAB1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				18EF762D28802F0400CB744E /* TestViewModel */,
 				CC2C65FA28194CDE00CD99A5 /* ViewModel.swift */,
 				CC78C9B828096C340089FD30 /* TabViewModel.swift */,
+				18EF762D28802F0400CB744E /* TestViewModel */,
 				CC7C011A2807BE170078E93C /* PracticeViewModel.swift */,
 				CC46531D2849EEC300D6CF50 /* ReviewViewModel.swift */,
 				18EF762B287FD70B00CB744E /* AnswerQuestion.swift */,
@@ -719,6 +725,7 @@
 				CC34F3272817A3C70024BA4B /* Constants.swift in Sources */,
 				18BB14AC287692C30083FD54 /* Int.swift in Sources */,
 				CC46531E2849EEC300D6CF50 /* ReviewViewModel.swift in Sources */,
+				18192A622881082300EF3499 /* TestEndViewModel.swift in Sources */,
 				CC2C65F52819328C00CD99A5 /* QuestionBoxView.swift in Sources */,
 				1801578F286408270099E95D /* ProgressHalfCircleView.swift in Sources */,
 				CC839156282CC23000C87C29 /* Data.swift in Sources */,
@@ -736,6 +743,7 @@
 				CC67D2A028518BC800D4FE06 /* ReviewQuestionView.swift in Sources */,
 				CC74C18F28114C51009D612E /* BackHearderLeftView.swift in Sources */,
 				CC54CA3B28532A1E0033E981 /* Toast.swift in Sources */,
+				18192A64288119AD00EF3499 /* PracticeTestViewModel.swift in Sources */,
 				80A1F362282600430045C993 /* Tabs.swift in Sources */,
 				1897E92A286A978500E865C6 /* Array.swift in Sources */,
 				CC849C4F28333508009FBFEF /* AnswerSuccessView.swift in Sources */,

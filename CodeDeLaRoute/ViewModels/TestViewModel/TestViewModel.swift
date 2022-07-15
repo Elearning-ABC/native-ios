@@ -19,7 +19,6 @@ class TestViewModel: AnswerQuestionProtocol{
     @Published var questions = [Question]()
     @Published var indexQuestion: Int?
     @Published var indexTestProgressApp: Int?
-    var testDataItems = [TestDataItem]()
     private let realmTestProgress = RealmManager<TestProgress>(fileURL: .local)
     private var corectNumber : Int = 0
     
@@ -88,8 +87,6 @@ class TestViewModel: AnswerQuestionProtocol{
         }
     }
     
-    
-    
     func getTestProgressApp(testInfoId: String)-> TestProgressApp?{
         var testProgressApps = self.testProgressApps.filter{$0.testInfoId == testInfoId}
         
@@ -116,9 +113,8 @@ class TestViewModel: AnswerQuestionProtocol{
         var questionIds: [String] = []
         questions.removeAll()
         isCorrectAdded = false
-        testDataItems = convertListToArray(list: testInfo.testQuestionData)
         
-        for testDataItem in testDataItems{
+        for testDataItem in testInfo.testQuestionData{
             questionIds += testDataItem.questionIds
         }
         for questionId in questionIds {
@@ -162,7 +158,7 @@ class TestViewModel: AnswerQuestionProtocol{
         if indexQuestion == questions.count - 1{
             testProgressApps[indexTestProgressApp!].status = 1
         }
-        updateTestProgress()
+        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp!])
         isCorrectAdded = false
     }
     
@@ -216,7 +212,7 @@ class TestViewModel: AnswerQuestionProtocol{
         }else{
             let answeredQuestionApp = AnsweredQuestionApp(questionId: questionId, selectedIds: [answerId])
             testProgressApps[indexTestProgressApp].answeredQuestions.append(answeredQuestionApp)
-            updateTestProgress()
+            updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
         }
     }
     
@@ -224,38 +220,21 @@ class TestViewModel: AnswerQuestionProtocol{
         if let indexTestProgressApp = indexTestProgressApp {
             testProgressApps[indexTestProgressApp].correctQuestion = corectNumber
             testProgressApps[indexTestProgressApp].currentQuestionId = questions[index].id
-            updateTestProgress()
+            updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
         }
     }
     
-    func updateTestProgress(){
-        if let indexTestProgressApp = indexTestProgressApp {
-            testProgressApps[indexTestProgressApp].lastUpDate = Date().timeIntervalSince1970
-            let testProgress = TestProgress()
-            testProgress.setValue(testProgressApp: testProgressApps[indexTestProgressApp])
-            _ = realmTestProgress.update(entity: testProgress)
-        }
-        
-    }
     func updateTestProgress(testProgressApp: TestProgressApp){
         let testProgress = TestProgress()
         testProgress.setValue(testProgressApp: testProgressApp)
+        testProgress.lastUpDate = Date().timeIntervalSince1970
         _ = realmTestProgress.update(entity: testProgress)
     }
     
     func updateTimeInTestProgress(time: Int){
         if let index = indexTestProgressApp {
             testProgressApps[index].time = time + testProgressApps[index].time
-            updateTestProgress()
-        }
-    }
-    
-    func getTime()->Int?{
-        if let indexTestProgressApp = indexTestProgressApp {
-            let time = testProgressApps[indexTestProgressApp].time
-            return time
-        }else{
-            return nil
+            updateTestProgress(testProgressApp: testProgressApps[index])
         }
     }
     
@@ -271,14 +250,13 @@ class TestViewModel: AnswerQuestionProtocol{
         let percentAnswer = Int(testProgressApps[indexTestProgressApp].correctQuestion*100/testInfo.totalQuestion)
         testProgressApps[indexTestProgressApp].status = 1
         
-        updateTestProgress()
+        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
         //        if percentAnswer >= testInfo.percentPassed{
         if percentAnswer >= 0{
             if testInfo.index < testInfos.count - 1{
                 unLockTestProgress(index: testInfo.index + 1)
             }
         }
-        
     }
     
     func unLockTestProgress(index:Int){
@@ -305,81 +283,8 @@ class TestViewModel: AnswerQuestionProtocol{
         testProgressApps[indexTestProgressApp].correctQuestion = 0
         testProgressApps[indexTestProgressApp].currentQuestionId = ""
         
-        updateTestProgress()
+        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
         
         createTest(testInfo: testInfo, testLevel: testLevel)
-    }
-    
-    func getBookMark(questionId: String )->Bool{
-        let realmQuestionProgress = RealmManager<QuestionProgress>(fileURL: .local)
-        
-        let questionProgresses = realmQuestionProgress.queryGroupByIdOther(id: questionId, property: .questionId)
-        if questionProgresses != []{
-            return questionProgresses[0].bookmark
-        }
-        return false
-    }
-    
-    func onHeart(questionId: String, bookmark: Bool){
-        let realmQuestionProgress = RealmManager<QuestionProgress>(fileURL: .local)
-        let questionProgresses = realmQuestionProgress.queryGroupByIdOther(id: questionId, property: .questionId)
-        if questionProgresses.isEmpty{
-            let questionProgress = QuestionProgress()
-            let topicId = getTopicId(questionId: questionId)
-            if let topicId = topicId {
-                questionProgress.id = "\(UUID())"
-                questionProgress.questionId = questionId
-                questionProgress.topicId = topicId
-                questionProgress.bookmark = bookmark
-            }
-            _ = realmQuestionProgress.save(entity: questionProgress)
-        }else{
-            let questionProgressApp = QuestionProgressApp(questionProgress: questionProgresses[0])
-            questionProgressApp.bookmark = bookmark
-            questionProgressApp.lastUpdate = Date().timeIntervalSince1970
-            let questionProgress = QuestionProgress()
-            
-            questionProgress.setValue(questionProgressApp: questionProgressApp)
-            _ = realmQuestionProgress.update(entity: questionProgress)
-        }
-    }
-    
-    func getTopicId(questionId: String)-> String?{
-        for testDataItem in testDataItems {
-            for id in testDataItem.questionIds{
-                if questionId == id{
-                    return testDataItem.topicId
-                }
-            }
-        }
-        return nil
-    }
-    
-    
-    func getCorectNumberInTopic(testDataItem: TestDataItem) -> Double{
-        guard let indexTestProgressApp = indexTestProgressApp else {
-            return 0
-        }
-        var correct: Double = 0
-        let realmAnswer = RealmManager<Answer>(fileURL: .file)
-        
-        let testProgressApp = testProgressApps[indexTestProgressApp]
-        for questionId in testDataItem.questionIds{
-            let result = testProgressApp.answeredQuestions.first(where: {$0.questionId == questionId})
-            if let result = result {
-                let answerId =  result.selectedIds.last
-                let answer = realmAnswer.queryWithId(id: answerId!)
-                if answer?.isCorrect == true{
-                    correct += 1
-                }
-            }
-        }
-        return correct
-    }
-    
-    func getNameInTopic(topicId: String) -> String{
-        let realm = RealmManager<Topic>(fileURL: .file)
-        let topic = realm.queryWithId(id: topicId)
-        return topic!.name
     }
 }
