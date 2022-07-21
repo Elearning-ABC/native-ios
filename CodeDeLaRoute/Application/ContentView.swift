@@ -17,11 +17,13 @@ struct ContentView: View {
             VStack{
                 NavigationView{
                     MainView()
-                            .navigationBarHidden(true)
+                        .navigationBarHidden(true)
                 }
                 .showChangeFontSizeView(show: $viewModel.showChangeFontSize, fontSize: viewModel.settingApp!.fontSize, onChangeFontSize: { size in  viewModel.onChangeFontSize(size: size)})
                 .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
-
+                .popup(isPresented: $viewModel.isShowReport, type: .toast, position: .bottom, closeOnTap: false, closeOnTapOutside: true) {
+                    ReportView()
+                }
             }
         }
     }

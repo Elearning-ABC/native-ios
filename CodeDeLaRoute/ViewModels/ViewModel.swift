@@ -16,6 +16,7 @@ class ViewModel: ObservableObject{
     let namespace: Namespace.ID
     @Published var showImage: Bool = false
     @Published var imageId : String = ""
+    @Published var isShowReport: Bool = false
     
     init(namespace: Namespace.ID){
         self.namespace = namespace

@@ -49,6 +49,7 @@ class QuestionProgressApp: Identifiable, Equatable{
     var index: Int?
     var answers: [Answer]?
     var question: Question?
+    var boxNumRoot: Int?
     
     init(questionProgress obj: QuestionProgress){
         id = obj.id
@@ -61,6 +62,10 @@ class QuestionProgressApp: Identifiable, Equatable{
         boxNum = obj.boxNum
         lastUpdate = obj.lastUpdate
         bookmark = obj.bookmark
+    }
+    
+    func setLastUpdate(){
+        lastUpdate = Date().timeIntervalSince1970
     }
 }
 

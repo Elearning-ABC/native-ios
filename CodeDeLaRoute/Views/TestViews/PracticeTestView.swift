@@ -95,24 +95,14 @@ struct PracticeTestView: View {
                                               actionTimeEnd: actionTimeEnd)
                                 
                             }
-                            if practiceTestViewModel.isShowBody{
-                                VStack{
-                                    QuestionBoxView(question: question.text, iconName: "")
-                                    AnswerView(testLevel: testLevel,
-                                               answers: answers,
-                                               explanation: question.explanation ,
-                                               checkCorrect: {answer in chekCorrect(answer: answer)},
-                                               checkInCorrect: {answer in checkInCorrect(answer: answer)})
-                                }
-                                .padding()
-                                .transition(.move(edge: .trailing))
-                            }
                             
-                            Spacer()
-                            
-                            FooterAnswerQuestionView(bookmark: practiceTestViewModel.bookmark, showPopup: $practiceTestViewModel.showReport, onRight: onRight, onHeart: {
-                                onHeart(questionId: question.id)
-                            })
+                            AnswerQuestionView<TestViewModel>(
+                                question: question,
+                                answers: answers,
+                                bookmark: practiceTestViewModel.bookmark,
+                                testLevel: testLevel,
+                                onHeart: {onHeart(questionId: question.id)}
+                            )
                             .onAppear{
                                 practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: question.id)
                             }

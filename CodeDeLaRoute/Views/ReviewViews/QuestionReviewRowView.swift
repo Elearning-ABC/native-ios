@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct QuestionReviewRowView: View {
-    var question: Question
     @EnvironmentObject var viewModel: ViewModel
+    var question: Question
+    var questionProgressApp: QuestionProgressApp
     @State var showAnswer = false
     @State var showImage : Bool = false
-    
+    var onHeart: () -> Void
     
     var body: some View {
         let imageId = question.id
         VStack {
+            HStack(alignment: .top) {
+                ListProgressView(progress: questionProgressApp.progress)
+                Spacer()
+                BookmarkView(bookmark: questionProgressApp.bookmark)
+                    .onTapGesture {
+                        onHeart()
+                    }
+            }
+            .padding(.bottom, 8.0)
             Button{
                 withAnimation(.easeInOut){
                     showAnswer.toggle()
@@ -38,14 +48,13 @@ struct QuestionReviewRowView: View {
                                 viewModel.imageId = imageId
                                 withAnimation(.easeOut){
                                     viewModel.showImage.toggle()
-                                    
                                 }
                             }
                     }
                 }
             }
             .buttonStyle(HideOpacity())
-
+            
             if showAnswer{
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
@@ -57,7 +66,7 @@ struct QuestionReviewRowView: View {
                     }
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.green, lineWidth: 1)
+                        .stroke(Color.green, lineWidth: 1)
                     )
                     VStack(alignment: .leading, spacing: 20) {
                         ForEach(question.inCorrectAnswers, id: \.self){
@@ -74,6 +83,51 @@ struct QuestionReviewRowView: View {
 
 struct QuestionReviewRowView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionReviewRowView(question: Question())
+        QuestionReviewRowView(question: Question(), questionProgressApp: QuestionProgressApp(questionProgress: QuestionProgress()), onHeart: {})
+    }
+}
+
+
+struct BookmarkView: View {
+    var bookmark: Bool
+    var body: some View {
+        VStack{
+            if bookmark
+            {
+                Image(systemName: "heart.fill")
+                    .foregroundColor(.blue1)
+                    .font(.system(size: 20))
+            }else{
+                Image(systemName: "heart")
+                    .foregroundColor(.blue3)
+                    .font(.system(size: 20))
+            }
+        }
+    }
+}
+
+struct ListProgressView: View{
+    var progress: [Int]
+    
+    var body: some View{
+        let end = progress.count
+        let start = progress.count > 10 ? end - 10 : 0
+        
+        HStack(alignment: .bottom) {
+            ForEach(start..<end, id: \.self){i in
+                VStack{
+                    if progress[i] == 1{
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.green)
+                            .font(.system(size: 10))
+                    }else{
+                        Image(systemName: "multiply")
+                            .foregroundColor(.red)
+                            .font(.system(size: 12))
+                        
+                    }
+                }
+            }
+        }
     }
 }

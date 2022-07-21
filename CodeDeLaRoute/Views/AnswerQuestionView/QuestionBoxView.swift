@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum StatusQuestion{
+    case learing, reviewing, correct, inCorrect, newQuestion
+}
+
 struct QuestionBoxView: View {
     @EnvironmentObject var viewModel : ViewModel
     var question: String
@@ -74,8 +78,6 @@ struct QuestionBoxView: View {
             
         }
         .padding(.bottom)
-        
-        
     }
 }
 
@@ -83,10 +85,6 @@ struct QuestionBoxView_Previews: PreviewProvider {
     static var previews: some View {
         QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png", status: .inCorrect)
     }
-}
-
-enum StatusQuestion{
-    case learing, reviewing, correct, inCorrect, newQuestion
 }
 
 func setStatus(statusQuestion: StatusQuestion?)-> Status?{

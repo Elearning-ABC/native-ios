@@ -13,7 +13,8 @@ enum TestLevel: Int, CaseIterable{
     case hardest = 3
 }
 
-class TestViewModel: AnswerQuestionProtocol{
+class TestViewModel: StudyProtocol{
+    var navigtorAnswer: Bool = true
     @Published var testInfos = [TestInfo]()
     @Published var testProgressApps = [TestProgressApp]()
     @Published var questions = [Question]()

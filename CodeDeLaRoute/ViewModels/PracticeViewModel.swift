@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class PracticeViewModel: AnswerQuestionProtocol{
+class PracticeViewModel: StudyProtocol{
     @Published var navigtorAnswer: Bool = false
     @Published var parentTopics = [Topic]()
     @Published var listChildTopics : [Topic] = []
@@ -135,10 +135,8 @@ class PracticeViewModel: AnswerQuestionProtocol{
         showSucsessAnswer = false
         checkSucseesAnswer(topicId: topicId)
     }
-    
-    
-    
-    func updateBookmark(){
+
+    func onHeart(){
         let bookmark = questionProgressApps[0].bookmark
         questionProgressApps[0].bookmark = !bookmark
         bookmarkToggle(questionProgressApp: questionProgressApps[0])
@@ -174,6 +172,7 @@ class PracticeViewModel: AnswerQuestionProtocol{
     
     func updateWhenCheckAnswer(answer: Answer, indexTopic: Int, indexParentTopic: Int){
         questionProgressApps[0].choiceSelectedIds.append(answer.id)
+        questionProgressApps[0].setLastUpdate()
         navigtorAnswer = true
         updateTopicProgress(topicProgressApp: topicProgressApps[indexTopic])
         updateTopicProgress(topicProgressApp: topicProgressApps[indexParentTopic])
@@ -217,8 +216,7 @@ class PracticeViewModel: AnswerQuestionProtocol{
         }
     }
     
-    func updateListQuestionProgress(){
-        
+    func nextQuestion(){
         if navigtorAnswer == false { return }
         navigtorAnswer = false
         
