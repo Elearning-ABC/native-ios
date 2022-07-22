@@ -8,6 +8,12 @@
 import Foundation
 import RealmSwift
 
+enum TestSetting: Int, CaseIterable{
+    case easy = 1
+    case medium = 2
+    case hardest = 3
+}
+
 class TestProgress: Object, Identifiable{
     @Persisted(primaryKey: true) var id: String = "\(UUID())"
     @Persisted var testInfoId: String
@@ -35,7 +41,7 @@ class TestProgress: Object, Identifiable{
         lock = testProgressApp.lock
         currentQuestionId = testProgressApp.currentQuestionId
         let answeredQuestions = List<AnsweredQuestion>()
-        for answeredQuestionApp in testProgressApp.answeredQuestions{
+        for answeredQuestionApp in testProgressApp.answeredQuestionApps{
             let answeredQuestion = AnsweredQuestion()
             answeredQuestion.setValue(answeredQuestionApp: answeredQuestionApp)
             answeredQuestions.append(answeredQuestion)
@@ -57,30 +63,25 @@ struct TestProgressApp: Identifiable{
     var correctQuestion: Int
     var lock: Bool
     var currentQuestionId: String
-    var answeredQuestions: [AnsweredQuestionApp]
+    var answeredQuestionApps: [AnsweredQuestionApp]
     
     init(
     testInfoId: String,
-    testSetting: Int,
-    time: Int,
-    status: Int,
-    lastUpDate: Double,
-    createDate: Double,
+    testSetting: TestSetting,
     totalQuestion: Int,
-    correctQuestion: Int,
     lock: Bool,
-    currentQuestionId: String){
+    answeredQuestionApps: [AnsweredQuestionApp]){
         self.testInfoId = testInfoId
-        self.testSetting = testSetting
-        self.time = time
-        self.status = status
-        self.lastUpDate = lastUpDate
-        self.createDate = createDate
+        self.testSetting = testSetting.rawValue
+        self.time = 0
+        self.status = 0
+        self.lastUpDate = 0
+        self.createDate = Date().timeIntervalSince1970
         self.totalQuestion = totalQuestion
-        self.correctQuestion = correctQuestion
+        self.correctQuestion = 0
         self.lock = lock
-        self.currentQuestionId = currentQuestionId
-        self.answeredQuestions = []
+        self.currentQuestionId = ""
+        self.answeredQuestionApps = answeredQuestionApps
     }
     
     init(testProgress: TestProgress){
@@ -101,6 +102,6 @@ struct TestProgressApp: Identifiable{
             let answeredQuestionApp = AnsweredQuestionApp(answeredQuestion: item)
             answeredQuestionApps.append(answeredQuestionApp)
         }
-        answeredQuestions = answeredQuestionApps
+        self.answeredQuestionApps = answeredQuestionApps
     }
 }

@@ -13,7 +13,7 @@ struct TimerTestView: View{
     var index: Int
     var duration: Int
     var total: Int
-    var testLevel: TestLevel
+    var testLevel: TestSetting
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -26,7 +26,7 @@ struct TimerTestView: View{
     }
     
     
-    init(time: Int, duration: Int ,testLevel: TestLevel, totalQuestion: Int, index: Int,actionTimeEnd : @escaping () -> Void){
+    init(time: Int, duration: Int ,testLevel: TestSetting, totalQuestion: Int, index: Int,actionTimeEnd : @escaping () -> Void){
         var timeStart = 0
         if testLevel == .medium{
             timeStart = duration - time

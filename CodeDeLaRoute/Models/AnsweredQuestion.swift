@@ -20,7 +20,7 @@ class AnsweredQuestion: Object{
     }
 }
 
-struct AnsweredQuestionApp{
+struct AnsweredQuestionApp: Identifiable{
     var id: String
     var questionId: String
     var selectedIds: [String]

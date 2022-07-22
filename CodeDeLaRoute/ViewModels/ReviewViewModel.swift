@@ -112,12 +112,7 @@ class ReviewViewModel: StudyProtocol{
         inCorrectNumber = 0
         progressBar = 0
         for i in questionProgressApps.indices {
-            let questionId = questionProgressApps[i].questionId
-            let question = getQuestion(questionId: questionId)
-            let answers = getAnswers(questionId: questionId)
             questionProgressApps[i].index = i
-            questionProgressApps[i].question = question
-            questionProgressApps[i].answers = answers
             questionProgressApps[i].boxNumRoot = questionProgressApps[i].boxNum
             questionProgressApps[i].boxNum = 0
         }

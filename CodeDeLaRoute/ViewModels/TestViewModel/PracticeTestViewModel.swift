@@ -63,4 +63,14 @@ class PracticeTestViewModel: ObservableObject{
         let time = testProgressApp.time
         return time
     }
+    
+    func getAnswered(answeredQuestionApps: [AnsweredQuestionApp])->Int{
+        var answered: Int = 0
+        for answeredQuestionApp in answeredQuestionApps {
+            if !answeredQuestionApp.selectedIds.isEmpty{
+                answered += 1
+            }
+        }
+        return answered
+    }
 }

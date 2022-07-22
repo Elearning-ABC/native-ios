@@ -10,27 +10,22 @@ import SwiftUI
 struct PracticeTestView: View {
     @StateObject var practiceTestViewModel = PracticeTestViewModel()
     @EnvironmentObject var testViewModel: TestViewModel
-    @State var title: String
+    @State var title: String = ""
     @State var counter : Int = 0
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    var testInfo: TestInfo
-    var testLevel: TestLevel
-
-    init(testInfo: TestInfo, testLevel: TestLevel){
-        self.testInfo = testInfo
-        self.testLevel = testLevel
+    @Binding var testInfo: TestInfo
+    var testLevel: TestSetting
+    
+    func fetchData(){
         switch testLevel {
         case .easy:
-                title = Constant.EASY
+            title = Constant.EASY
         case .medium:
             title = Constant.MEDIUM
         case .hardest:
             title = Constant.HARDEST
         }
-    }
-    
-    func fetchData(){
-        testViewModel.createTest(testInfo: testInfo, testLevel: testLevel)
+        testViewModel.createTest(testInfoId: testInfo.id, testSetting: testLevel)
     }
     func chekCorrect(answer: Answer){
         testViewModel.checkCorrect(answer: answer)
@@ -64,26 +59,27 @@ struct PracticeTestView: View {
         practiceTestViewModel.isShowSubmitTest .toggle()
     }
     
+    func actionBack(){
+        testViewModel.onDisAppear(time: counter)
+    }
+    
     var body: some View {
         VStack{
             if let indexTestProgressApp = testViewModel.indexTestProgressApp{
                 let testProgressApp = testViewModel.testProgressApps[indexTestProgressApp]
                 VStack {
-                    
                     if testProgressApp.status == 1{
-                        
-                        TestEndView(testProgressApp: testProgressApp, testInfo: testInfo, testLevel: testLevel, title: title)
-                        
+                        TestEndView(counter: $counter, testProgressApp: testProgressApp, testInfo: $testInfo, testLevel: testLevel, title: title)
                     }else{
                         if let index = testViewModel.indexQuestion{
-                            let question = testViewModel.questions[index]
-                            let answers = testViewModel.getAnswers(questionId: question.id)
+                            let questionId = testProgressApp.answeredQuestionApps[index].questionId
                             HeaderAnswerQuestionView(title: title,
                                                      correctNumber: index,
                                                      totalQuestion: testInfo.totalQuestion,
                                                      isTest: true,
                                                      isProgress: true,
-                                                     onSubmit: {onSubmitTest()})
+                                                     onSubmit: {onSubmitTest()},
+                                                     actionBack: actionBack)
                             
                             if testLevel != .easy{
                                 let time = practiceTestViewModel.getTime(testProgressApp: testProgressApp)
@@ -93,34 +89,30 @@ struct PracticeTestView: View {
                                               totalQuestion: testInfo.totalQuestion,
                                               index: index,
                                               actionTimeEnd: actionTimeEnd)
-                                
                             }
                             
                             AnswerQuestionView<TestViewModel>(
-                                question: question,
-                                answers: answers,
+                                questionId: questionId,
                                 bookmark: practiceTestViewModel.bookmark,
                                 testLevel: testLevel,
-                                onHeart: {onHeart(questionId: question.id)}
+                                onHeart: {onHeart(questionId: questionId)}
                             )
                             .onAppear{
-                                practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: question.id)
+                                practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: questionId)
                             }
-                            .onChange(of: question.id, perform: { questionId in
+                            .onChange(of: questionId, perform: { questionId in
                                 practiceTestViewModel.bookmark = practiceTestViewModel.getBookMark(questionId: questionId)
                             })
                         }
                     }
                 }
-                .popupView(isShow: $practiceTestViewModel.isShowSubmitTest, view: AnyView(SubmitTestView(isShowSubmitTest: $practiceTestViewModel.isShowSubmitTest, testInfo: testInfo, answered: testProgressApp.answeredQuestions.count, total: testProgressApp.totalQuestion)))
+                .popupView(isShow: $practiceTestViewModel.isShowSubmitTest, view: AnyView(SubmitTestView(isShowSubmitTest: $practiceTestViewModel.isShowSubmitTest, testInfo: testInfo, answered: practiceTestViewModel.getAnswered(answeredQuestionApps: testProgressApp.answeredQuestionApps), total: testProgressApp.totalQuestion)))
             }
         }
-        .onAppear{
-            fetchData()
-        }
-        .onDisappear{
+        .onAppear(perform: fetchData)
+        .onDisappear(perform: {
             testViewModel.onDisAppear(time: counter)
-        }
+        })
         .onReceive(timer) { time in
             if counter >= 0 {
                 counter += 1

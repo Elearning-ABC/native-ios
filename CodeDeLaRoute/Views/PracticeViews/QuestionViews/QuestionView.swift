@@ -26,7 +26,7 @@ struct QuestionView: View {
                         let questionProgressApp = practicViewModel.questionProgressApps[0]
                         VStack(spacing: 0) {
                             HearderQuestionView(topic: topic)
-                            AnswerQuestionView<PracticeViewModel>(questionProgressApp: questionProgressApp,question: questionProgressApp.question!,answers: questionProgressApp.answers!, bookmark: questionProgressApp.bookmark, onHeart: onHeart)
+                            AnswerQuestionView<PracticeViewModel>(questionProgressApp: questionProgressApp,questionId: questionProgressApp.questionId, bookmark: questionProgressApp.bookmark, onHeart: onHeart)
                         }
                     }
             }

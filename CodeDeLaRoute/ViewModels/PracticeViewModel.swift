@@ -101,9 +101,6 @@ class PracticeViewModel: StudyProtocol{
             let questionProgresses = realmQuestionProgress.queryGroupByIdOther(id: question.id, property: .questionId)
             for questionProgress in questionProgresses{
                 let questionProgressApp = QuestionProgressApp(questionProgress: questionProgress)
-                questionProgressApp.question = question
-                let answers = getAnswers(questionId: question.id)
-                questionProgressApp.answers = answers
                 questionProgressApps.append(questionProgressApp)
             }
         }
@@ -116,15 +113,7 @@ class PracticeViewModel: StudyProtocol{
                     questionProgressApp.id = "\(UUID())"
                     questionProgressApp.questionId = question.id
                     questionProgressApp.topicId = topicId
-                    questionProgressApp.question = question
-                    let answers = getAnswers(questionId: question.id)
-                    questionProgressApp.answers = answers
                     array.append(questionProgressApp)
-                }else{
-                    questionProgressApp?.question = question
-                    let answers = getAnswers(questionId: question.id)
-                    questionProgressApp?.answers = answers
-                    array.append(questionProgressApp!)
                 }
             }
             questionProgressApps = array
@@ -219,7 +208,6 @@ class PracticeViewModel: StudyProtocol{
     func nextQuestion(){
         if navigtorAnswer == false { return }
         navigtorAnswer = false
-        
         questionProgressApps = questionProgressApps.sortQuestionProgressApps()
         checkSucseesAnswer(topicId: questionProgressApps[0].topicId)
     }

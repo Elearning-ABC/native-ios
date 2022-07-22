@@ -15,8 +15,8 @@ struct HeaderAnswerQuestionView: View{
     var showNumberCorrect: Bool = false
     var isTest: Bool = false
     var isProgress: Bool = false
-    
-    let onSubmit: () -> Void
+    let onSubmit: (() -> Void)?
+    var actionBack : (() -> Void)?
     
     var body: some View{
         
@@ -25,7 +25,7 @@ struct HeaderAnswerQuestionView: View{
         
         VStack {
             HStack {
-                BackHearderLeftView(title: title)
+                BackHearderLeftView(title: title, action: actionBack)
                 
                 if showNumberCorrect{
                     Text("\(correctNumber)/\(totalQuestion)")
@@ -47,7 +47,9 @@ struct HeaderAnswerQuestionView: View{
                         .renderingMode(.template)
                         .foregroundColor(.black)
                         .onTapGesture {
-                            onSubmit()
+                            if let onSubmit = onSubmit {
+                                onSubmit()
+                            }
                         }
                 }else{
                     Image("Book")

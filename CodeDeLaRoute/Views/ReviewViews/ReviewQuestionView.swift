@@ -18,21 +18,27 @@ struct ReviewQuestionView: View {
         reviewViewModel.onHeart(questionId: questionId)
     }
     
+    func actionBack(){
+        reviewViewModel.resetReviewAnswer()
+    }
     
     var body: some View {
         let questionProgressApp = reviewViewModel.questionProgressApps[0]
         
         VStack(spacing: 0) {
             
-            HeaderAnswerQuestionView(title: title, correctNumber: reviewViewModel.correctNumber, totalQuestion: reviewViewModel.questionProgressApps.count, showNumberCorrect: true, isProgress: true,onSubmit: {})
+            HeaderAnswerQuestionView(title: title,
+                                     correctNumber: reviewViewModel.correctNumber,
+                                     totalQuestion: reviewViewModel.questionProgressApps.count,
+                                     showNumberCorrect: true,
+                                     isProgress: true,
+                                     onSubmit: nil,
+                                     actionBack: actionBack)
             
-            AnswerQuestionView<ReviewViewModel>(questionProgressApp: questionProgressApp,question: questionProgressApp.question!,answers:   questionProgressApp.answers!, bookmark: questionProgressApp.bookmark, onHeart: {onHeart(questionId: questionProgressApp.questionId)})
+            AnswerQuestionView<ReviewViewModel>(questionProgressApp: questionProgressApp,questionId: questionProgressApp.questionId, bookmark: questionProgressApp.bookmark, onHeart: {onHeart(questionId: questionProgressApp.questionId)})
         }
         .background(BackGroundView())
         .ignoresSafeArea()
-        .onDisappear{
-            reviewViewModel.resetReviewAnswer()
-        }
         .onChange(of: reviewViewModel.isBack, perform: { _ in
             mode.wrappedValue.dismiss()
         })

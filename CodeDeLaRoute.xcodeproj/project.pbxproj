@@ -256,6 +256,7 @@
 				CC2C65F628193C9B00CD99A5 /* AnswerView.swift */,
 				18C0EE07286D3EDB00845F4F /* HeaderAnswerQuestionView.swift */,
 				18C0EE09286D4A8C00845F4F /* FooterAnswerQuestionView.swift */,
+				1882A275288934F200E6AABC /* ReportView.swift */,
 			);
 			path = AnswerQuestionView;
 			sourceTree = "<group>";
@@ -325,7 +326,6 @@
 				CCAAEB4028535D7A00AC0F6A /* ShowImageView.swift */,
 				1801579428644CCA0099E95D /* CustomSlider.swift */,
 				18015792286426500099E95D /* ShowChangeFontSizeView.swift */,
-				1882A275288934F200E6AABC /* ReportView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -507,9 +507,9 @@
 				CC6CA46E2807FFC800F60E63 /* TestView.swift */,
 				1897E939286C55DA00E865C6 /* DetailTestView.swift */,
 				18C0EE05286D3B6800845F4F /* PracticeTestView.swift */,
-				1827AC58286E9C3B00D19F3E /* TimerTestView.swift */,
 				1801578C286401A20099E95D /* TestEndView.swift */,
 				18015790286419B90099E95D /* ReviewTopicRowView.swift */,
+				1827AC58286E9C3B00D19F3E /* TimerTestView.swift */,
 			);
 			path = TestViews;
 			sourceTree = "<group>";
