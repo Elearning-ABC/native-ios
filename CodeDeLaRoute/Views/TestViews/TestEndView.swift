@@ -8,23 +8,40 @@
 import SwiftUI
 
 struct TestEndView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var testViewModel : TestViewModel
     @StateObject var testEndViewModel = TestEndViewModel()
+    @State var isShowReview: Bool = false
+    @Binding var counter: Int
     var testProgressApp: TestProgressApp
-    var testInfo: TestInfo
-    var testLevel: TestLevel
+    @Binding var testInfo: TestInfo
+    var testLevel: TestSetting
     var title: String
+    
     var practicEndNotUEnough = PracticeEnd(lable: "Not enough to pass :(", text: "Yowch! That hurt. Failing an exam always does. But hey, that was just one try. Get your notes together and try again. You can do it!", image: "SuccessImage1")
     var practicEndEnough = PracticeEnd(lable: "Such an excellent performance!", text: "Good job! You've successfully passed your test. Let's ace all the tests available to increase your passing possibility!", image: "SuccessImage1")
     
     func review(){
-        
+        isShowReview.toggle()
     }
     
     func tryAgain(){
-        testViewModel.tryAgain(testInfo: testInfo, testLevel: testLevel)
+        counter = 0
+        testViewModel.tryAgain(testInfoId: testInfo.id, testLevel: testLevel)
     }
     
+    func continueTest(){
+        if let testInfo = testEndViewModel.getNextTestInfo(testInfos: testViewModel.testInfos, index: testInfo.index){
+            self.testInfo = testInfo
+            if testViewModel.isDetailTest{
+                withAnimation{
+                    testViewModel.isDetailTest.toggle()
+                }
+            }else{
+                mode.wrappedValue.dismiss()
+            }
+        }
+    }
     
     var body: some View {
         let progress = Double(testProgressApp.correctQuestion)
@@ -98,9 +115,8 @@ struct TestEndView: View {
                         .cornerRadius(12)
                     })
                 }
-                
                 Button(action: {
-                    
+                    continueTest()
                 }, label: {
                     HStack{
                         Spacer()
@@ -113,6 +129,7 @@ struct TestEndView: View {
                     .background(Color.blue1)
                     .cornerRadius(12)
                 })
+                
             }
             .padding([.leading, .bottom, .trailing])
         }
@@ -122,7 +139,7 @@ struct TestEndView: View {
 
 struct PracticeEndView_Previews: PreviewProvider {
     static var previews: some View {
-        TestEndView(testProgressApp: TestProgressApp(testProgress: TestProgress()), testInfo: TestInfo(), testLevel: .easy, title: "")
+        TestEndView(counter: .constant(1), testProgressApp: TestProgressApp(testProgress: TestProgress()), testInfo: .constant(TestInfo()), testLevel: .easy, title: "")
     }
 }
 
@@ -130,4 +147,16 @@ struct PracticeEnd{
     var lable: String
     var text: String
     var image: String
+}
+
+
+struct ReviewEndTestView: View{
+    var answerQuestionApps: [AnsweredQuestionApp]
+    var body: some View{
+        VStack{
+            ForEach(answerQuestionApps){ answerQuestionApp in
+                
+            }
+        }
+    }
 }

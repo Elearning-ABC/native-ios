@@ -9,44 +9,61 @@ import SwiftUI
 
 struct DetailTestView: View {
     @EnvironmentObject var testViewModel: TestViewModel
-    var title: String
-    var testInfo: TestInfo
-    var testLevel: TestLevel?
+    @State var title: String = ""
+    @State var testInfo: TestInfo
+    var testLevel: TestSetting?
     
-    var body: some View {
-        if let testLevel = testLevel {
-            PracticeTestView(testInfo: testInfo, testLevel: testLevel)
-              .environmentObject(testViewModel)
-              .navigationBarHidden(true)
+    func onAppear(){
+        title = testInfo.title + " \(testInfo.index + 1)"
+        if testLevel != nil{
+            testViewModel.isDetailTest = true
         }else{
-            VStack {
-                HStack {
-                    BackHearderLeftView(title: title)
-                    Spacer()
+            testViewModel.isDetailTest = false
+        }
+    }
+    var body: some View {
+        VStack{
+            if testViewModel.isDetailTest{
+                if let testLevel = testLevel {
+                    PracticeTestView(testInfo: $testInfo, testLevel: testLevel)
+                        .environmentObject(testViewModel)
+                        .navigationBarHidden(true)
+                        .transition(.move(edge: .trailing))
                 }
-                .padding()
-                .background(.white)
-                VStack{
-                  HeaderDetailTestView(testInfo: testInfo)
-                    
-                  ScrollView{
-                      ForEach(TestLevel.allCases, id : \.self){
-                          testLevel in
-                          NavigationLink(destination: PracticeTestView(testInfo: testInfo, testLevel: testLevel)
-                            .environmentObject(testViewModel)
-                            .navigationBarHidden(true), label: {
-                                LevelRowView(testInfo: testInfo, testLevel: testLevel)
-                                    .padding(.bottom, 8.0)
-                          })
-                      }
-                  }
-                  .padding(.top, 24.0)
-
+            }else{
+                VStack {
+                    HStack {
+                        BackHearderLeftView(title: title)
+                        Spacer()
+                    }
+                    .padding()
+                    .background(.white)
+                    VStack{
+                        HeaderDetailTestView(testInfo: testInfo)
+                        
+                        ScrollView{
+                            ForEach(TestSetting.allCases, id : \.self){
+                                testLevel in
+                                NavigationLink(destination: PracticeTestView(testInfo: $testInfo, testLevel: testLevel)
+                                    .environmentObject(testViewModel)
+                                    .navigationBarHidden(true), label: {
+                                        LevelRowView(testInfo: testInfo, testLevel: testLevel)
+                                            .padding(.bottom, 8.0)
+                                    })
+                            }
+                        }
+                        .padding(.top, 24.0)
+                        
+                    }
+                    .padding()
+                    .background(BackGroundView())
                 }
-                .padding()
-                .background(BackGroundView())
             }
         }
+        .onAppear(perform: onAppear)
+        .onChange(of: testViewModel.isDetailTest, perform: {_ in
+            title = testInfo.title + " \(testInfo.index + 1)"
+        })
     }
 }
 
@@ -98,7 +115,7 @@ struct HeaderDetailTestView: View{
                         .padding(.top, 3.0)
                     Image(systemName: "checkmark")
                         .font(.system(size: 12))
-                        .padding(.trailing, -12.0)   
+                        .padding(.trailing, -12.0)
                 }
             }
             Spacer()
@@ -128,9 +145,9 @@ struct LevelRowView: View{
     @EnvironmentObject var testViewModel: TestViewModel
     var title: String
     var testInfo: TestInfo
-    var testLevel: TestLevel
+    var testLevel: TestSetting
     
-    init(testInfo: TestInfo, testLevel: TestLevel){
+    init(testInfo: TestInfo, testLevel: TestSetting){
         self.testInfo = testInfo
         self.testLevel = testLevel
         switch testLevel {

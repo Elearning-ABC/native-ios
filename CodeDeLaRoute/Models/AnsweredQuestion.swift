@@ -20,13 +20,13 @@ class AnsweredQuestion: Object{
     }
 }
 
-struct AnsweredQuestionApp{
+struct AnsweredQuestionApp: Identifiable{
     var id: String
     var questionId: String
     var selectedIds: [String]
     
     init(questionId: String, selectedIds: [String]){
-        self.id = "\(UUID())"
+        self.id = UUID().uuidString
         self.questionId = questionId
         self.selectedIds = selectedIds
     }

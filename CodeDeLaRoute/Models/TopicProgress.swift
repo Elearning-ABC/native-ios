@@ -32,7 +32,7 @@ struct TopicProgressApp: Identifiable{
     var lastUpdate: Double
     
     init(topicId: String, totalQuestionNumber: Int){
-        id = "\(UUID())"
+        id = UUID().uuidString
         self.topicId = topicId
         self.totalQuestionNumber = totalQuestionNumber
         self.correctNumber = 0

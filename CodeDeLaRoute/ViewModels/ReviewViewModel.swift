@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ReviewViewModel: AnswerQuestionProtocol{
+class ReviewViewModel: StudyProtocol{
     @Published var allFamiliarQuestionPs = [QuestionProgressApp]()
     @Published var weakQuestionPs = [QuestionProgressApp]()
     @Published var mediumQuestionPs = [QuestionProgressApp]()
@@ -16,19 +16,15 @@ class ReviewViewModel: AnswerQuestionProtocol{
     @Published var favoriteQuestionPs = [QuestionProgressApp]()
     @Published var questionProgressApps = [QuestionProgressApp]()
     @Published var isShowNoQuestion : Bool = false
-    @Published var showImage: Bool = false
-    @Published var imageString : String = ""
-    @Published var namespace: Namespace.ID
-    @Published var imageId: String = "0"
     @Published var answerQuestion = 0
     @Published var navigtorAnswer = false
     @Published var progressBar : CGFloat = 0
+    @Published var isBack: Bool = false
     var correctNumber = 0
     var inCorrectNumber = 0
     
     
-    init(namespace: Namespace.ID){
-        self.namespace = namespace
+    init(){
         getAllQuestion()
     }
     
@@ -94,38 +90,30 @@ class ReviewViewModel: AnswerQuestionProtocol{
         return question
     }
     
-    func onHeart(questionProgressApp : QuestionProgressApp){
-        let index = questionProgressApps.firstIndex(where: {$0.id == questionProgressApp.id})
+    func onHeart(questionId: String){
+        let index = questionProgressApps.firstIndex(where: {$0.questionId == questionId})
         let now = Date().timeIntervalSince1970
         questionProgressApps[index!].lastUpdate = now
         questionProgressApps[index!].bookmark = !questionProgressApps[index!].bookmark
-        bookmarkToggle(questionProgressApp: questionProgressApp)
+        bookmarkToggle(questionProgressApp: questionProgressApps[index!])
         objectWillChange.send()
     }
-    
-    
-  
     
     func resetReviewAnswer(){
         if !questionProgressApps.isEmpty{
             if questionProgressApps[0].index != nil{
                 questionProgressApps = questionProgressApps.sorted(by: {$0.index! < $1.index!})
             }
-            
-            correctNumber = 0
-            inCorrectNumber = 0
-            progressBar = 0
         }
     }
     
     func navigatorReviewQuestion(){
+        correctNumber = 0
+        inCorrectNumber = 0
+        progressBar = 0
         for i in questionProgressApps.indices {
-            let questionId = questionProgressApps[i].questionId
-            let question = getQuestion(questionId: questionId)
-            let answers = getAnswers(questionId: questionId)
             questionProgressApps[i].index = i
-            questionProgressApps[i].question = question
-            questionProgressApps[i].answers = answers
+            questionProgressApps[i].boxNumRoot = questionProgressApps[i].boxNum
             questionProgressApps[i].boxNum = 0
         }
     }
@@ -152,33 +140,38 @@ class ReviewViewModel: AnswerQuestionProtocol{
         }
         questionProgressApps[0].progress.append(0)
         questionProgressApps[0].boxNum = -1
+        
         checkAnswer(answer: answer)
     }
     
     func checkAnswer(answer: Answer){
         progressBar = CGFloat(correctNumber)/CGFloat(questionProgressApps.count)
-        
+        questionProgressApps[0].setLastUpdate()
         navigtorAnswer = true
-        
-        upDateWhenAnswer(questionProgersApp: questionProgressApps[0])
+        upDateWhenAnswer(questionProgressApp: questionProgressApps[0])
     }
     
-    func upDateWhenAnswer(questionProgersApp obj: QuestionProgressApp){
+    func upDateWhenAnswer(questionProgressApp : QuestionProgressApp){
         let realm = RealmManager<QuestionProgress>(fileURL: .local)
-        let now = Date().timeIntervalSince1970
-        let questionProgress = QuestionProgress(value: ["id": obj.id, "questionId":obj.questionId,"topicId": obj.topicId, "progress" : obj.progress,"choiceSelectedIds": obj.choiceSelectedIds, "boxNum": obj.boxNum, "lastUpdate": now, "bookmark": obj.bookmark])
+        
+        let questionProgress = QuestionProgress()
+        questionProgress.setValue(questionProgressApp: questionProgressApp)
+        questionProgress.boxNum = questionProgressApp.boxNumRoot!
         _ = realm.update(entity: questionProgress)
     }
     
-    func upDateListQuestion(mode: Binding<PresentationMode>){
+    func nextQuestion(){
         if navigtorAnswer == false { return }
         navigtorAnswer = false
 
         questionProgressApps = questionProgressApps.sortQuestionProgressApps()
         
         if correctNumber == questionProgressApps.count{
-            questionProgressApps = questionProgressApps.sorted(by: {$0.index! < $1.index!})
-            mode.wrappedValue.dismiss()
+            resetReviewAnswer()
+            isBack = true
+            DispatchQueue.main.async { [self] in
+                isBack = false
+            }
         }
     }
 }

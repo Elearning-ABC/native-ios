@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct BackHearderLeftView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var title: String
     var color : Color = Color.black
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    var action: ( () -> Void )?
     var body: some View {
         HStack {
             Image(systemName: "arrow.left")
@@ -23,6 +24,9 @@ struct BackHearderLeftView: View {
             
         }
         .onTapGesture {
+            if let action = action {
+                action()
+            }
             self.mode.wrappedValue.dismiss()
         }
         

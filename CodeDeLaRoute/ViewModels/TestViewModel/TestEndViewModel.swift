@@ -15,12 +15,14 @@ class TestEndViewModel: ObservableObject{
         let realmAnswer = RealmManager<Answer>(fileURL: .file)
         
         for questionId in testDataItem.questionIds{
-            let result = testProgressApp.answeredQuestions.first(where: {$0.questionId == questionId})
+            let result = testProgressApp.answeredQuestionApps.first(where: {$0.questionId == questionId})
             if let result = result {
                 let answerId =  result.selectedIds.last
-                let answer = realmAnswer.queryWithId(id: answerId!)
-                if answer?.isCorrect == true{
-                    correct += 1
+                if let answerId = answerId{
+                    let answer = realmAnswer.queryWithId(id: answerId)
+                    if answer?.isCorrect == true{
+                        correct += 1
+                    }
                 }
             }
         }
@@ -33,4 +35,12 @@ class TestEndViewModel: ObservableObject{
         return topic!.name
     }
     
+    func getNextTestInfo(testInfos: [TestInfo], index: Int)->TestInfo?{
+        if index < testInfos.count - 1{
+            let testInfo = testInfos.first(where: {$0.index == (index + 1)})
+            return testInfo
+        }else{
+            return nil
+        }
+    }
 }

@@ -9,75 +9,32 @@ import SwiftUI
 import PopupView
 
 struct QuestionView: View {
-    @EnvironmentObject var viewModel : PracticeViewModel
+    @EnvironmentObject var practicViewModel : PracticeViewModel
     @State var showPopup: Bool = false
-    @State var isShowBody: Bool = true
     @State var topic: Topic
-    func onRight(){
-        if viewModel.navigtorAnswer{
-            isShowBody.toggle()
-            withAnimation{
-                viewModel.updateListQuestionProgress()
-                isShowBody.toggle()
-            }
-        }
-    }
     
     func onHeart(){
-        viewModel.updateBookmark()
+        practicViewModel.onHeart()
     }
     
     var body: some View {
         VStack {
-            if viewModel.showSucsessAnswer{
+            if practicViewModel.showSucsessAnswer{
                 AnswerSuccessView(topic: $topic)
             }else{
-                ZStack {
-                    if !viewModel.questionProgressApps.isEmpty{
+                    if !practicViewModel.questionProgressApps.isEmpty{
+                        let questionProgressApp = practicViewModel.questionProgressApps[0]
                         VStack(spacing: 0) {
                             HearderQuestionView(topic: topic)
-                            if isShowBody{
-                                VStack(spacing: 0){
-                                    AnswerQuestionView<PracticeViewModel>(questionProgressApp: viewModel.questionProgressApps[0])
-                                        .transition(.slide)
-                                }
-                                .padding([.top, .leading, .trailing])
-                                .transition(.move(edge: .trailing))
-                            }
-                            
-                            Spacer()
-                            
-                            FooterAnswerQuestionView(bookmark: viewModel.questionProgressApps[0].bookmark, showPopup: $showPopup, onRight: onRight, onHeart: onHeart)
+                            AnswerQuestionView<PracticeViewModel>(questionProgressApp: questionProgressApp,questionId: questionProgressApp.questionId, bookmark: questionProgressApp.bookmark, onHeart: onHeart)
                         }
                     }
-                    
-                    if showPopup{
-                        VStack{
-                            Spacer()
-                        }
-                        .frame(width: Screen.width, height: Screen.height)
-                        .background(Color.black)
-                        .opacity(0.4)
-                    }
-                }
-                .popup(isPresented: $showPopup, type: .toast, position: .bottom,closeOnTap: false, closeOnTapOutside: true) {
-                    VStack{
-                        Text("Report mistake")
-                            .font(.title2)
-                            .foregroundColor(.blue1)
-                            .padding()
-                        Spacer()
-                    }
-                    .frame(width: Screen.width, height: Screen.height/2)
-                    .background(BackGroundView())
-                    .cornerRadius(25,corners: [.topLeft, .topRight])
-                }
             }
         }
         .background(BackGroundView())
         .ignoresSafeArea()
         .onAppear{
-            viewModel.getQuestionProgressApps(topicId: topic.id)
+            practicViewModel.getQuestionProgressApps(topicId: topic.id)
         }
     }
 }

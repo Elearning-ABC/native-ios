@@ -39,11 +39,9 @@ struct ShowImageView: ViewModifier {
                         show.toggle()
                     }
                 }
-                
             }
         }
     }
-    
 }
 
 extension View {

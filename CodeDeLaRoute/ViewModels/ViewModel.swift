@@ -12,8 +12,14 @@ class ViewModel: ObservableObject{
     let realmSetting = RealmManager<Setting>(fileURL: .local)
     @Published var settingApp: SettingApp?
     @Published var showChangeFontSize = false
+    @Published var imageString : String = ""
+    let namespace: Namespace.ID
+    @Published var showImage: Bool = false
+    @Published var imageId : String = ""
+    @Published var isShowReport: Bool = false
     
-    init(){
+    init(namespace: Namespace.ID){
+        self.namespace = namespace
         getSettingApp()
     }
     

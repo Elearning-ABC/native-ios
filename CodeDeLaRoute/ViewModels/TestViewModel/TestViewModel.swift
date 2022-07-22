@@ -7,18 +7,13 @@
 
 import Foundation
 
-enum TestLevel: Int, CaseIterable{
-    case easy = 1
-    case medium = 2
-    case hardest = 3
-}
-
-class TestViewModel: AnswerQuestionProtocol{
+class TestViewModel: StudyProtocol{
+    var navigtorAnswer: Bool = true
     @Published var testInfos = [TestInfo]()
     @Published var testProgressApps = [TestProgressApp]()
-    @Published var questions = [Question]()
     @Published var indexQuestion: Int?
     @Published var indexTestProgressApp: Int?
+    @Published var isDetailTest: Bool = false
     private let realmTestProgress = RealmManager<TestProgress>(fileURL: .local)
     private var corectNumber : Int = 0
     
@@ -54,89 +49,79 @@ class TestViewModel: AnswerQuestionProtocol{
     func createTestProgress(){
         for testInfo in testInfos {
             let check = testProgressApps.contains(where: {$0.testInfoId == testInfo.id})
-            var lock: Bool = false
-            
-            if testInfo.index == 0{
-                lock = true
-            }
-            
             if check == false{
-                let testProgressApp1 = TestProgressApp(testInfoId: testInfo.id, testSetting: 1, time: 0, status: 0, lastUpDate: 0, createDate: Date().timeIntervalSince1970, totalQuestion: testInfo.totalQuestion, correctQuestion: 0, lock: lock, currentQuestionId: "")
+                var lock: Bool = false
+                var answeredQuestionApps = [AnsweredQuestionApp]()
                 
-                let testProgressApp2 = TestProgressApp(testInfoId: testInfo.id, testSetting: 2, time: 0, status: 0, lastUpDate: 0, createDate: Date().timeIntervalSince1970, totalQuestion: testInfo.totalQuestion, correctQuestion: 0, lock: lock, currentQuestionId: "")
+                if testInfo.index == 0{
+                    lock = true
+                }
                 
-                let testProgressApp3 = TestProgressApp(testInfoId: testInfo.id, testSetting: 3, time: 0, status: 0, lastUpDate: 0, createDate: Date().timeIntervalSince1970, totalQuestion: testInfo.totalQuestion, correctQuestion: 0, lock: lock, currentQuestionId: "")
+                for testItemData in testInfo.testQuestionData {
+                    for questionId in testItemData.questionIds {
+                        let answeredQuestionApp = AnsweredQuestionApp(questionId: questionId, selectedIds: [])
+                        answeredQuestionApps.append(answeredQuestionApp)
+                    }
+                }
+                answeredQuestionApps.shuffle()
+                let testProgressAppEasy = TestProgressApp(testInfoId: testInfo.id, testSetting: .easy, totalQuestion: testInfo.totalQuestion, lock: lock, answeredQuestionApps: answeredQuestionApps)
                 
-                testProgressApps.append(testProgressApp1)
-                testProgressApps.append(testProgressApp2)
-                testProgressApps.append(testProgressApp3)
+                let testProgressAppMedium = TestProgressApp(testInfoId: testInfo.id, testSetting: .medium, totalQuestion: testInfo.totalQuestion, lock: lock, answeredQuestionApps: answeredQuestionApps)
                 
-                let testProgress1 = TestProgress()
-                testProgress1.setValue(testProgressApp: testProgressApp1)
-                _ = realmTestProgress.save(entity: testProgress1)
+                let testProgressAppHardest = TestProgressApp(testInfoId: testInfo.id, testSetting: .hardest, totalQuestion: testInfo.totalQuestion, lock: lock, answeredQuestionApps: answeredQuestionApps)
                 
-                let testProgress2 = TestProgress()
-                testProgress2.setValue(testProgressApp: testProgressApp2)
-                _ = realmTestProgress.save(entity: testProgress2)
+                testProgressApps.append(testProgressAppEasy)
+                saveTestProgress(testProgressApp: testProgressAppEasy)
                 
-                let testProgress3 = TestProgress()
-                testProgress3.setValue(testProgressApp: testProgressApp3)
-                _ = realmTestProgress.save(entity: testProgress3)
+                testProgressApps.append(testProgressAppMedium)
+                saveTestProgress(testProgressApp: testProgressAppMedium)
                 
+                testProgressApps.append(testProgressAppHardest)
+                saveTestProgress(testProgressApp: testProgressAppHardest)
             }
         }
     }
     
+    func saveTestProgress(testProgressApp: TestProgressApp){
+        let testProgress = TestProgress()
+        testProgress.setValue(testProgressApp: testProgressApp)
+        _ = realmTestProgress.save(entity: testProgress)
+    }
+    
     func getTestProgressApp(testInfoId: String)-> TestProgressApp?{
         var testProgressApps = self.testProgressApps.filter{$0.testInfoId == testInfoId}
-        
         testProgressApps = testProgressApps.sorted(by: {$0.lastUpDate > $1.lastUpDate})
-        
         return testProgressApps[0]
     }
     
     func getCorrectNumber(testInfoId: String)-> Int{
         var testProgressApps = self.testProgressApps.filter{$0.testInfoId == testInfoId}
-        
         testProgressApps = testProgressApps.sorted(by: {$0.lastUpDate > $1.lastUpDate})
-        
         return testProgressApps[0].correctQuestion
     }
     
-    func getCorrectNumber(testInfoId: String, testLevel: TestLevel)->Int{
+    func getCorrectNumber(testInfoId: String, testLevel: TestSetting)->Int{
         let testProgressApp = testProgressApps.first(where: {$0.testInfoId == testInfoId && $0.testSetting == testLevel.rawValue})
         
         return testProgressApp!.correctQuestion
     }
     
-    func createTest(testInfo: TestInfo, testLevel: TestLevel){
-        var questionIds: [String] = []
-        questions.removeAll()
+    func createTest(testInfoId: String, testSetting: TestSetting){
         isCorrectAdded = false
-        
-        for testDataItem in testInfo.testQuestionData{
-            questionIds += testDataItem.questionIds
+        let indexTestProgressApp = testProgressApps.firstIndex(where: {$0.testInfoId == testInfoId && $0.testSetting == testSetting.rawValue})
+        self.indexTestProgressApp = indexTestProgressApp
+        let questionId = testProgressApps[indexTestProgressApp!].currentQuestionId
+        if questionId == ""{
+            indexQuestion = 0
+        }else{
+            indexQuestion = testProgressApps[indexTestProgressApp!].answeredQuestionApps.firstIndex(where: {$0.questionId == questionId})
         }
-        for questionId in questionIds {
-            let question = getQuestion(questionId: questionId)
-            questions.append(question)
-        }
+        self.indexTestProgressApp = indexTestProgressApp
+        corectNumber = testProgressApps[indexTestProgressApp!].correctQuestion
         
-        let indexTestProgressApp = testProgressApps.firstIndex(where: {$0.testInfoId == testInfo.id && $0.testSetting == testLevel.rawValue})
-        
-        if !questions.isEmpty{
-            let questionId = testProgressApps[indexTestProgressApp!].currentQuestionId
-            if questionId == ""{
-                indexQuestion = 0
-            }else{
-                indexQuestion = questions.firstIndex(where: {$0.id == questionId})
-            }
-            self.indexTestProgressApp = indexTestProgressApp
-            corectNumber = testProgressApps[indexTestProgressApp!].correctQuestion
-        }
     }
     
-    func getTestProgressApp(testInfoId: String, testLevel: TestLevel)-> TestProgressApp?{
+    func getTestProgressApp(testInfoId: String, testLevel: TestSetting)-> TestProgressApp?{
         if let indexTestProgressApp = testProgressApps.firstIndex(where: {$0.testInfoId == testInfoId && $0.testSetting == testLevel.rawValue}){
             return testProgressApps[indexTestProgressApp]
         }
@@ -147,94 +132,77 @@ class TestViewModel: AnswerQuestionProtocol{
         guard let indexQuestion = indexQuestion else {
             return
         }
-        if indexQuestion < questions.count - 1{
+        
+        let totalQuestion = testProgressApps[indexTestProgressApp!].totalQuestion
+        if indexQuestion < totalQuestion - 1{
             let indexNext = indexQuestion + 1
             self.indexQuestion = indexNext
             if let indexTestProgressApp = indexTestProgressApp {
-                testProgressApps[indexTestProgressApp].currentQuestionId = questions[indexNext].id
+                testProgressApps[indexTestProgressApp].currentQuestionId = testProgressApps[indexTestProgressApp].answeredQuestionApps[indexNext].questionId
             }
         }
         
-        if indexQuestion == questions.count - 1{
+        if indexQuestion == totalQuestion - 1{
             testProgressApps[indexTestProgressApp!].status = 1
         }
-        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp!])
+        updateTestProgress(id: testProgressApps[indexTestProgressApp!].id)
         isCorrectAdded = false
     }
     
     func checkCorrect(answer: Answer) {
-        guard let indexQuestion = indexQuestion else {
-            return
-        }
-        
-        addSelected(questionId: answer.questionId, answerId: answer.id)
-        
+        updateWhenAnwer(answer: answer)
         if !isCorrectAdded{
             corectNumber += 1
             isCorrectAdded = true
         }
-        
-        if indexQuestion < questions.count - 1{
-            let indexNext = indexQuestion + 1
-            saveCurrentQuestion(index: indexNext)
-        }else{
-            
-        }
-        
     }
     
     func checkInCorrect(answer: Answer) {
-        guard let indexQuestion = indexQuestion else {
-            return
-        }
-        addSelected(questionId: answer.questionId, answerId: answer.id)
-        
+        updateWhenAnwer(answer: answer)
         if isCorrectAdded{
             corectNumber -= 1
             isCorrectAdded = false
         }
-        
-        if indexQuestion < questions.count - 1{
-            let indexNext = indexQuestion + 1
-            saveCurrentQuestion(index: indexNext)
-        }else{
-            
+    }
+    
+    func updateWhenAnwer(answer: Answer){
+        guard let indexQuestion = indexQuestion else {
+            return
         }
+        let totalQuestion = testProgressApps[indexTestProgressApp!].totalQuestion
+        if indexQuestion < totalQuestion - 1{
+            let indexNext = indexQuestion + 1
+            if let indexTestProgressApp = indexTestProgressApp {
+                testProgressApps[indexTestProgressApp].currentQuestionId = testProgressApps[indexTestProgressApp].answeredQuestionApps[indexNext].questionId
+            }
+        }
+        addSelected(questionId: answer.questionId, answerId: answer.id)
+        updateTestProgress(id: testProgressApps[indexTestProgressApp!].id)
     }
     
     func addSelected(questionId: String, answerId: String){
         guard let indexTestProgressApp = indexTestProgressApp else {
             return
         }
-        
-        if let index = testProgressApps[indexTestProgressApp].answeredQuestions.firstIndex(where: {$0.questionId == questionId}){
-            testProgressApps[indexTestProgressApp].answeredQuestions[index].selectedIds.append(answerId)
-        }else{
-            let answeredQuestionApp = AnsweredQuestionApp(questionId: questionId, selectedIds: [answerId])
-            testProgressApps[indexTestProgressApp].answeredQuestions.append(answeredQuestionApp)
-            updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
+        if let index = testProgressApps[indexTestProgressApp].answeredQuestionApps.firstIndex(where: {$0.questionId == questionId}){
+            testProgressApps[indexTestProgressApp].answeredQuestionApps[index].selectedIds.append(answerId)
         }
     }
     
-    func saveCurrentQuestion(index: Int){
-        if let indexTestProgressApp = indexTestProgressApp {
-            testProgressApps[indexTestProgressApp].correctQuestion = corectNumber
-            testProgressApps[indexTestProgressApp].currentQuestionId = questions[index].id
-            updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
+    func updateTestProgress(id: String){
+        let index = testProgressApps.firstIndex(where: {$0.id == id})
+        if let index = index {
+            testProgressApps[index].lastUpDate = Date().timeIntervalSince1970
+            let testProgress = TestProgress()
+            testProgress.setValue(testProgressApp: testProgressApps[index])
+            _ = realmTestProgress.update(entity: testProgress)
         }
-    }
-    
-    func updateTestProgress(testProgressApp: TestProgressApp){
-        let testProgress = TestProgress()
-        testProgress.setValue(testProgressApp: testProgressApp)
-        testProgress.lastUpDate = Date().timeIntervalSince1970
-        _ = realmTestProgress.update(entity: testProgress)
     }
     
     func updateTimeInTestProgress(time: Int){
         if let index = indexTestProgressApp {
             testProgressApps[index].time = time + testProgressApps[index].time
-            updateTestProgress(testProgressApp: testProgressApps[index])
+            updateTestProgress(id: testProgressApps[index].id)
         }
     }
     
@@ -250,7 +218,7 @@ class TestViewModel: AnswerQuestionProtocol{
         let percentAnswer = Int(testProgressApps[indexTestProgressApp].correctQuestion*100/testInfo.totalQuestion)
         testProgressApps[indexTestProgressApp].status = 1
         
-        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
+        updateTestProgress(id: testProgressApps[indexTestProgressApp].id)
         //        if percentAnswer >= testInfo.percentPassed{
         if percentAnswer >= 0{
             if testInfo.index < testInfos.count - 1{
@@ -262,29 +230,28 @@ class TestViewModel: AnswerQuestionProtocol{
     func unLockTestProgress(index:Int){
         let testInfoId = testInfos[index].id
         
-        for testLevel in TestLevel.allCases{
+        for testLevel in TestSetting.allCases{
             let index = testProgressApps.firstIndex(where: {$0.testInfoId == testInfoId && $0.testSetting == testLevel.rawValue})
             if testProgressApps[index!].lock == true{
                 return
             }else{
                 testProgressApps[index!].lock = true
-                updateTestProgress(testProgressApp: testProgressApps[index!])
+                updateTestProgress(id: testProgressApps[index!].id)
             }
         }
     }
     
-    func tryAgain(testInfo: TestInfo, testLevel: TestLevel){
+    func tryAgain(testInfoId: String, testLevel: TestSetting){
         guard let indexTestProgressApp = indexTestProgressApp else {
             return
         }
         testProgressApps[indexTestProgressApp].status = 0
         testProgressApps[indexTestProgressApp].time = 0
-        testProgressApps[indexTestProgressApp].answeredQuestions = []
         testProgressApps[indexTestProgressApp].correctQuestion = 0
         testProgressApps[indexTestProgressApp].currentQuestionId = ""
         
-        updateTestProgress(testProgressApp: testProgressApps[indexTestProgressApp])
+        updateTestProgress(id: testProgressApps[indexTestProgressApp].id)
         
-        createTest(testInfo: testInfo, testLevel: testLevel)
+        createTest(testInfoId: testInfoId, testSetting: testLevel)
     }
 }

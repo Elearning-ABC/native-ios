@@ -10,7 +10,7 @@ import SwiftUI
 struct TestView: View {
     @EnvironmentObject var viewModel : ViewModel
     @StateObject var testViewModel = TestViewModel()
-    
+
     @State var isShowToast: Bool = false
     var body: some View {
         ScrollView{
@@ -18,7 +18,6 @@ struct TestView: View {
                 let title = testInfo.title + " \(testInfo.index + 1)"
                 PracticeTestRowView(isShowToast: $isShowToast, testInfo: testInfo, title: title, totalQuestion: testInfo.totalQuestion)
                     .environmentObject(testViewModel)
-                
             }
         }
         .padding()
@@ -38,11 +37,12 @@ struct PracticeTestRowView: View{
     @EnvironmentObject var testViewModel : TestViewModel
     @Binding var isShowToast: Bool
     @State var testProgressApp: TestProgressApp?
+    @State var testLevel : TestSetting?
     var testInfo: TestInfo
     var title: String
     var totalQuestion: Int
     
-    func getCurrentTest(testProgressApp: TestProgressApp)->TestLevel?{
+    func getCurrentTest(testProgressApp: TestProgressApp)->TestSetting?{
         if testProgressApp.status == 1 || testProgressApp.time == 0{
             return nil
         }else{
@@ -59,14 +59,18 @@ struct PracticeTestRowView: View{
         }
     }
     
+    func onAppear(){
+        testProgressApp = testViewModel.getTestProgressApp(testInfoId: testInfo.id)
+        testLevel = getCurrentTest(testProgressApp: testProgressApp!)
+    }
+    
     var body: some View {
         VStack{
             if let testProgressApp = testProgressApp {
                 let lock = testProgressApp.lock
                 let percentPass = testInfo.percentPassed
                 if lock{
-                    let testLevel = getCurrentTest(testProgressApp: testProgressApp)
-                    NavigationLink(destination: DetailTestView(title: title, testInfo: testInfo, testLevel: testLevel )
+                    NavigationLink(destination: DetailTestView(testInfo: testInfo, testLevel: testLevel )
                         .environmentObject(testViewModel)
                         .navigationBarHidden(true), label: {
                             TestRowView(title: title, testProgressApp: testProgressApp, persentPass: percentPass)
@@ -81,9 +85,7 @@ struct PracticeTestRowView: View{
                 }
             }
         }
-        .onAppear{
-            testProgressApp = testViewModel.getTestProgressApp(testInfoId: testInfo.id)
-        }
+        .onAppear(perform: onAppear)
     }
 }
 
