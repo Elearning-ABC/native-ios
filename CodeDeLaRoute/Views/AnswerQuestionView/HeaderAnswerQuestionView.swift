@@ -19,10 +19,6 @@ struct HeaderAnswerQuestionView: View{
     var actionBack : (() -> Void)?
     
     var body: some View{
-        
-        let correctWidth = (CGFloat(correctNumber)/CGFloat(totalQuestion))*Screen.width
-        let unfinishedWidth = Screen.width - correctWidth
-        
         VStack {
             HStack {
                 BackHearderLeftView(title: title, action: actionBack)
@@ -61,19 +57,8 @@ struct HeaderAnswerQuestionView: View{
             .padding(.trailing, 24.0)
             .padding(.leading)
             if isProgress{
-                HStack {
-                    HStack{
-                        Spacer()
-                    }
-                    .frame(width: correctWidth, height: 4)
-                    .background(Color.green)
-
-                    HStack{
-                      Spacer()
-                    }
-                    .frame(width: unfinishedWidth, height: 4)
-                    .background(Color.blue3)
-                }.padding(.bottom)
+                ProgressQuestion(correctNumber: correctNumber, totalQuestion: totalQuestion)
+                    
                     .padding(.top, 8.0)
             }
         }
@@ -84,5 +69,28 @@ struct HeaderAnswerQuestionView: View{
 struct HeaderAnswerQuestionView_Previews: PreviewProvider {
     static var previews: some View {
         HeaderAnswerQuestionView(title: "helo", correctNumber: 1, totalQuestion: 10, onSubmit: {})
+    }
+}
+
+
+struct ProgressQuestion:View{
+    var correctNumber: Int
+    var totalQuestion: Int
+    var body: some View{
+        let correctWidth = (CGFloat(correctNumber)/CGFloat(totalQuestion))*Screen.width
+        let unfinishedWidth = Screen.width - correctWidth
+        HStack {
+            HStack{
+                Spacer()
+            }
+            .frame(width: correctWidth, height: 4)
+            .background(Color.green)
+            
+            HStack{
+                Spacer()
+            }
+            .frame(width: unfinishedWidth, height: 4)
+            .background(Color.blue3)
+        }
     }
 }

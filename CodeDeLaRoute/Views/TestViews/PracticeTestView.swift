@@ -69,7 +69,8 @@ struct PracticeTestView: View {
                 let testProgressApp = testViewModel.testProgressApps[indexTestProgressApp]
                 VStack {
                     if testProgressApp.status == 1{
-                        TestEndView(counter: $counter, testProgressApp: testProgressApp, testInfo: $testInfo, testLevel: testLevel, title: title)
+                        TestEndView(counter: $counter, testProgressApp: testProgressApp, testInfo: $testInfo, testLevel: testLevel)
+                            .environmentObject(practiceTestViewModel)
                     }else{
                         if let index = testViewModel.indexQuestion{
                             let questionId = testProgressApp.answeredQuestionApps[index].questionId

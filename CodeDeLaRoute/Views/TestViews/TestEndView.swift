@@ -10,16 +10,20 @@ import SwiftUI
 struct TestEndView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var testViewModel : TestViewModel
-    @StateObject var testEndViewModel = TestEndViewModel()
+    @EnvironmentObject var practiceTestViewModel: PracticeTestViewModel
     @State var isShowReview: Bool = false
     @Binding var counter: Int
     var testProgressApp: TestProgressApp
     @Binding var testInfo: TestInfo
     var testLevel: TestSetting
-    var title: String
+    @State var title: String = ""
     
     var practicEndNotUEnough = PracticeEnd(lable: "Not enough to pass :(", text: "Yowch! That hurt. Failing an exam always does. But hey, that was just one try. Get your notes together and try again. You can do it!", image: "SuccessImage1")
     var practicEndEnough = PracticeEnd(lable: "Such an excellent performance!", text: "Good job! You've successfully passed your test. Let's ace all the tests available to increase your passing possibility!", image: "SuccessImage1")
+    
+    func onAppear(){
+        title = testInfo.title + " \(testInfo.index + 1)"
+    }
     
     func review(){
         isShowReview.toggle()
@@ -31,15 +35,19 @@ struct TestEndView: View {
     }
     
     func continueTest(){
-        if let testInfo = testEndViewModel.getNextTestInfo(testInfos: testViewModel.testInfos, index: testInfo.index){
+        if let testInfo = practiceTestViewModel.getNextTestInfo(testInfos: testViewModel.testInfos, index: testInfo.index){
             self.testInfo = testInfo
-            if testViewModel.isDetailTest{
-                withAnimation{
-                    testViewModel.isDetailTest.toggle()
-                }
-            }else{
-                mode.wrappedValue.dismiss()
+            actionBack()
+        }
+    }
+    
+    func actionBack(){
+        if testViewModel.isDetailTest{
+            withAnimation{
+                testViewModel.isDetailTest.toggle()
             }
+        }else{
+            mode.wrappedValue.dismiss()
         }
     }
     
@@ -49,7 +57,7 @@ struct TestEndView: View {
         let practiceEnd = Int((progress/total)*100) >= testInfo.percentPassed ? practicEndEnough : practicEndNotUEnough
         VStack {
             HStack {
-                BackHearderLeftView(title: title)
+                BackHearderLeftView(title: title, isBack: testViewModel.isDetailTest ? false : true, action: actionBack)
                 Spacer()
             }
             .padding(.horizontal, 24.0)
@@ -77,9 +85,9 @@ struct TestEndView: View {
             ScrollView{
                 ForEach(testInfo.testQuestionData){ testDataItem in
                     
-                    let correct = testEndViewModel.getCorectNumberInTopic(testDataItem: testDataItem, testProgressApp: testProgressApp)
+                    let correct = practiceTestViewModel.getCorectNumberInTopic(testDataItem: testDataItem, testProgressApp: testProgressApp)
                     
-                    let name = testEndViewModel.getNameInTopic(topicId: testDataItem.topicId)
+                    let name = practiceTestViewModel.getNameInTopic(topicId: testDataItem.topicId)
                     ReviewTopicRowView(name: name, value: correct, total: Double(testDataItem.questionNum))
                 }
             }
@@ -134,6 +142,8 @@ struct TestEndView: View {
             .padding([.leading, .bottom, .trailing])
         }
         .background(BackGroundView())
+        .onAppear(perform: onAppear)
+        .popupView(isShow: $isShowReview, view: AnyView(ReviewEndTestView(isShowReView: $isShowReview, testInfo: testInfo, answeredQuestionApps: testProgressApp.answeredQuestionApps)))
     }
 }
 
@@ -151,12 +161,55 @@ struct PracticeEnd{
 
 
 struct ReviewEndTestView: View{
-    var answerQuestionApps: [AnsweredQuestionApp]
+    @EnvironmentObject var testViewModel : TestViewModel
+    @EnvironmentObject var practiceTestViewModel: PracticeTestViewModel
+    @Binding var isShowReView: Bool
+    var testInfo: TestInfo
+    var answeredQuestionApps: [AnsweredQuestionApp]
+    
+    @State var size: Int = 10
+    
+    func loadMore() {
+            print("Load more...")
+            size += 10
+        }
+    
     var body: some View{
-        VStack{
-            ForEach(answerQuestionApps){ answerQuestionApp in
-                
+        VStack {
+            HStack{
+                Text("Review")
+                    .bold()
+                    .font(.title3)
+                Spacer()
+                Image(systemName: "xmark")
+                    .font(.title3)
+                    .onTapGesture {
+                        isShowReView.toggle()
+                    }
+            }
+            .padding([.top, .leading, .trailing])
+            
+            ScrollView(showsIndicators: false){
+                LazyVStack(spacing: 8){
+                    ForEach(answeredQuestionApps.indices, id: \.self){ i in
+                        let answeredQuestionApp = answeredQuestionApps[i]
+                        let question = testViewModel.getQuestion(questionId: answeredQuestionApp.questionId)
+                        let bookmark = practiceTestViewModel.getBookMark(questionId: answeredQuestionApp.questionId)
+                        let progress: [Int] = practiceTestViewModel.getProgress(selectedIds: answeredQuestionApp.selectedIds)
+                        var answers = testViewModel.getAnswers(questionId: question.id)
+                        
+                        let inCorrectAnswerId = answeredQuestionApps[i].selectedIds.isEmpty ? "" : answeredQuestionApps[i].selectedIds[0]
+                        
+                        QuestionReviewRowView(question: question, answers: answers, progress: progress, bookmark: bookmark,index: i + 1,inCorrectAnswerId: inCorrectAnswerId, showAnswer: true, onHeart: {
+                            practiceTestViewModel.onHeart(questionId: answeredQuestionApp.questionId, testDataItems: convertListToArray(list: testInfo.testQuestionData))
+                        })
+                    }
+                }
+                .padding(.horizontal, 16.0)
             }
         }
+        .background(Color.blue4)
+        .frame(height: Screen.height - 160)
+        .cornerRadius(12)
     }
 }

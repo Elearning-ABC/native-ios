@@ -10,21 +10,28 @@ import SwiftUI
 struct QuestionReviewRowView: View {
     @EnvironmentObject var viewModel: ViewModel
     var question: Question
-    var questionProgressApp: QuestionProgressApp
+    @State var answers: [Answer]
+    var progress: [Int]
+    var bookmark: Bool
+    var index: Int?
+    var inCorrectAnswerId: String = ""
     @State var showAnswer = false
     @State var showImage : Bool = false
     var onHeart: () -> Void
     
+    func onAppear(){
+        answers = answers.sorted(by: {$0.id > $1.id})
+    }
+    
     var body: some View {
-        let imageId = question.id
         VStack {
-            HStack(alignment: .top) {
-                ListProgressView(progress: questionProgressApp.progress)
+            HStack(alignment: .center) {
+                if let index = index {
+                    Text("\(index):")
+                }
+                ListProgressView(progress: progress)
                 Spacer()
-                BookmarkView(bookmark: questionProgressApp.bookmark)
-                    .onTapGesture {
-                        onHeart()
-                    }
+                BookmarkView(bookmark: bookmark, onHeart: onHeart)
             }
             .padding(.bottom, 8.0)
             Button{
@@ -33,63 +40,72 @@ struct QuestionReviewRowView: View {
                 }
             }label: {
                 HStack(alignment: .top) {
-                    Text(question.text)
+                    TextWithImageView(text: question.text.htmlToString)
                         .foregroundColor(.black)
                         .font(.system(size: 18))
                     Spacer()
                     if question.image != ""{
-                        Image(question.image.replace(target: ".png", withString: ""))
-                            .resizable()
-                            .matchedGeometryEffect(id: imageId, in: viewModel.namespace)
-                            .scaledToFit()
-                            .frame(width:80,height: 80)
-                            .onTapGesture{
-                                viewModel.imageString = question.image.replace(target: ".png", withString: "")
-                                viewModel.imageId = imageId
-                                withAnimation(.easeOut){
-                                    viewModel.showImage.toggle()
-                                }
-                            }
+                        ImageQuestionView(imageName: question.image)
                     }
                 }
             }
             .buttonStyle(HideOpacity())
             
             if showAnswer{
-                VStack(alignment: .leading){
-                    VStack(alignment: .leading){
-                        ForEach(question.correctAnswers,id:\.self){
-                            Text($0)
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(answers, id: \.self){ answer in
+                        if answer.id == inCorrectAnswerId && !answer.isCorrect{
+                            HStack{
+                                TextWithImageView(text: answer.text)
+                                Spacer()
+                            }
+                            .padding()
+                            .overlay(RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.red, lineWidth: 1)
+                            )
+                            .cornerRadius(12)
+                        }else{
+                            if answer.isCorrect{
+                                VStack(alignment: .leading){
+                                    TextWithImageView(text: answer.text)
+                                    DividingLineView()
+                                    TextWithImageView(text: question.explanation.htmlToString)
+                                }
+                                .padding()
+                                .overlay(RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.green, lineWidth: 1)
+                                )
+                                .cornerRadius(12)
+                            }else{
+                                HStack{
+                                    TextWithImageView(text: answer.text)
+                                }
+                                .padding()
+                            }
                         }
-                        DividingLineView()
-                        Text(question.explanation)
                     }
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.green, lineWidth: 1)
-                    )
-                    VStack(alignment: .leading, spacing: 20) {
-                        ForEach(question.inCorrectAnswers, id: \.self){
-                            Text($0)
-                        }
-                    }
-                    .padding()
-                    
                 }
             }
         }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(8)
+        .onAppear(perform: onAppear)
     }
 }
 
 struct QuestionReviewRowView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionReviewRowView(question: Question(), questionProgressApp: QuestionProgressApp(questionProgress: QuestionProgress()), onHeart: {})
+        QuestionReviewRowView(question: Question(), answers: [
+            Answer()], progress: []
+                              , bookmark: false, onHeart: {})
     }
 }
 
 
 struct BookmarkView: View {
-    var bookmark: Bool
+    @State var bookmark: Bool
+    var onHeart: () -> Void
     var body: some View {
         VStack{
             if bookmark
@@ -102,6 +118,10 @@ struct BookmarkView: View {
                     .foregroundColor(.blue3)
                     .font(.system(size: 20))
             }
+        }
+        .onTapGesture {
+            bookmark.toggle()
+            onHeart()
         }
     }
 }

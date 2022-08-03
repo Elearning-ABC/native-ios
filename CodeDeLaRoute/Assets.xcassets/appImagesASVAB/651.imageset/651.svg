@@ -1,0 +1,16 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="509.803921569" height="1000.0">
+  <desc>Created by CircuitLab https://www.circuitlab.com/</desc><g transform="matrix(9.80392156863,0,0,9.80392156863,-23764.7058824,-12735.2941177)">
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: start;" x="0" y="0" text-anchor="start" stroke="none" fill="#000000" transform="translate(2481.25,1350)">
+      <tspan dy="7.2"/>
+    </text>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,25L0,25" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M25,24.5L25,0" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,35L12.5,35" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,75L12.5,75" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,65L0,65" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M25,75.5L25,100" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M37.5,55L12.5,55" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 4;" fill="none" stroke="#000000" d="M50,45L0,45" stroke-width="2" stroke-linecap="round" stroke-miterlimit="4" transform="translate(2425,1300)"/>
+    <path fill="#000000" stroke="none" d="M12.239297,9.99656L10.99166,9.99656L10.99166,15.41811L5.6154788,15.41811L5.6154788,16.66575L10.99166,16.66575L10.99166,22.0873L12.239297,22.0873L12.239297,16.66575L17.615479,16.66575L17.615479,15.41811L12.239297,15.41811L12.239297,9.99656" transform="translate(2425,1300)"/>
+  </g>
+</svg>

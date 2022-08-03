@@ -35,13 +35,18 @@ extension StudyProtocol{
             let questionProgressAppUpdate = QuestionProgressApp(questionProgress: questionProgress)
             questionProgressAppUpdate.bookmark = questionProgressApp.bookmark
             questionProgressUpdate.setValue(questionProgressApp: questionProgressAppUpdate)
+            questionProgressUpdate.lastUpdate = Date().timeIntervalSince1970
+            let result = realm.update(entity: questionProgressUpdate)
+            if result{
+                print("update bookmark")
+            }
         }else{
             questionProgressUpdate.setValue(questionProgressApp: questionProgressApp)
-        }
-        questionProgressUpdate.lastUpdate = Date().timeIntervalSince1970
-        let result = realm.update(entity: questionProgressUpdate)
-        if result{
-            print("changed bookmark")
+            questionProgressUpdate.lastUpdate = Date().timeIntervalSince1970
+            let result = realm.save(entity: questionProgressUpdate)
+            if result{
+                print("save bookmark")
+            }
         }
     }
     

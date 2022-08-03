@@ -39,8 +39,10 @@ struct ReviewQuestionView: View {
         }
         .background(BackGroundView())
         .ignoresSafeArea()
-        .onChange(of: reviewViewModel.isBack, perform: { _ in
-            mode.wrappedValue.dismiss()
+        .onChange(of: reviewViewModel.isBack, perform: { isBack in
+            if isBack{
+                mode.wrappedValue.dismiss()
+            }
         })
     }
 }

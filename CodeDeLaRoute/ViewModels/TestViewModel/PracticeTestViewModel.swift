@@ -33,12 +33,12 @@ class PracticeTestViewModel: ObservableObject{
                 questionProgress.id = "\(UUID())"
                 questionProgress.questionId = questionId
                 questionProgress.topicId = topicId
-                questionProgress.bookmark = bookmark
+                questionProgress.bookmark = true
             }
             _ = realmQuestionProgress.save(entity: questionProgress)
         }else{
             let questionProgressApp = QuestionProgressApp(questionProgress: questionProgresses[0])
-            questionProgressApp.bookmark = bookmark
+            questionProgressApp.bookmark = !questionProgresses[0].bookmark
             questionProgressApp.lastUpdate = Date().timeIntervalSince1970
             let questionProgress = QuestionProgress()
             
@@ -72,5 +72,56 @@ class PracticeTestViewModel: ObservableObject{
             }
         }
         return answered
+    }
+    
+    func getCorectNumberInTopic(testDataItem: TestDataItem, testProgressApp: TestProgressApp) -> Double{
+        
+        var correct: Double = 0
+        let realmAnswer = RealmManager<Answer>(fileURL: .file)
+        
+        for questionId in testDataItem.questionIds{
+            let result = testProgressApp.answeredQuestionApps.first(where: {$0.questionId == questionId})
+            if let result = result {
+                let answerId =  result.selectedIds.last
+                if let answerId = answerId{
+                    let answer = realmAnswer.queryWithId(id: answerId)
+                    if answer?.isCorrect == true{
+                        correct += 1
+                    }
+                }
+            }
+        }
+        return correct
+    }
+    
+    func getNameInTopic(topicId: String) -> String{
+        let realm = RealmManager<Topic>(fileURL: .file)
+        let topic = realm.queryWithId(id: topicId)
+        return topic!.name
+    }
+    
+    func getNextTestInfo(testInfos: [TestInfo], index: Int)->TestInfo?{
+        if index < testInfos.count - 1{
+            let testInfo = testInfos.first(where: {$0.index == (index + 1)})
+            return testInfo
+        }else{
+            return nil
+        }
+    }
+    
+    func getProgress(selectedIds: [String])-> [Int]{
+        
+        if selectedIds.isEmpty{
+            return [0]
+        }else{
+            let realm = RealmManager<Answer>(fileURL: .file)
+            let answer = realm.queryWithId(id: selectedIds.first!)
+            if answer!.isCorrect{
+                return [1]
+            }else{
+                return [0]
+            }
+        }
+        
     }
 }

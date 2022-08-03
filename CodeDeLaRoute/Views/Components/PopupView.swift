@@ -21,7 +21,7 @@ struct PopupView: ViewModifier {
     
     private var body: some View {
         ZStack {
-            Color.gray.opacity(0.3).ignoresSafeArea(.all)
+            Color.black.opacity(0.5).ignoresSafeArea(.all)
                 .onTapGesture {
                     isShow.toggle()
                 }
