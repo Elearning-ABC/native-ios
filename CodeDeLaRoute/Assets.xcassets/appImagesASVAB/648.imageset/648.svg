@@ -1,0 +1,16 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="249.39215048" height="1000.0">
+  <desc>Created by CircuitLab https://www.circuitlab.com/</desc><g transform="matrix(9.80392156863,0,0,9.80392156863,-22424.3235303,-12980.3921569)">
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,64.06172C40.625333,67.18682,40.625333,79.68702,25,82.81202" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,64.06172C9.3746668,60.93652,9.3746668,70.31182,25,67.18682" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,17.18572C40.625333,20.31078,40.625333,32.81104,25,35.93611" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,32.81104C40.625333,35.93611,40.625333,48.43642,25,51.56152" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,48.43642C40.625333,51.56152,40.625333,64.06172,25,67.18682" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,32.81104C9.3746668,29.68599,9.3746668,39.06117,25,35.93611" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,48.43642C9.3746668,45.31131,9.3746668,54.68652,25,51.56152" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,100L25,82.81202" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <path style="stroke-linecap: round; stroke-miterlimit: 6;" fill="none" stroke="#000000" d="M25,0L25,17.18572" stroke-width="2" stroke-linecap="round" stroke-miterlimit="6" transform="translate(2275,1325)"/>
+    <text style="font-family: Arial; font-size: 16px; font-weight: bold; text-anchor: start;" x="0" y="0" text-anchor="start" stroke="none" fill="#000000" transform="translate(2318.75,1375)">
+      <tspan dy="7.2"/>
+    </text>
+  </g>
+</svg>

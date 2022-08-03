@@ -12,18 +12,16 @@ struct ContentView: View {
     var body: some View {
         if viewModel.settingApp == nil {
             StartView()
-                .environmentObject(viewModel)
         }else{
             VStack{
+                
                 NavigationView{
                     MainView()
                         .navigationBarHidden(true)
                 }
                 .showChangeFontSizeView(show: $viewModel.showChangeFontSize, fontSize: viewModel.settingApp!.fontSize, onChangeFontSize: { size in  viewModel.onChangeFontSize(size: size)})
                 .showImageView(show: $viewModel.showImage, image: viewModel.imageString, namespace: viewModel.namespace, id: viewModel.imageId)
-                .popup(isPresented: $viewModel.isShowReport, type: .toast, position: .bottom, closeOnTap: false, closeOnTapOutside: true) {
-                    ReportView()
-                }
+                .popup(isShow: $viewModel.isShowReport, anyView: AnyView(ReportView(isShowReport: $viewModel.isShowReport)))
             }
         }
     }

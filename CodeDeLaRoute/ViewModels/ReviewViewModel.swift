@@ -93,6 +93,11 @@ class ReviewViewModel: StudyProtocol{
     func onHeart(questionId: String){
         let index = questionProgressApps.firstIndex(where: {$0.questionId == questionId})
         let now = Date().timeIntervalSince1970
+        
+        if let boxNumRoot = questionProgressApps[index!].boxNumRoot{
+            questionProgressApps[index!].boxNum = boxNumRoot
+        }
+       
         questionProgressApps[index!].lastUpdate = now
         questionProgressApps[index!].bookmark = !questionProgressApps[index!].bookmark
         bookmarkToggle(questionProgressApp: questionProgressApps[index!])
@@ -169,9 +174,9 @@ class ReviewViewModel: StudyProtocol{
         if correctNumber == questionProgressApps.count{
             resetReviewAnswer()
             isBack = true
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [self] in
                 isBack = false
-            }
+            })
         }
     }
 }

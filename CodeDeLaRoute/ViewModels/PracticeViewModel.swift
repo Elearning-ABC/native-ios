@@ -116,10 +116,11 @@ class PracticeViewModel: StudyProtocol{
                     array.append(questionProgressApp)
                 }
             }
-            questionProgressApps = array
+            questionProgressApps.append(contentsOf: array)
         }
         
         self.questionProgressApps = questionProgressApps.sortQuestionProgressApps()
+        print("log start count question:",questionProgressApps.count)
         getIncorectNumber()
         showSucsessAnswer = false
         checkSucseesAnswer(topicId: topicId)
@@ -213,8 +214,10 @@ class PracticeViewModel: StudyProtocol{
     }
     
     func checkSucseesAnswer(topicId: String){
-        let topicId = questionProgressApps[0].topicId
+//        let topicId = questionProgressApps[0].topicId
         let indexTopic = getIndexTopicProgress(topicId: topicId)
+        print("correct number:",topicProgressApps[indexTopic].correctNumber)
+        print("count questionProgressApps:",questionProgressApps.count)
         if topicProgressApps[indexTopic].correctNumber == questionProgressApps.count{
             showSucsessAnswer = true
         }

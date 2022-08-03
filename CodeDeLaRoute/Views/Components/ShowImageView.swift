@@ -24,21 +24,34 @@ struct ShowImageView: ViewModifier {
     private var imageView: some View {
         ZStack {
             if show{
-                ZStack {
-                    Color.gray.opacity(0.6).ignoresSafeArea(.all)
-                    ZStack{
+                Color.black.opacity(0.6).ignoresSafeArea(.all)
+                    .onTapGesture {
+                        withAnimation{
+                            show.toggle()
+                        }
+                    }
+            }
+            if show{
+                ZStack(alignment: .topTrailing) {
+                    VStack{
                         Image(image)
                             .resizable()
-                            .matchedGeometryEffect(id: id, in: namespace)
                             .scaledToFit()
+                        
                     }
                     .padding(.horizontal)
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    
+                    Image(systemName: "xmark.circle.fill")
+                        .onTapGesture {
+                            withAnimation{
+                                show.toggle()
+                            }
+                        }
+                        .padding(4.0)
                 }
-                .onTapGesture {
-                    withAnimation(.easeOut){
-                        show.toggle()
-                    }
-                }
+                .matchedGeometryEffect(id: id, in: namespace)
             }
         }
     }

@@ -11,15 +11,26 @@ struct DetailTestView: View {
     @EnvironmentObject var testViewModel: TestViewModel
     @State var title: String = ""
     @State var testInfo: TestInfo
-    var testLevel: TestSetting?
+    @State var testLevel: TestSetting?
+    @State var correctNumber: Int = 0
     
     func onAppear(){
+        correctNumber = testViewModel.getCorrectNumber(testInfoId: testInfo.id)
         title = testInfo.title + " \(testInfo.index + 1)"
         if testLevel != nil{
             testViewModel.isDetailTest = true
         }else{
             testViewModel.isDetailTest = false
         }
+    }
+    
+    func onDisappear(){
+        testLevel = nil
+    }
+    
+    func onChange(){
+        title = testInfo.title + " \(testInfo.index + 1)"
+
     }
     var body: some View {
         VStack{
@@ -38,7 +49,10 @@ struct DetailTestView: View {
                     }
                     .padding()
                     .background(.white)
-                    VStack{
+                    VStack(spacing: 0){
+                        ProgressQuestion(correctNumber: correctNumber, totalQuestion: testInfo.totalQuestion)
+                            .padding(.bottom)
+                        
                         HeaderDetailTestView(testInfo: testInfo)
                         
                         ScrollView{
@@ -53,17 +67,17 @@ struct DetailTestView: View {
                             }
                         }
                         .padding(.top, 24.0)
-                        
                     }
-                    .padding()
+                    .padding([.leading, .bottom, .trailing])
                     .background(BackGroundView())
                 }
             }
         }
         .onAppear(perform: onAppear)
         .onChange(of: testViewModel.isDetailTest, perform: {_ in
-            title = testInfo.title + " \(testInfo.index + 1)"
+            onChange()
         })
+        .onDisappear(perform: onDisappear)
     }
 }
 

@@ -7,42 +7,30 @@
 
 import SwiftUI
 
-enum StatusQuestion{
-    case learing, reviewing, correct, inCorrect, newQuestion
-}
+
 
 struct QuestionBoxView: View {
     @EnvironmentObject var viewModel : ViewModel
-    var question: String
-    var iconName: String
+    var question: Question
     var status: StatusQuestion?
     
     var body: some View {
-        let imageId = iconName
         let content = setStatus(statusQuestion: status)
         let size = viewModel.settingApp?.fontSize ?? 16.0
         ZStack(alignment: .topLeading) {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
-                    Text(question)
-                        .font(.system(size: size))
+                    VStack {
+                        TextWithImageView(text: question.text.htmlToString)
+                            .font(.system(size: size))
                         .lineLimit(nil)
+                    }
                     Spacer()
-                    if iconName != ""{
-                        Image(iconName.replace(target: ".png", withString: ""))
-                            .resizable()
-                            .matchedGeometryEffect(id: imageId, in: viewModel.namespace)
-                            .scaledToFit()
-                            .frame(width:80,height: 80)
-                            .onTapGesture{
-                                viewModel.imageString = iconName.replace(target: ".png", withString: "")
-                                viewModel.imageId = imageId
-                                withAnimation(.easeOut){
-                                    viewModel.showImage.toggle()
-                                }
-                            }
+                    if question.image != ""{
+                        ImageQuestionView(imageName: question.image)
                     }
                 }
+                
                 if let content = content {
                     HStack{
                         if content.text != ""{
@@ -62,6 +50,8 @@ struct QuestionBoxView: View {
             .overlay(RoundedRectangle(cornerRadius: 16)
                 .stroke(content?.color ?? Color.black, lineWidth: 1)
             )
+            .cornerRadius(16)
+            
             if let content = content {
                 VStack {
                     Text(content.status)
@@ -83,7 +73,7 @@ struct QuestionBoxView: View {
 
 struct QuestionBoxView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionBoxView(question: "What does this road sign mean?", iconName: "1322.png", status: .inCorrect)
+        QuestionBoxView(question: Question(), status: .inCorrect)
     }
 }
 

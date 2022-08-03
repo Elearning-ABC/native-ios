@@ -169,6 +169,7 @@ class TestViewModel: StudyProtocol{
         guard let indexQuestion = indexQuestion else {
             return
         }
+        testProgressApps[indexTestProgressApp!].correctQuestion = corectNumber
         let totalQuestion = testProgressApps[indexTestProgressApp!].totalQuestion
         if indexQuestion < totalQuestion - 1{
             let indexNext = indexQuestion + 1
@@ -249,9 +250,15 @@ class TestViewModel: StudyProtocol{
         testProgressApps[indexTestProgressApp].time = 0
         testProgressApps[indexTestProgressApp].correctQuestion = 0
         testProgressApps[indexTestProgressApp].currentQuestionId = ""
-        
+        resetAnsweredQuestionApps(index: indexTestProgressApp)
         updateTestProgress(id: testProgressApps[indexTestProgressApp].id)
         
         createTest(testInfoId: testInfoId, testSetting: testLevel)
+    }
+    
+    func resetAnsweredQuestionApps(index: Int){
+        for i in testProgressApps[index].answeredQuestionApps.indices{
+            testProgressApps[index].answeredQuestionApps[i].selectedIds = []
+        }
     }
 }

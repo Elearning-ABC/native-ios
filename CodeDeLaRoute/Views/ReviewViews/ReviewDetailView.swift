@@ -20,19 +20,16 @@ struct ReviewDetailView: View {
                 Spacer()
             }
             
-            ScrollView {
-                ForEach(reviewViewModel.questionProgressApps){ questionProgressApp in
-                    VStack{
+            ScrollView(showsIndicators: false){
+                LazyVStack{
+                    ForEach(reviewViewModel.questionProgressApps){ questionProgressApp in
                         if let question = reviewViewModel.getQuestion(questionId: questionProgressApp.questionId){
-                            
-                            QuestionReviewRowView(question: question, questionProgressApp: questionProgressApp, onHeart: {
+                            let answers = reviewViewModel.getAnswers(questionId: question.id)
+                            QuestionReviewRowView(question: question,answers: answers, progress: questionProgressApp.progress, bookmark: questionProgressApp.bookmark, onHeart: {
                                 reviewViewModel.onHeart(questionId: question.id)
                             })
                         }
                     }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(8)
                 }
             }
             Spacer()

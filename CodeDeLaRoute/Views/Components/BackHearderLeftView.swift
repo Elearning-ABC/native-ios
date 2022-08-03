@@ -11,6 +11,7 @@ struct BackHearderLeftView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var title: String
     var color : Color = Color.black
+    var isBack: Bool = true
     var action: ( () -> Void )?
     var body: some View {
         HStack {
@@ -27,9 +28,10 @@ struct BackHearderLeftView: View {
             if let action = action {
                 action()
             }
-            self.mode.wrappedValue.dismiss()
+            if isBack{
+                self.mode.wrappedValue.dismiss()
+            }
         }
-        
     }
 }
 
